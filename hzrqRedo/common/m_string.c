@@ -62,6 +62,17 @@ void m_mem_cpy_len(uint8_t* d,uint8_t* s,uint16_t len)
 		len--;
 	}
 }
+uint16_t m_mem_cpy_len_ex(uint8_t* d,uint8_t* s,uint16_t len)
+{
+	uint16_t ret=0;
+	while(len)
+	{
+		*d++=*s++;
+		len--;
+		ret++;
+	}
+	return ret;
+}
 uint16_t m_str_cmp(uint8_t* d,uint8_t* s)
 {
 	uint16_t ret=1;
@@ -302,13 +313,14 @@ uint32_t swap_uint32(uint32_t x)
 
 uint16_t swap_uint16(uint16_t x)
 {
+	
     uint16_t ret;
     uint8_t *d,*s;
     s=(uint8_t*)&x;
     d=(uint8_t*)&ret;
     d[0]=s[1];
     d[1]=s[0];
-    return ret;    
+	return ret;
 }
 
 void int32_array_shift_right(int32_t *p32,uint16_t eoc)
@@ -341,6 +353,21 @@ uint8_t int32_2_d(uint8_t* str,uint32_t t32)
 	p++;
 	m_mem_cpy(str,p);
 	return t8;
+}
+
+int16_t m_str_loc_char(uint8_t* str,uint16_t len,uint8_t chr,uint8_t tms)
+{
+	uint16_t i;
+	int ret=-1;
+	uint8_t t8=0;
+	for(i=0;i<len;i++){
+		if(str[i]==chr)t8++;
+		if(t8>=tms){
+			ret=i;
+			break;
+		}
+	}
+	return ret;
 }
 
 uint16_t my_scanf_int16(uint8_t* str,uint8_t eof,uint16_t* loc)

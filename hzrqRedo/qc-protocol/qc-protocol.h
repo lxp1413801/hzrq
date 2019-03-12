@@ -12,8 +12,11 @@
 
 
 	#include "15e-data-protocol.h"
+	
 	#include "data-protocol-ex.h"
-	#include "sy-protocol.h"
+	#include "hzrq-data-record.h"
+	#include "hzrq-comm-protocol.h"
+
 
 #ifdef __cplusplus
 	}

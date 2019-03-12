@@ -11,6 +11,9 @@
 	extern void m_mem_set(uint8_t* buf,uint8_t x,uint16_t len);
 	extern void m_mem_cpy(uint8_t* d,uint8_t* s);
 	extern void m_mem_cpy_len(uint8_t* d,uint8_t* s,uint16_t len);
+		
+	extern uint16_t m_mem_cpy_len_ex(uint8_t* d,uint8_t* s,uint16_t len);
+		
 	extern uint16_t m_str_match(uint8_t* b,uint8_t* c);
 	extern uint16_t m_str_match_ex(uint8_t* b,uint8_t* c,uint16_t *loc);
 	extern int32_t m_math_pow(int32_t x,int32_t y);
@@ -55,6 +58,8 @@
 	//extern uint16_t my_scanf_int16(uint8_t* str,uint8_t eof,uint16_t* loc);
 	extern uint16_t my_scanf_int16(uint8_t* str,uint8_t eof,uint16_t* loc);
 	extern const uint8_t HexTable[];
+	
+	extern int16_t m_str_loc_char(uint8_t* str,uint16_t len,uint8_t chr,uint8_t tms);
 	#ifdef __cplusplus
 	}
 	#endif

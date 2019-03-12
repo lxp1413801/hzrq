@@ -1,6 +1,5 @@
 #include "./includes/includes.h"
 #include "data-protocol-ex.h"
-#include "szrq-comm-protocol.h"
 //__rtVolume:采集到的脉冲数
 //rtVolume:计算用到的脉冲数
 void __hal_cal_get_flow_pulse(void)
@@ -117,7 +116,7 @@ overageVMState_t __hal_cal_warning_off(void)
 
 	return ov;	
 }
-
+/*
 bool fi_szrq_balance_temp_off_vavle_close_en(void)
 {
 	//在报警和关阀值中间的提示关阀
@@ -148,6 +147,7 @@ bool fi_szrq_balance_off_vavle_close_en(void)
 	return ret;		
 }
 
+
 bool fi_szrq_balance_warn_off_vavle_close_en(void)
 {
 	//低于报警值时的关阀
@@ -162,6 +162,7 @@ bool fi_szrq_balance_warn_off_vavle_close_en(void)
 	}
 	return ret;		
 }
+*/
 bool __hal_fi_off(overageVMState_t ov)
 {
 	bool ret=false;
@@ -169,16 +170,16 @@ bool __hal_fi_off(overageVMState_t ov)
 	if(ov==OV_OFF){
 		sysData.devStatus.bits.bBalanceSta=CNM_BALANCE_OFF;
 		sysData.lockReason.bits.bBalance=1;
-		//ret=true;
-		ret=fi_szrq_balance_off_vavle_close_en();
+		ret=true;
+		//ret=fi_szrq_balance_off_vavle_close_en();
 	}else if(ov==OV_WARNNING_OFF){
 		sysData.lockReason.bits.bBalance=0;
 		//sysData.lockReason.bits.bBalance=0;
 		if(sysData.devStatus.bits.bTempOffTime==0){
 			sysData.devStatus.bits.bBalanceSta=OV_WARNNING_OFF;
 			sysData.devStatus.bits.bTempOffTime=1;
-			//ret=true;
-			ret=fi_szrq_balance_temp_off_vavle_close_en();
+			ret=true;
+			//ret=fi_szrq_balance_temp_off_vavle_close_en();
 		}
 		
 	}else if(  ov==OV_WARNNING){
@@ -187,7 +188,7 @@ bool __hal_fi_off(overageVMState_t ov)
 		sysData.devStatus.bits.bTempOffTime=0;
 		if(sysData.devStatus.bits.bWarnOffTime==0){
 			sysData.devStatus.bits.bWarnOffTime=1;
-			ret=fi_szrq_balance_warn_off_vavle_close_en();
+			//ret=fi_szrq_balance_warn_off_vavle_close_en();
 		}
 		
 	}else{
@@ -213,7 +214,8 @@ void __hal_fi_off_redo(overageVMState_t ov)
 	if(ov==OV_OFF){
 		sysData.devStatus.bits.bBalanceSta=CNM_BALANCE_OFF;
 		sysData.lockReason.bits.bBalance=1;
-		ret=fi_szrq_balance_off_vavle_close_en();
+		ret=true;
+		//ret=fi_szrq_balance_off_vavle_close_en();
 	}else if(ov==OV_WARNNING_OFF){
 		sysData.lockReason.bits.bBalance=0;
 		if(sysData.devStatus.bits.bTempOffTime==0){

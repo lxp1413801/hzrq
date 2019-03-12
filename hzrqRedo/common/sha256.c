@@ -1,218 +1,291 @@
-//#include "sha256.h"
-#include "common.h"
+/*
+ * SHA-256 algorithm as described at
+ *
+ *   http://csrc.nist.gov/cryptval/shs.html
+ */
+#include <string.h>
+#include "sha256.h"
+//#define TEST
+/* ----------------------------------------------------------------------
+ * Core SHA256 algorithm: processes 16-word blocks into a message digest.
+ */
+#define SHA256_DIGEST_SIZE  32
+ 
+#define KEY_IOPAD_SIZE 		64
+#define KEY_IOPAD_SIZE128 	128
 
-/* define it for speed optimization */
-#define _SHA256_UNROLL
-#define _SHA256_UNROLL2
+#define ror(x,y) ( ((x) << (32-y)) | (((uint32)(x)) >> (y)) )
+#define shr(x,y) ( (((uint32)(x)) >> (y)) )
+#define Ch(x,y,z) ( ((x) & (y)) ^ (~(x) & (z)) )
+#define Maj(x,y,z) ( ((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)) )
+#define bigsigma0(x) ( ror((x),2) ^ ror((x),13) ^ ror((x),22) )
+#define bigsigma1(x) ( ror((x),6) ^ ror((x),11) ^ ror((x),25) )
+#define smallsigma0(x) ( ror((x),7) ^ ror((x),18) ^ shr((x),3) )
+#define smallsigma1(x) ( ror((x),17) ^ ror((x),19) ^ shr((x),10) )
 
-void sha256_init(sha256_t *p)
-{
-  p->state[0] = 0x6a09e667;
-  p->state[1] = 0xbb67ae85;
-  p->state[2] = 0x3c6ef372;
-  p->state[3] = 0xa54ff53a;
-  p->state[4] = 0x510e527f;
-  p->state[5] = 0x9b05688c;
-  p->state[6] = 0x1f83d9ab;
-  p->state[7] = 0x5be0cd19;
-  p->count = 0;
+#define PUT_32BIT_MSB_FIRST(cp, value) ( \
+  (cp)[0] = (uint8_t)((value) >> 24), \
+  (cp)[1] = (uint8_t)((value) >> 16), \
+  (cp)[2] = (uint8_t)((value) >> 8), \
+  (cp)[3] = (uint8_t)(value) )
+
+void SHA256_Core_Init(SHA256_State *s) {
+    s->h[0] = 0x6a09e667;
+    s->h[1] = 0xbb67ae85;
+    s->h[2] = 0x3c6ef372;
+    s->h[3] = 0xa54ff53a;
+    s->h[4] = 0x510e527f;
+    s->h[5] = 0x9b05688c;
+    s->h[6] = 0x1f83d9ab;
+    s->h[7] = 0x5be0cd19;
 }
 
-#define S0(x) (ROTR32(x, 2) ^ ROTR32(x,13) ^ ROTR32(x, 22))
-#define S1(x) (ROTR32(x, 6) ^ ROTR32(x,11) ^ ROTR32(x, 25))
-#define s0(x) (ROTR32(x, 7) ^ ROTR32(x,18) ^ (x >> 3))
-#define s1(x) (ROTR32(x,17) ^ ROTR32(x,19) ^ (x >> 10))
+void SHA256_Block(SHA256_State *s, uint32 *block) {
+    uint32 w[80];
+    uint32 a,b,c,d,e,f,g,h;
+    static const int k[] = {
+        0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
+        0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+        0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
+        0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+        0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
+        0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+        0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
+        0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+        0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
+        0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+        0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
+        0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+        0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
+        0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+        0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
+        0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
+    };
 
-#define blk0(i) (W[i] = data[i])
-#define blk2(i) (W[i&15] += s1(W[(i-2)&15]) + W[(i-7)&15] + s0(W[(i-15)&15]))
+    int t;
 
-#define Ch(x,y,z) (z^(x&(y^z)))
-#define Maj(x,y,z) ((x&y)|(z&(x|y)))
+    for (t = 0; t < 16; t++)
+        w[t] = block[t];
 
-#define a(i) T[(0-(i))&7]
-#define b(i) T[(1-(i))&7]
-#define c(i) T[(2-(i))&7]
-#define d(i) T[(3-(i))&7]
-#define e(i) T[(4-(i))&7]
-#define f(i) T[(5-(i))&7]
-#define g(i) T[(6-(i))&7]
-#define h(i) T[(7-(i))&7]
+    for (t = 16; t < 64; t++)
+        w[t] = smallsigma1(w[t-2]) + w[t-7] + smallsigma0(w[t-15]) + w[t-16];
 
+    a = s->h[0]; b = s->h[1]; c = s->h[2]; d = s->h[3];
+    e = s->h[4]; f = s->h[5]; g = s->h[6]; h = s->h[7];
 
-#ifdef _SHA256_UNROLL2
+    for (t = 0; t < 64; t+=8) {
+        uint32 t1, t2;
 
-#define R(a,b,c,d,e,f,g,h, i) h += S1(e) + Ch(e,f,g) + K[i+j] + (j?blk2(i):blk0(i));\
-  d += h; h += S0(a) + Maj(a, b, c)
+#define ROUND(j,a,b,c,d,e,f,g,h) \
+        t1 = h + bigsigma1(e) + Ch(e,f,g) + k[j] + w[j]; \
+        t2 = bigsigma0(a) + Maj(a,b,c); \
+        d = d + t1; h = t1 + t2;
 
-#define RX_8(i) \
-  R(a,b,c,d,e,f,g,h, i); \
-  R(h,a,b,c,d,e,f,g, (i+1)); \
-  R(g,h,a,b,c,d,e,f, (i+2)); \
-  R(f,g,h,a,b,c,d,e, (i+3)); \
-  R(e,f,g,h,a,b,c,d, (i+4)); \
-  R(d,e,f,g,h,a,b,c, (i+5)); \
-  R(c,d,e,f,g,h,a,b, (i+6)); \
-  R(b,c,d,e,f,g,h,a, (i+7))
-
-#else
-
-#define R(i) h(i) += S1(e(i)) + Ch(e(i),f(i),g(i)) + K[i+j] + (j?blk2(i):blk0(i));\
-  d(i) += h(i); h(i) += S0(a(i)) + Maj(a(i), b(i), c(i))
-
-#ifdef _SHA256_UNROLL
-
-#define RX_8(i) R(i+0); R(i+1); R(i+2); R(i+3); R(i+4); R(i+5); R(i+6); R(i+7);
-
-#endif
-
-#endif
-
-static const uint32_t K[64] = {
-  0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
-  0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-  0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
-  0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-  0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
-  0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-  0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
-  0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-  0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
-  0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-  0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
-  0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-  0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
-  0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-  0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
-  0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
-};
-
-static void sha256_transform(uint32_t *state, const uint32_t *data)
-{
-  uint32_t W[16];
-  unsigned j;
-  #ifdef _SHA256_UNROLL2
-  uint32_t a,b,c,d,e,f,g,h;
-  a = state[0];
-  b = state[1];
-  c = state[2];
-  d = state[3];
-  e = state[4];
-  f = state[5];
-  g = state[6];
-  h = state[7];
-  #else
-  uint32_t T[8];
-  for (j = 0; j < 8; j++)
-    T[j] = state[j];
-  #endif
-
-  for (j = 0; j < 64; j += 16)
-  {
-    #if defined(_SHA256_UNROLL) || defined(_SHA256_UNROLL2)
-    RX_8(0); RX_8(8);
-    #else
-    unsigned i;
-    for (i = 0; i < 16; i++) { R(i); }
-    #endif
-  }
-
-  #ifdef _SHA256_UNROLL2
-  state[0] += a;
-  state[1] += b;
-  state[2] += c;
-  state[3] += d;
-  state[4] += e;
-  state[5] += f;
-  state[6] += g;
-  state[7] += h;
-  #else
-  for (j = 0; j < 8; j++)
-    state[j] += T[j];
-  #endif
-
-  /* Wipe variables */
-  /* memset(W, 0, sizeof(W)); */
-  /* memset(T, 0, sizeof(T)); */
-}
-
-#undef S0
-#undef S1
-#undef s0
-#undef s1
-
-static void sha256_write_byte_block(sha256_t *p)
-{
-  uint32_t data32[16];
-  unsigned i;
-  for (i = 0; i < 16; i++)
-    data32[i] =
-      ((uint32_t)(p->buffer[i * 4    ]) << 24) +
-      ((uint32_t)(p->buffer[i * 4 + 1]) << 16) +
-      ((uint32_t)(p->buffer[i * 4 + 2]) <<  8) +
-      ((uint32_t)(p->buffer[i * 4 + 3]));
-  sha256_transform(p->state, data32);
-}
-
-
-void sha256_hash(unsigned char *buf, const unsigned char *data, uint16_t size)
-{
-  sha256_t hash;
-  sha256_init(&hash);
-  sha256_update(&hash, data, size);
-  sha256_final(&hash, buf);
-}
-
-
-void sha256_update(sha256_t *p, const unsigned char *data, uint16_t size)
-{
-  uint32_t curBufferPos = (uint32_t)p->count & 0x3F;
-  while (size > 0)
-  {
-    p->buffer[curBufferPos++] = *data++;
-    p->count++;
-    size--;
-    if (curBufferPos == 64)
-    {
-      curBufferPos = 0;
-      sha256_write_byte_block(p);
+        ROUND(t+0, a,b,c,d,e,f,g,h);
+        ROUND(t+1, h,a,b,c,d,e,f,g);
+        ROUND(t+2, g,h,a,b,c,d,e,f);
+        ROUND(t+3, f,g,h,a,b,c,d,e);
+        ROUND(t+4, e,f,g,h,a,b,c,d);
+        ROUND(t+5, d,e,f,g,h,a,b,c);
+        ROUND(t+6, c,d,e,f,g,h,a,b);
+        ROUND(t+7, b,c,d,e,f,g,h,a);
     }
-  }
+
+    s->h[0] += a; s->h[1] += b; s->h[2] += c; s->h[3] += d;
+    s->h[4] += e; s->h[5] += f; s->h[6] += g; s->h[7] += h;
 }
 
+/* ----------------------------------------------------------------------
+ * Outer SHA256 algorithm: take an arbitrary length byte string,
+ * convert it into 16-word blocks with the prescribed padding at
+ * the end, and pass those blocks to the core SHA256 algorithm.
+ */
 
-void sha256_final(sha256_t *p, unsigned char *digest)
+#define BLKSIZE 64
+
+void SHA256_Init(SHA256_State *s) {
+    SHA256_Core_Init(s);
+    s->blkused = 0;
+    s->lenhi = s->lenlo = 0;
+}
+
+void SHA256_Bytes(SHA256_State *s, const void *p, int len) {
+    uint8_t *q = (uint8_t *)p;
+    uint32 wordblock[16];
+    uint32 lenw = len;
+    int i;
+
+    /*
+     * Update the length field.
+     */
+    s->lenlo += lenw;
+    s->lenhi += (s->lenlo < lenw);
+
+    if (s->blkused && s->blkused+len < BLKSIZE) {
+        /*
+         * Trivial case: just add to the block.
+         */
+        memcpy(s->block + s->blkused, q, len);
+        s->blkused += len;
+    } else {
+        /*
+         * We must complete and process at least one block.
+         */
+        while (s->blkused + len >= BLKSIZE) {
+            memcpy(s->block + s->blkused, q, BLKSIZE - s->blkused);
+            q += BLKSIZE - s->blkused;
+            len -= BLKSIZE - s->blkused;
+            /* Now process the block. Gather bytes big-endian into words */
+            for (i = 0; i < 16; i++) {
+                wordblock[i] =
+                    ( ((uint32)s->block[i*4+0]) << 24 ) |
+                    ( ((uint32)s->block[i*4+1]) << 16 ) |
+                    ( ((uint32)s->block[i*4+2]) <<  8 ) |
+                    ( ((uint32)s->block[i*4+3]) <<  0 );
+            }
+            SHA256_Block(s, wordblock);
+            s->blkused = 0;
+        }
+        memcpy(s->block, q, len);
+        s->blkused = len;
+    }
+}
+
+void SHA256_Final(SHA256_State *s, uint8_t *digest) {
+    int i;
+    int pad;
+    uint8_t c[64];
+    uint32 lenhi, lenlo;
+
+    if (s->blkused >= 56)
+        pad = 56 + 64 - s->blkused;
+    else
+        pad = 56 - s->blkused;
+
+    lenhi = (s->lenhi << 3) | (s->lenlo >> (32-3));
+    lenlo = (s->lenlo << 3);
+
+    memset(c, 0, pad);
+    c[0] = 0x80;
+    SHA256_Bytes(s, &c, pad);
+
+    c[0] = (lenhi >> 24) & 0xFF;
+    c[1] = (lenhi >> 16) & 0xFF;
+    c[2] = (lenhi >>  8) & 0xFF;
+    c[3] = (lenhi >>  0) & 0xFF;
+    c[4] = (lenlo >> 24) & 0xFF;
+    c[5] = (lenlo >> 16) & 0xFF;
+    c[6] = (lenlo >>  8) & 0xFF;
+    c[7] = (lenlo >>  0) & 0xFF;
+
+    SHA256_Bytes(s, &c, 8);
+
+    for (i = 0; i < 8; i++) {
+        digest[i*4+0] = (s->h[i] >> 24) & 0xFF;
+        digest[i*4+1] = (s->h[i] >> 16) & 0xFF;
+        digest[i*4+2] = (s->h[i] >>  8) & 0xFF;
+        digest[i*4+3] = (s->h[i] >>  0) & 0xFF;
+    }
+}
+
+void SHA256_Simple(uint8_t *p, int len, uint8_t *output) 
 {
-  uint64_t lenInBits = (p->count << 3);
-  uint32_t curBufferPos = (uint32_t)p->count & 0x3F;
-  unsigned i;
-  p->buffer[curBufferPos++] = 0x80;
-  while (curBufferPos != (64 - 8))
-  {
-    curBufferPos &= 0x3F;
-    if (curBufferPos == 0)
-      sha256_write_byte_block(p);
-    p->buffer[curBufferPos++] = 0;
-  }
-  for (i = 0; i < 8; i++)
-  {
-    p->buffer[curBufferPos++] = (unsigned char)(lenInBits >> 56);
-    lenInBits <<= 8;
-  }
-  sha256_write_byte_block(p);
+    SHA256_State s;
 
-  for (i = 0; i < 8; i++)
-  {
-    *digest++ = (unsigned char)(p->state[i] >> 24);
-    *digest++ = (unsigned char)(p->state[i] >> 16);
-    *digest++ = (unsigned char)(p->state[i] >> 8);
-    *digest++ = (unsigned char)(p->state[i]);
-  }
-  sha256_init(p);
+    SHA256_Init(&s);
+    SHA256_Bytes(&s, p, len);
+    SHA256_Final(&s, output);
 }
-uint16_t sha256_test(void)
+
+void sha256(uint8_t *out,uint8_t *in, int len) 
 {
-	uint8_t buf[32]={0};
-	sha256_hash(buf, (unsigned char*)"hello", 5);
-	__nop();
-	return 0;
+    SHA256_State s;
+
+    SHA256_Init(&s);
+    SHA256_Bytes(&s, in, len);
+    SHA256_Final(&s, out);	
 }
+
+void hmac_sha256(uint8_t *hmac,uint8_t *in, int inLen,uint8_t *key, int keyLen)
+{
+    SHA256_State context;
+    uint8_t k_ipad[KEY_IOPAD_SIZE];    /* inner padding - key XORd with ipad  */
+    uint8_t k_opad[KEY_IOPAD_SIZE];    /* outer padding - key XORd with opad */
+    int i;
+
+    /* start out by storing key in pads */
+    memset(k_ipad, 0, sizeof(k_ipad));
+    memset(k_opad, 0, sizeof(k_opad));
+    memcpy(k_ipad, key, keyLen);
+    memcpy(k_opad, key, keyLen);
+
+    /* XOR key with ipad and opad values */
+    for (i = 0; i < KEY_IOPAD_SIZE; i++) {
+        k_ipad[i] ^= 0x36;
+        k_opad[i] ^= 0x5c;
+    }
+
+    // perform inner SHA256
+    SHA256_Init(&context);                    /* init context for 1st pass */
+    SHA256_Bytes(&context, k_ipad, KEY_IOPAD_SIZE);      /* start with inner pad */
+    SHA256_Bytes(&context, in, inLen); /* then text of datagram */
+    SHA256_Final(&context, hmac);             /* finish up 1st pass */
+
+    // perform outer SHA256
+    SHA256_Init(&context);                   /* init context for 2nd pass */
+    SHA256_Bytes(&context, k_opad, KEY_IOPAD_SIZE);     /* start with outer pad */
+    SHA256_Bytes(&context, hmac, SHA256_DIGEST_SIZE);     /* then results of 1st hash */
+    SHA256_Final(&context, hmac);          /* finish up 2nd pass */
+}
+/*
+#ifdef TEST
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+int main(void) {
+    uint8_t digest[32];
+    int i, j, errors;
+
+    struct {
+        const char *teststring;
+        uint8_t digest[32];
+    } tests[] = {
+        { "abc", {
+            0xba, 0x78, 0x16, 0xbf, 0x8f, 0x01, 0xcf, 0xea,
+            0x41, 0x41, 0x40, 0xde, 0x5d, 0xae, 0x22, 0x23,
+            0xb0, 0x03, 0x61, 0xa3, 0x96, 0x17, 0x7a, 0x9c,
+            0xb4, 0x10, 0xff, 0x61, 0xf2, 0x00, 0x15, 0xad,
+        } },
+        { "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq", {
+            0x24, 0x8d, 0x6a, 0x61, 0xd2, 0x06, 0x38, 0xb8,
+            0xe5, 0xc0, 0x26, 0x93, 0x0c, 0x3e, 0x60, 0x39,
+            0xa3, 0x3c, 0xe4, 0x59, 0x64, 0xff, 0x21, 0x67,
+            0xf6, 0xec, 0xed, 0xd4, 0x19, 0xdb, 0x06, 0xc1,
+        } },
+    };
+
+    errors = 0;
+
+    for (i = 0; i < sizeof(tests) / sizeof(*tests); i++) {
+        SHA256_Simple(tests[i].teststring,
+                      strlen(tests[i].teststring), digest);
+        for (j = 0; j < 32; j++) {
+            if (digest[j] != tests[i].digest[j]) {
+                fprintf(stderr,
+                        "\"%s\" digest byte %d should be 0x%02x, is 0x%02x\n",
+                        tests[i].teststring, j, tests[i].digest[j], digest[j]);
+                errors++;
+            }
+        }
+    }
+
+    printf("%d errors\n", errors);
+
+    return 0;
+}
+
+#endif
+*/
+//file end

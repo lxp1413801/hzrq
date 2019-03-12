@@ -46,15 +46,15 @@ const stDeviceInf_t sysDataDefault={
 	pro_VER_NUM,				//uint16_t	ProtocolVer;
 	0x00,						//uint16_t	rverse01;
 	{0x18,0x08,0x08,0x00},		//uint8_t		PD[4];
-	//"CDQC181100000002",			//uint8_t		commSN[16];	
-	"         9225002",
+	16,	//uint8_t		hzrqMeterIdLen;
+	{0},//uint8_t		hzrqReverse[3]
+	"2125200010000001",	//uint8_t		hzrqMeterId[32]
 	{0},						//uint8_t		DeviceName[16];			//设备名称或者型号	
 
-	//	//配置信息，与设备本身参数有关
-	//	//针对煤气表，qmax，qmin，qst(始动流量)等具有一一对应关系，见GB/T 6968
-	0x00,						//vendorCode
-	0,							//deviceType
-	0,							//deViceClass;
+		//????,?????????
+		//?????,qmax,qmin,qst(????)?????????,?GB/T 6968
+	7,	//uint16_t	vendorCode;
+	2111,	//uint16_t	hzrqDeviceType;
 	(emQN_t)default_QN,			//uint16_t	QN;						//标称流量，
 	0,							//QMIN
 	(emQN_t)default_QMAX,		//uint16_t	QMAX;					//最大流量，
@@ -91,7 +91,7 @@ const stDeviceInf_t sysDataDefault={
 	0,							//uint8_t 	superPayNums;		//超级充值次数
 	20,							//uint8_t		resetPayNums;		//复位充值次数
 
-	default_DEVICE_ID,			//uint32_t	ID;	//设备id
+	8888,//default_DEVICE_ID,			//uint32_t	ID;	//设备id
 	0UL,						//uint32_t	userID;				//用户id
 	0,							//uint16_t	companyCode;		
 	0,							//uint16_t	reverse02;
@@ -105,15 +105,15 @@ const stDeviceInf_t sysDataDefault={
 	
 	degault_DLC_STATUS,			//uint8_t		DLCS;					//设备状态生命周期,可兼容S=ABCDE
 	0,							//uint8_t		keyIndex;			//秘钥等级，密匙索引
-	0,							//uint8_t		reverse081600;//uint8_t		priceAdjTimes;
-	0,							//uint8_t		reverse081601;//uint8_t		curPriceStep;        
+	0,							//uint8_t     hzrqKeyVer0,
+	16,							//uint8_t		hzrqKeyLen;       
 	//	
 
-	{0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00},//	uint8_t		aesKey[16];
-	{0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00},//	uint8_t		aesKey[16];
-	//{{0x00,0x00,1440,0x01},{0xff,0xff,0xffff,0xffff},{0xff,0xff,0xffff,0xffff},{0xff,0xff,0xffff,0xffff}},
-	//{{0xff,0xff,1440,0x01},{0xff,0xff,0xffff,0xffff},{0xff,0xff,0xffff,0xffff},{0xff,0xff,0xffff,0xffff}},		
+	{0x00,0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x88,0x99,0x00,0x11,0x22,0x33,0x44,0x55},//	uint8_t		aesKey[16];
+	//{0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00},//	uint8_t		aesKey[16];
+		
 	//<--for 团标阶梯气价
+	
 	0x00UL,						//uint32_t	stepSluStartTm;
 	UINT32_MAX,					//uint32_t	stepSluEndTm;
 	0x00,						//uint16_t	stepSluSn;
@@ -133,6 +133,7 @@ const stDeviceInf_t sysDataDefault={
 	0x00,						//uint16_t	preStepReverse;
 	{INT32_MAX,0,0,0,0,0},		//int32_t	preSetpVolume[6]
 	{10000,0,0,0,0,0},			//int32_t	preStepPrice[6];	
+	
 	//-->
 	//	
 	10000,						//uint32_t	curPrice;
@@ -166,6 +167,25 @@ const stDeviceInf_t sysDataDefault={
 	{0x18,0x25},				//uint8_t		szrqtPeriodTime[2];				//上报时间
 	0x28,						//uint8_t		szrqtFreezeDay;					//冻结日
 	0x12,						//uint8_t		szrqtFreezeHour;				//冻结时	
+	//<<-- add for hzrq
+	__hzrq_ACCOUNT_STA_UNOPEN,//uint8_t		hzrqAccountSta;
+	__hzrq_MOBLE_SEVERS_CTCC,//uint8_t		hzrqMobleSeverInf;
+	__hzrq_DFID_COMM_WAY_NB,//uint8_t		hzrqCommWay;
+	__hzrq_POWER_TYPE_LISOCL,//uint8_t		hzrqPowerType;
+	
+	{0x00,0x01,0x00,0x01},//uint8_t		hzrqAppSwVer[4];
+	
+	{0x55,0xaa,0x55,0xaa,0x55,0xaa,0x55,0xaa,0x55,0xaa,0x55,0xaa,0x55,0xaa,0x55,0xaa},//uint8_t		hzrqRandomCode[16];
+	{0x01,0x00},//uint8_t		hzrqAppProtocolVer[2];
+	
+	0,//uint8_t 	hzrqOverdraftStat;				//1	透支状态
+	0,//uint8_t 	hzrqBalanceVolSta;				//1	余量状态
+		
+	0,//int32_t 	hzrqBalanceVol;				//4	剩余气量
+	0,//int32_t 	hzrqPrice;					//4	单价
+	0,//int32_t 	hzrqBalanceMoney;			//4	剩余金额		
+	//-->>	
+	
 	//-->	
 	0,							//uint16_t	crc;
 };		

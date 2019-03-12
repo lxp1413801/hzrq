@@ -1,9 +1,0 @@
-.\objects\sha256.o: ..\common\sha256.c
-.\objects\sha256.o: ..\common\common.h
-.\objects\sha256.o: ..\common\crc16.h
-.\objects\sha256.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-.\objects\sha256.o: ..\common\m_string.h
-.\objects\sha256.o: ..\common\xxtea.h
-.\objects\sha256.o: ..\common\time-stamp.h
-.\objects\sha256.o: ..\common\m_aes.h
-.\objects\sha256.o: ..\common\sha256.h

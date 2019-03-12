@@ -278,15 +278,18 @@
 		uint16_t	ProtocolVer;
 		uint16_t	rverse01;
 		uint8_t		PD[4];
-		uint8_t		commSN[20];				
+		//<<--mod for hzrq
+		uint8_t		hzrqMeterIdLen;
+		uint8_t		hzrqReverse[3];
+		uint8_t		hzrqMeterId[32];
+		//-->>
+		
 		uint8_t		DeviceName[20];			//设备名称或者型号	
 
 		//配置信息，与设备本身参数有关
 		//针对煤气表，qmax，qmin，qst(始动流量)等具有一一对应关系，见GB/T 6968
 		uint16_t	vendorCode;
-		uint8_t		deviceType;				//燃气表，水表其他
-		uint8_t		deViceClass;			//设备的
-		
+		uint16_t	hzrqDeviceType;
 		
 		uint16_t	QN;						//标称流量，
 		uint16_t	QMIN;
@@ -332,14 +335,11 @@
 		
 		uint8_t		DLCS;					//设备状态生命周期,可兼容S=ABCDE
 		uint8_t		keyIndex;				//秘钥等级，密匙索引
-		uint8_t		reverse081600;//uint8_t		priceAdjTimes;
-		uint8_t		reverse081601;//uint8_t		curPriceStep;        
+		uint8_t     hzrqKeyVer;//uint8_t		reverse081600;//uint8_t		priceAdjTimes;
+		uint8_t		hzrqKeyLen;//uint8_t		curPriceStep;        
 
-		uint8_t		mmKey[16];
-		uint8_t		userKey[16];
-		
-		//sampSendParam_t	sampleParam[4];
-		//sampSendParam_t	sendParam[4];	
+		uint8_t		key[32];
+		//uint8_t		userKey[16];
 		
 		//<--for 团标阶梯气价
 		uint32_t	stepSluStartTm;
@@ -396,6 +396,24 @@
 		uint8_t		szrqtFreezeDay;					//冻结日
 		uint8_t		szrqtFreezeHour;				//冻结时
 		//-->
+		//<<-- add for hzrq
+		uint8_t		hzrqAccountSta;
+		uint8_t		hzrqMobleSeverInf;
+		uint8_t		hzrqCommWay;
+		uint8_t		hzrqPowerType;
+		
+		uint8_t		hzrqAppSwVer[4];
+		uint8_t		hzrqRandomCode[16];
+		uint8_t		hzrqAppProtocolVer[2];
+
+		uint8_t 	hzrqOverdraftStat;				//1	透支状态
+		uint8_t 	hzrqBalanceVolSta;				//1	余量状态
+		
+		int32_t 	hzrqBalanceVol;				//4	剩余气量
+		int32_t 	hzrqPrice;					//4	单价
+		int32_t 	hzrqBalanceMoney;			//4	剩余金额		
+		//-->>
+		//
 		uint16_t	crc;
 	}stDeviceInf_t;	
 	
