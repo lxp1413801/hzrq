@@ -89,9 +89,14 @@ overageVMState_t __hal_cal_warning_off(void)
 	if((sysData.DWM>DWM_COMMON_MODE) || (sysData.DWM==DWM_COMMON_MODE && sysData.DLCS<=DLC_STATUS_B)){
 		t32=overrageVolume;
 	}else{
-		t32=sysData.szrqBalance;
+		t32=sysData.crBalance;
 	}
-
+	
+	if(sysData.DWM==DWM_COMMON_MODE && sysData.DLCS>DLC_STATUS_B)
+	{
+		ov=OV_NORMAL;
+		return ov;
+	}
 	if(__hal_cal_fi_holiday()){
 		if(t32<=sysData.limitOffsetVM){
 			ov=OV_OFF;
@@ -326,6 +331,8 @@ void api_calc_all(void)
 	}else if(sysData.DWM==DWM_COMMON_MODE){
 		if(sysData.DLCS<=DLC_STATUS_B){
 			__hal_cal_overage_v();
+		}else{
+			
 		}
 	}else{
 		//cal price;

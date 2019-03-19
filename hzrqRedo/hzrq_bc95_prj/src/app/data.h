@@ -34,6 +34,7 @@
 	
 	extern uint16_t qc_data_sysdata_write_only(uint8_t* tbuf);
 	extern osMutexId osMutexSysData;
+	extern osMutexId osMutexExEeprom;
 	//extern osMutexId osMutexSysDataSave;
 
 	extern void qc_data_mutex_create(void);
@@ -43,9 +44,9 @@
 	
 	//<<--for czsn
 	
-	extern uint8_t czsnFlowStatus;
+	//extern uint8_t czsnFlowStatus;
 	//??????????????
-	
+	/*
 	
 	
 	typedef struct{
@@ -117,10 +118,11 @@
 	extern uint16_t	szrq_item_set_read_loc(uint16_t readLoc);
 	extern uint16_t szrq_item_get_unread_num(void);
 	//-->	
-	
+	*/
 	//<<-- add for send fifo
 	//2019.02.13
-	#define RF_SEND_FIFO_HEAD_START_ADDR	(DATA_EEPROM_BASE + 1024)
+	//#define RF_SEND_FIFO_HEAD_START_ADDR	(DATA_EEPROM_BASE + 1024)
+	#define RF_SEND_FIFO_HEAD_START_ADDR (DATA_EEPROM_BANK2_BASE)
 	typedef struct{
 		uint16_t	writeLoc;
 		uint16_t	itemNum;
@@ -129,14 +131,14 @@
 	}rfSendFifoHeader_t;
 	
 	#define RF_SEND_FIFO_BODY_START_ADDR  (RF_SEND_FIFO_HEAD_START_ADDR + sizeof(rfSendFifoHeader_t))
-	#define RF_SEND_FIFO_ITEM_NUM_LIMIT	8
-	
+	#define RF_SEND_FIFO_ITEM_NUM_LIMIT	((DATA_EEPROM_BANK2_END+1-RF_SEND_FIFO_BODY_START_ADDR)/256-1)
+	#define RF_SEND_FIFO_ITEM_SIZE	256
 	typedef struct{
 		uint8_t  sendedFlg;
 		uint8_t  reverse;
 		uint16_t len;
 		uint32_t ts;
-		uint8_t  buf[200];
+		uint8_t  buf[240];
 		uint16_t crc16;
 	}rfSendFifoBody_t;
 
@@ -145,7 +147,7 @@
 	extern uint16_t rf_send_fifo_push(uint8_t* buf,uint16_t len);
 	extern uint16_t rf_send_fifo_delete_tail(void);
 	extern uint16_t rf_send_fifo_get_tail(uint8_t* buf,uint16_t* unreadNum);
-	
+	extern uint16_t rf_send_fifo_item_get_unread_num(void);
 	extern uint16_t rf_send_fifo_init(void);
 
 	//-->>

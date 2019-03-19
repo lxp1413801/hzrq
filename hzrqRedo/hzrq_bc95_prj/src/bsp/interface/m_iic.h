@@ -11,8 +11,8 @@ extern "C" {
 		IIC_ACK=0,
 	};
 
-	#define IIC_PWR_PIN		GPIO_PIN_15
-	#define IIC_PWR_PORT	GPIOB
+	#define IIC_WRP_PIN		GPIO_PIN_15
+	#define IIC_WRP_PORT	GPIOB
 	//rd0<>scl
 	#define IIC_SCL_PIN		GPIO_PIN_13
 	#define IIC_SCL_PORT	GPIOB
@@ -20,7 +20,7 @@ extern "C" {
 	#define IIC_SDA_PIN		GPIO_PIN_14
 	#define IIC_SDA_PORT 	GPIOB
 
-	#define IIC_ALL_PIN	(IIC_PWR_PIN | IIC_SCL_PIN | IIC_SDA_PIN)
+	#define IIC_ALL_PIN	(IIC_WRP_PIN | IIC_SCL_PIN | IIC_SDA_PIN)
 	#define IIC_PORT	GPIOB
 	
 	#define iic_pwr_hight() m_gpio_write(IIC_PWR_PORT,IIC_PWR_PIN,IIC_PWR_PIN)

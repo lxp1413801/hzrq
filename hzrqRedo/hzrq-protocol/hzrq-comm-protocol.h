@@ -97,15 +97,21 @@
 	//3003H 主动上报数据集
 	#define __hzrq_POP_TYPE_TIMER	0
 	#define __hzrq_POP_TYPE_MANUAL	1
-	#define __hzrq_POP_TYPE_EVENT	1
+	#define __hzrq_POP_TYPE_EVENT	2
 	#define __hzrq_DFID_POP	0x3003
+	
+	#define __hzrq_EVENT_FLG_ING 	1
+	#define __hzrq_EVENT_FLG_PASS 	0
 	typedef struct{
 		uint8_t iden[2];					
 		uint8_t dt[6];						//6	时钟	
 		uint8_t popType;					//1	上报方式:0 定时上报；1 手动上报；2 事件上报
 		uint8_t	curTotalVol[4];				//4	当前累计气量
 		uint8_t	deviceSta[2];				//2	表状态
-		uint8_t customDeviceSta[4];			//4	表厂自定义表状态
+		//uint8_t customDeviceSta[4];			//4	表厂自定义表状态
+		uint8_t	eventCode[2];
+		uint8_t eventFlg;
+		uint8_t reverse;
 		uint8_t	powerType;					//1	供电类型
 		uint8_t batVoltage[2];				//2	主电电池电压
 		uint8_t	batPercent;					//1	主电电量百分比
@@ -120,6 +126,11 @@
 	}__hzrq_dfdCommonReply_t;
 	//A.1　状态数据
 	//0001H	阀门状态 RW
+	typedef struct{
+		uint8_t iden[2];
+		uint8_t	data[4];
+	}__hzrq_dfdStatusDataCommonn_t32_t;
+	
 	#define __hzrq_DFID_VALVE_CTRL	0x0001
 	typedef struct{
 		uint8_t iden[2];
@@ -153,7 +164,7 @@
 	
 	//0005H	主电电量百分比 R	1
 	#define __hzrq_DFID_BAT_PERCENT 	0x0005
-	#define __hzrq_DFID_BAT_PERCENT_EX	0x0006
+	#define __hzrq_DFID_BAT_PERCENT_EX	0x0007
 	typedef struct{
 		uint8_t iden[2];	
 		uint8_t	batPercent;	//无符号整数（HEX）0~100
@@ -163,8 +174,8 @@
 	#define __hzrq_DFID_REVERSE_UKN 0x0008
 	typedef struct{
 		uint8_t iden[2];
-		uint8_t	curTotalVol[4];	//4	当前累计气量,无符号整数（HEX），数值扩大1000倍用于保留3位小数。
-	}__hzrq_dfdCuReverseUnknow_t;	
+		uint8_t	reverseVol[4];	//4	当前累计气量,无符号整数（HEX），数值扩大1000倍用于保留3位小数。
+	}__hzrq_dfdReverseVolUnknow_t;	
 	
 	//0009H	剩余气量	RW	4
 	#define __hzrq_DFID_BALANCE_VOL 0x0009
@@ -344,11 +355,12 @@
 		uint8_t eventCode[2];
 		uint8_t startDt[6];
 		uint8_t endDt[6];
-		uint8_t eventItemsNum;
+		uint8_t readNum;
 	}__hzrq_dfdReadEventLogReq_t;
 	typedef struct{
 		uint8_t iden[2];	
 		uint8_t eventItemsNum;
+		uint8_t	logBuf[4];
 	}__hzrq_dfdReadEventLogReply_t;
 
 	//1001H	读最新事件记录	
@@ -543,7 +555,7 @@
 	#define __hzrq_DFID_REFUSESPEEK_INTERVAL 0x200e
 	typedef struct{
 		uint8_t iden[2];
-		uint8_t refusesPeekInterval[2];			//0--碱电；1--锂电
+		uint8_t refusesPeekInterval[2];			//无符号整数（HEX）。单位秒，范围15~43。
 	}__hzrq_dfdRefusesPeekInterval_t;			
 	
 	//200FH	多天不用气关阀控制参数	RW	1
@@ -594,7 +606,7 @@
 	#define __hzrq_EVENT_NONE 			0
 	#define __hzrq_EVENT_VALVE_OPEN		1
 	#define __hzrq_EVENT_VALVE_CLOSE 	2
-	#define __hzrq_EVENT_VALVE_RST		3
+	#define __hzrq_EVENT_RST		3
 	#define __hzrq_EVENT_POWER_LOW		4
 	#define __hzrq_EVENT_POWER_LOWER	5
 	#define __hzrq_EVENT_STE			6
@@ -633,16 +645,16 @@
 		uint8_t dt[5];
 		uint8_t	volume[4];
 		uint8_t	volumeEx;
-	}__sy_gasLog_t;
+	}__hzrq_gasLog_t;
 	
 	typedef struct{
 		uint8_t eventType[2];
 		uint8_t	dt[6];
-		uint8_t times[2];
+		//uint8_t times[2];
 		uint8_t	xx;
-	}__sy_eventLog_t;
-	extern uint16_t __sy_gas_log_format(__sy_gasLog_t* syGasLog,consumeLog_t* commGasLog);
-	extern uint16_t __sy_event_log_format(__sy_eventLog_t* syEventLog,eventLog_t* commEventLog);	
+	}__hzrq_eventLog_t;
+	extern uint16_t __hzrq_event_log_format(__hzrq_eventLog_t* hzrqEventLog,eventLog_t* commEventLog);
+	extern uint16_t __hzrq_gas_log_format(__hzrq_gasLog_t* syGasLog,consumeLog_t* commGasLog);
 	
 	//为nb数据交互定义的状态机
 	typedef enum{
@@ -658,6 +670,7 @@
 	//api
 	extern volatile int16_t hzrqRsrp;
 	extern volatile int16_t hzrqSnr;
+	extern volatile uint16_t __hzrqUnSendNum;
 	extern volatile int8_t hzrqEclLevel;
 	extern uint8_t hzrqCellId[6];
 	extern volatile uint16_t hzrqRealNearFcn;
@@ -666,6 +679,7 @@
 	
 	extern uint16_t __hzrq_load_frame_header(uint8_t* sbuf,uint16_t ssize,uint16_t len,uint8_t cb);
 	extern uint16_t hzrq_load_register_frame(uint8_t* sbuf,uint16_t ssize);
+	extern uint16_t hzrq_load_pop_frame(uint8_t* sbuf,uint16_t ssize,uint8_t popType,uint16_t eventCode,uint8_t eventFlg);
 	extern int16_t hzrq_comm_received_process(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t ssize,uint8_t popType);
 #ifdef __cplusplus
 	}

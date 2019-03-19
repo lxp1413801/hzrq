@@ -78,6 +78,9 @@ void app_valve_on(void)
 
 void vavle_off_for_start(void)
 {
+	if(VavleOffReason==OFF_REASON_NONE){
+		VavleOffReason=OFF_REASON_RST;
+	}
 	m_gpio_config_vavle();
 	m_vavle_off();
 	osDelay(500);

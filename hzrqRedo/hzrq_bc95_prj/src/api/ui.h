@@ -64,11 +64,11 @@ extern "C"{
 	#define MENU_RTC_HMS	0x0d
 	#define subMENU_RTC_HMS 0x00
 	//szrq balance
-	#define MENU_SZRQ_BALANCE	0x10
-	#define subMENU_SZRQ_BALANCE 0x00
+	#define MENU_CR_BALANCE	0x10
+	#define subMENU_CR_BALANCE 0x00
 	//szrq overage vol
-	#define MENU_SZRQ_OV_VOL	0x11
-	#define subMENU_SZRQ_OV_VOL	0x00
+	#define MENU_CR_OV_VOL	0x11
+	#define subMENU_CR_BALANCE	0x00
 	//ir
 	#define MENU_IR 0x80
 	#define subMENU_IR 0x00

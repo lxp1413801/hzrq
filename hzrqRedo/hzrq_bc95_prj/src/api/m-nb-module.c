@@ -257,8 +257,11 @@ int16_t nb_udp_cereg_coap(void)
 	uint16_t reclen=sizeof(nbAplReceivedBuffer);
 	uint16_t tyrtm=10;	
 	while(tyrtm){
+		m_lpusart1_deinit();
+		m_lpusart1_init(9600);	
+		osDelay(50);
 		//ret=nb_at_cmd_ex(&AT_CMD_CGPADDR,recbuf,reclen);
-		ret=nb_at_cmd((uint8_t*)"AT+CGPADDR\r\n",(uint8_t*)"OK",recbuf,reclen,1*configTICK_RATE_HZ);
+		ret=nb_at_cmd((uint8_t*)"\r\nAT+CGPADDR\r\n",(uint8_t*)"OK",recbuf,reclen,1*configTICK_RATE_HZ);
 		if(ret!=0)break;
 
 		osDelay(1000);
@@ -860,7 +863,7 @@ int16_t nb_get_nuestatus_cell(void)
 	t32=nb_scanf_int32(p,',',&t16);
 	//snr
 	p=p+t16+1;
-	hzrqSnr=nb_scanf_int32(p,'\r,',&t16);
+	hzrqSnr=nb_scanf_int32(p,'\r',&t16);
 	return ret;
 }
 int16_t nb_coap_verify_baudrete(void)

@@ -105,7 +105,8 @@
     }emPS_t;
 
 	typedef enum{
-		OFF_REASON_NONE,
+		OFF_REASON_NONE=0,
+		OFF_REASON_RST,
 		OFF_REASON_HARD_DEFAULT,
 		
 		OFF_REASON_LO_VOLETAGE,
@@ -325,10 +326,12 @@
         uint32_t	userID;						//用户id
 		uint16_t	companyCode;		
 		uint16_t	reverse02;
-		
+		/*
 		severInf_t	severTest;
 		severInf_t	severRelease;
 		severInf_t	severUser;
+		*/
+		
 		uint8_t		severIndex;
 		uint8_t		reverse00;
 		uint16_t	unNetTimeOut;
@@ -378,10 +381,11 @@
 		
 		stDevStatus_t	devStatus;					//设备状态
 		stlockReasonBits_t	lockReason;				//锁定记录
-
+		int32_t		crBalance;
+		int32_t		crBalanceVol;
+		int32_t		crPrice;
 		//<--for szrq
-		int32_t		szrqBalance;
-		int32_t		szrqBalanceVol;
+/*
 		int32_t		szrqSeverVolume;
 		int32_t		szrqSeverSetpStartVol;
 		uint8_t		szrqSeverSettleTime[6];
@@ -395,6 +399,7 @@
 		uint8_t		szrqtPeriodTime[2];				//上报时间
 		uint8_t		szrqtFreezeDay;					//冻结日
 		uint8_t		szrqtFreezeHour;				//冻结时
+		*/
 		//-->
 		//<<-- add for hzrq
 		uint8_t		hzrqAccountSta;
@@ -405,13 +410,22 @@
 		uint8_t		hzrqAppSwVer[4];
 		uint8_t		hzrqRandomCode[16];
 		uint8_t		hzrqAppProtocolVer[2];
-
 		uint8_t 	hzrqOverdraftStat;				//1	透支状态
 		uint8_t 	hzrqBalanceVolSta;				//1	余量状态
 		
-		int32_t 	hzrqBalanceVol;				//4	剩余气量
-		int32_t 	hzrqPrice;					//4	单价
-		int32_t 	hzrqBalanceMoney;			//4	剩余金额		
+		int32_t		hzrqReverseVol;					//0008H	预留量,不懂干设么用
+		
+		uint8_t		hzrqPeriodType;				//0：表示按天来发送，1：表示按月来发送
+		uint8_t 	hzrqPeriodValue;
+		uint8_t 	hzrqReportHour;
+		uint8_t 	hzrqReportMinute;
+		
+		uint16_t 	hzrqCommFailTimes;			//0012H	通信失败计数	R	2
+		uint16_t 	hzrqSeverPort;
+		uint8_t		hzrqSeverAddr[16];
+		
+		uint8_t		hzrqApn[32];
+		uint16_t	hzrqRefusesPeekInterval;
 		//-->>
 		//
 		uint16_t	crc;

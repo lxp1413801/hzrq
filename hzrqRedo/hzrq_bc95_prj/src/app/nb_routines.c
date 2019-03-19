@@ -4,7 +4,7 @@
 uint8_t nbAplReceivedBuffer[MAX_UART_RX_BUFFER_LEN];
 uint16_t nbAplReceivedCount;
 
-osMessageQDef(nbSendMsgQ, 8,sizeof(uint32_t));
+osMessageQDef(nbSendMsgQ, 8,sizeof(__m_udpSendmsg_t));
 volatile osMessageQId nbSendMsgQ;
 volatile __m_udpSendmsg_t udpSendmsg={0};
 volatile bool  nbRun=false;
@@ -23,6 +23,7 @@ void vTheadCoapPsm(void * pvParameters)
 	uint16_t len;//,t16=10;
 	(void)pvParameters;	
 	volatile __m_udpSendmsg_t __msg={0};
+	
 	while(1){
 		nbRun=false;
 		//osDelay(4000);
@@ -47,6 +48,10 @@ void vTheadCoapPsm(void * pvParameters)
 		nbRun=true;
 		if(__msg.stru.eventMsg & (flg_NB_PROCESS_SEND_REAL | flg_NB_PROCESS_SEND_OLD)){	
 			nb_process_disable_sleep_in_lwp();
+			
+			ret=rf_send_fifo_item_get_unread_num();
+			if(ret<=0)continue;
+			
 			ret=nb_coap_psm_send_ready();
 			if(ret<=0){
 				menu=MENU_HOME;
@@ -86,6 +91,17 @@ void vTheadCoapPsm(void * pvParameters)
 				m_mem_cpy_len(nbAplReceivedBuffer,buf,ret);
 			
 				ret=hzrq_comm_received_process(nbAplReceivedBuffer,ret,nbAplSendBuffer,sizeof(nbAplSendBuffer),__msg.stru.popType);	
+				if(sendStaMichine==__hzrq_SEND_SM_END){
+					if(__hzrqUnSendNum>0){
+						__hzrqUnSendNum=rf_send_fifo_delete_tail();
+					}
+					
+					if(__hzrqUnSendNum>0){
+						
+						sendStaMichine=__hzrq_SEND_SM_REGISTER;
+						continue;
+					}
+				}
 				if(ret<=0)break;
 				len=ret;
 			}while(1);

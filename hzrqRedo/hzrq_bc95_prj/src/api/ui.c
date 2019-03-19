@@ -23,13 +23,13 @@ const uint8_t menuTableSzrq[13]={
 	MENU_CCID,
 	MENU_RTC_YMD,
 	MENU_RTC_HMS,
-	MENU_SZRQ_BALANCE,
-	MENU_SZRQ_OV_VOL,
+	MENU_CR_BALANCE,
+	MENU_CR_OV_VOL,
 };
 const uint8_t menuTableComReader[13]={
 	MENU_HOME,
 	MENU_ID,
-	MENU_TOTALE_VOL,
+	//MENU_TOTALE_VOL,
 	MENU_RSSI,
 	MENU_DLCS,
 	MENU_QN,
@@ -39,7 +39,8 @@ const uint8_t menuTableComReader[13]={
 	MENU_RTC_YMD,
 	MENU_RTC_HMS,
 	MENU_PRICE,
-	MENU_BALANCE,
+	MENU_CR_BALANCE,
+	MENU_CR_OV_VOL,
 };
 const uint8_t menuTableVolMode[11]={
 	MENU_HOME,
@@ -317,28 +318,30 @@ void ui_disp_off_reason(void)
 	uint8_t t8=VavleOffReason;
 	switch(t8){
 		//case OFF_REASON_NONE:
-		case OFF_REASON_HARD_DEFAULT:	m_lcd_disp_str((uint8_t*)"er-Off");break;
-		case OFF_REASON_LO_VOLETAGE:	m_lcd_disp_str((uint8_t*)"lb-Off");break;
-		case OFF_REASON_HI_VOLETAGE:	m_lcd_disp_str((uint8_t*)"hb-Off");break;
-		case OFF_REASON_NO_GAS_FLOW:	m_lcd_disp_str((uint8_t*)"nf-Off");break;
-		case OFF_REASON_SAMLL_GAS_FLOW:	m_lcd_disp_str((uint8_t*)"sf-Off");break;
-		case OFF_REASON_HIGHT_GAS_FLOW:	m_lcd_disp_str((uint8_t*)"hf-Off");break;
-		case OFF_REASON_CONTINUOUS_FLOW:m_lcd_disp_str((uint8_t*)"cf-Off");break;		
-		case OFF_REASON_LOW_OV:		m_lcd_disp_str((uint8_t*)"lg-Off");break;
-		case OFF_REASON_NO_OV:		m_lcd_disp_str((uint8_t*)"ng-Off");break;		
+		case OFF_REASON_RST:			m_lcd_disp_str((uint8_t*)" rst-Off");break;
+		case OFF_REASON_HARD_DEFAULT:	m_lcd_disp_str((uint8_t*)" er-Off");break;
+		case OFF_REASON_LO_VOLETAGE:	m_lcd_disp_str((uint8_t*)" lb-Off");break;
+		case OFF_REASON_HI_VOLETAGE:	m_lcd_disp_str((uint8_t*)" hb-Off");break;
+		case OFF_REASON_NO_GAS_FLOW:	m_lcd_disp_str((uint8_t*)" nf-Off");break;
+		case OFF_REASON_SAMLL_GAS_FLOW:	m_lcd_disp_str((uint8_t*)" sf-Off");break;
+		case OFF_REASON_HIGHT_GAS_FLOW:	m_lcd_disp_str((uint8_t*)" hf-Off");break;
+		case OFF_REASON_CONTINUOUS_FLOW:m_lcd_disp_str((uint8_t*)" cf-Off");break;		
+		case OFF_REASON_LOW_OV:		m_lcd_disp_str((uint8_t*)" lg-Off");break;
+		case OFF_REASON_NO_OV:		m_lcd_disp_str((uint8_t*)" ng-Off");break;		
 		case OFF_REASON_STRONG_MAGTIC:	
 			m_str_cpy(str,(uint8_t*)" st-Off");
 			str[0]=(uint8_t)(sysData.lockReason.bits.bStrongMagnetic)+'0';
 			m_lcd_disp_str(str);
 			break;	
-		case OFF_REASON_EXTERN_SIG:		m_lcd_disp_str((uint8_t*)"et-Off");break;		
-		case OFF_REASON_SEVERS:			m_lcd_disp_str((uint8_t*)"se-Off");break;
-		case OFF_REASON_MANUAL:			m_lcd_disp_str((uint8_t*)"tstOff");break;
-		case OFF_REASON_LEAKAGE:		m_lcd_disp_str((uint8_t*)"Gas-ala");break;
-		case OFF_REASON_CZSN_NONET:		m_lcd_disp_str((uint8_t*)"nc-Off");break;
-		case OFF_REASON_CZSN_WARNING:	m_lcd_disp_str((uint8_t*)"pr-Off");break;
-		case OFF_REASON_SHELL_OPEN:		m_lcd_disp_str((uint8_t*)"sh-Off");break;
-		default	:						m_lcd_disp_str((uint8_t*)" press");break;
+		case OFF_REASON_EXTERN_SIG:		m_lcd_disp_str((uint8_t*)" et-Off");break;		
+		case OFF_REASON_SEVERS:			m_lcd_disp_str((uint8_t*)" se-Off");break;
+		case OFF_REASON_MANUAL:			m_lcd_disp_str((uint8_t*)" tstOff");break;
+		case OFF_REASON_LEAKAGE:		m_lcd_disp_str((uint8_t*)" Gas-ala");break;
+		case OFF_REASON_CZSN_NONET:		m_lcd_disp_str((uint8_t*)" nc-Off");break;
+		case OFF_REASON_CZSN_WARNING:	m_lcd_disp_str((uint8_t*)" pr-Off");break;
+		case OFF_REASON_SHELL_OPEN:		m_lcd_disp_str((uint8_t*)" sh-Off");break;
+		case OFF_REASON_TEMP:			m_lcd_disp_str((uint8_t*)" se-Off");break;
+		default	:						m_lcd_disp_str((uint8_t*)"  press");break;
 	}
     
     //if(t8==OFF_REASON_HIGHT_GAS_FLOW)
@@ -439,11 +442,13 @@ void __ui_disp_menu_home_main(void)
 		t32%=3;
 		switch(t32){
 			case 0x00:ui_disp_menu_id();break;
+			//case 0x00:ui_disp_menu_totale_vol();break;
 			case 0x01:ui_disp_overage_v();break;
 			case 0x02:ui_disp_menu_rssi();break;
 		}
 	}else{
 		if(vavleState==VALVE_ON){
+			
 			if(sysData.DWM==DWM_VOLUME_MODE){
 				ui_disp_overage_v();
 			}else if(sysData.DWM==DWM_COMMON_MODE){
@@ -571,7 +576,9 @@ void ui_disp_menu_price(void)
 {
 	int32_t pc;
 	lcd_clear_all(); 
-	pc=sysData.curPrice;
+	if(sysData.DWM==DWM_STEP_MONEY_MODE){
+		pc=sysData.curPrice;
+	}else{pc=sysData.crPrice;}
 	 
 	__ui_disp_int32_to_float(pc,4);
 	m_lcd_disp_seg_price();
@@ -845,7 +852,7 @@ void ui_disp_menu_szrq_balance(void)
 
 	int32_t om;
 	lcd_clear_all(); 
-	om=sysData.szrqBalance;
+	om=sysData.crBalance;
 	__ui_disp_int32_to_float(om,2);
 	m_lcd_disp_seg_balance_m();
 
@@ -855,7 +862,7 @@ void ui_disp_menu_szrq_ov_vol(void)
 {
 	int32_t ov;
 	lcd_clear_all(); 
-	ov=sysData.szrqBalanceVol;
+	ov=sysData.crBalanceVol;
 	__ui_disp_int32_to_float(ov,2);
 	m_lcd_disp_seg_balance_vol();
 }
@@ -888,8 +895,8 @@ void ui_disp_menu(void)
 		case MENU_CCID:				ui_disp_menu_ccid();		break;
 		case MENU_RTC_YMD:			ui_disp_menu_YMD();			break;
 		case MENU_RTC_HMS:			ui_disp_menu_hms();			break;
-		case MENU_SZRQ_BALANCE:		ui_disp_menu_szrq_balance();break;
-		case MENU_SZRQ_OV_VOL:		ui_disp_menu_szrq_ov_vol();	break;
+		case MENU_CR_BALANCE:		ui_disp_menu_szrq_balance();break;
+		case MENU_CR_OV_VOL:		ui_disp_menu_szrq_ov_vol();	break;
 		//
 		case MENU_IR:				ui_disp_menu_ir();			break;
 		default:break;

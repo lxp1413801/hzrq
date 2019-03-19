@@ -61,6 +61,8 @@ extern "C"{
 	extern void event_process_minute_change(void);
 	
 	extern bool overFlowFlgforSendWarning;
+	
+	extern bool rtcSync;
 #ifdef __cplusplus
 }
 #endif

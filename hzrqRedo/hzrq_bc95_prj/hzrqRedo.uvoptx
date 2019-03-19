@@ -118,12 +118,11 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>爞?燩,w爞?</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
           <Key>JL2CM3</Key>
-          <Name>-U99999993 -O1742 -S2 -ZTIFSpeedSel5000 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -N00("ARM CoreSight SW-DP") -D00(0BC11477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO7 -FD20000000 -FC1000 -FN2 -FF0STM32L0xx_192.FLM -FS08000000 -FL030000 -FP0($$Device:STM32L073RZTx$CMSIS\Flash\STM32L0xx_192.FLM) -FF1STM32L0xx_OPT.FLM -FS11FF80000 -FL114 -FP1($$Device:STM32L073RZTx$CMSIS\Flash\STM32L0xx_OPT.FLM)</Name>
+          <Name>-U99999993 -O1742 -S5 -ZTIFSpeedSel1000 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -N00("ARM CoreSight SW-DP") -D00(0BC11477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8004 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO15 -FD20000000 -FC1000 -FN2 -FF0STM32L0xx_192.FLM -FS08000000 -FL030000 -FP0($$Device:STM32L073RZTx$CMSIS\Flash\STM32L0xx_192.FLM) -FF1STM32L0xx_OPT.FLM -FS11FF80000 -FL114 -FP1($$Device:STM32L073RZTx$CMSIS\Flash\STM32L0xx_OPT.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -148,41 +147,25 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>UL2CM3</Key>
-          <Name>-UAny -O1742 -S9 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(0BC11477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN2 -FF0STM32L0xx_192.FLM -FS08000000 -FL030000 -FP0($$Device:STM32L073RZTx$CMSIS\Flash\STM32L0xx_192.FLM) -FF1STM32L0xx_OPT.FLM -FS11FF80000 -FL114 -FP1($$Device:STM32L073RZTx$CMSIS\Flash\STM32L0xx_OPT.FLM)</Name>
+          <Name>-UAny -O1742 -S10 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(0BC11477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN2 -FF0STM32L0xx_192.FLM -FS08000000 -FL030000 -FP0($$Device:STM32L073RZTx$CMSIS\Flash\STM32L0xx_192.FLM) -FF1STM32L0xx_OPT.FLM -FS11FF80000 -FL114 -FP1($$Device:STM32L073RZTx$CMSIS\Flash\STM32L0xx_OPT.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint>
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>567</LineNumber>
+          <LineNumber>588</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134243534</Address>
+          <Address>134288358</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\hzrq-protocol\hzrq-comm-protocol.c</Filename>
+          <Filename>..\hzrq-protocol\hzrq-data-record.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\18A_freeRTos_stm32l0xx_lpw_demo\../hzrq-protocol/hzrq-comm-protocol.c\567</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>566</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134243522</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\hzrq-protocol\hzrq-comm-protocol.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\18A_freeRTos_stm32l0xx_lpw_demo\../hzrq-protocol/hzrq-comm-protocol.c\566</Expression>
+          <Expression>\\18A_freeRTos_stm32l0xx_lpw_demo\../hzrq-protocol/hzrq-data-record.c\588</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -195,6 +178,11 @@
           <count>1</count>
           <WinNumber>1</WinNumber>
           <ItemText>uartSendBuf</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>eventlogReadedTab</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -239,7 +227,7 @@
         <Enable>1</Enable>
         <EnableLog>0</EnableLog>
         <Protocol>2</Protocol>
-        <DbgClock>5000000</DbgClock>
+        <DbgClock>2000000</DbgClock>
       </DebugDescription>
     </TargetOption>
   </Target>

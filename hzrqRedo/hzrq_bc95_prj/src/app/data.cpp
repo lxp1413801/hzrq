@@ -8,6 +8,7 @@ uint32_t adcValue = 1ul;
 uint32_t voltBat=0x01;
 uint32_t voltAvdd=0x01;	
 osMutexId osMutexSysData=NULL;
+osMutexId osMutexExEeprom=NULL;
 #define MANUAL_ID 60051
 void qc_data_mutex_create(void)
 {
@@ -127,14 +128,18 @@ uint16_t qc_data_sysdata_init(void)
 	//czsn_data_load_sample_send_time(&sendTimeTab,sysData.sendParam);
 	//-->>
 	//
-	freeze_part_init();
+	//freeze_part_init();
+	//rf_send_fifo_format();
+	ex_eeprom_format();
 	rf_send_fifo_init();
+	
+	
 	return ret;
 }
 
 
 //<<--for szrq
-
+/*
 uint16_t freeze_part_format(void)
 {
 
@@ -407,7 +412,7 @@ uint16_t szrq_item_get_unread_num(void)
 	return t16;
 }
 
-
+*/
 
 //-->
 
@@ -503,6 +508,7 @@ uint16_t rf_send_fifo_item_get_unread_num(void)
 	qc_data_read_from_media((uint8_t*)&partHeader,RF_SEND_FIFO_HEAD_START_ADDR,sizeof(rfSendFifoHeader_t));	
 	if(partHeader.itemNum==0)return 0;
 	//return partHeader.unreadNum==0?1:partHeader.unreadNum;
+	rf_send_fifo_init();
 	return partHeader.unreadNum;
 }
 

@@ -1,12 +1,81 @@
 #include "./includes/includes.h"
 uint8_t batCapacity;
+/*
+void HAL_Delay(__IO uint32_t Delay)
+{
+  uint32_t tickstart = 0;
+  tickstart = HAL_GetTick();
+	uint32_t t32=tickstart;
+  while(t32 - tickstart < Delay)
+  {
+	  
+	  t32=HAL_GetTick();
+	  __nop();
+  }
+}
+*/
+/*
+uint16_t ex_eeprom_read(uint8_t devaddr,uint16_t addr,uint8_t* buf,uint16_t len)
+{
+	uint16_t i;
+    uint16_t t16,pagAddr,subAddr;
+	if((void*)osMutexExEeprom)osMutexWait(osMutexExEeprom,osWaitForever);
+	
+	iic_pins_init();
+	HAL_Delay(2);
+	pagAddr=addr / EX_EEPROM_PAGE_SIZE;
+	subAddr=addr % EX_EEPROM_PAGE_SIZE;
 
+	while(len>0){
+		iic_start();
+		iic_send_byte(devaddr);
+		t16=(pagAddr * EX_EEPROM_PAGE_SIZE)+subAddr;
+		iic_send_byte((uint8_t)((t16 >> 0x08)&0x00ff));
+		iic_send_byte((uint8_t)(t16 & 0x00ff));	
+
+		iic_start();
+		iic_send_byte(devaddr+1);	
+		
+		for(i=subAddr;i<EX_EEPROM_PAGE_SIZE;i++){
+			if(len>0)len--;
+			else
+				break;
+			//iic_send_byte(*buf++);
+			if(i<EX_EEPROM_PAGE_SIZE-1 && len!=0){
+			*buf++=iic_received_byte_if_ack(IIC_ACK);
+			}else{
+				*buf++=iic_received_byte_if_ack(IIC_NACK);
+			}
+		}
+		
+		iic_stop();
+        HAL_Delay(2);	
+		if(len){
+			pagAddr++;
+			subAddr=0;
+		}else{
+			break;
+		}
+	}
+
+    HAL_Delay(2);
+    iic_pins_deinit();   
+	HAL_Delay(2);
+	if((void*)osMutexExEeprom)osMutexRelease(osMutexExEeprom);	
+	return 1;
+}
+*/
 uint16_t ex_eeprom_read(uint8_t devaddr,uint16_t addr,uint8_t* buf,uint16_t len)
 {
 	//device must enable 
+	if((void*)osMutexExEeprom)osMutexWait(osMutexExEeprom,osWaitForever);
+	
 	uint16_t i;
     iic_pins_init();
 	HAL_Delay(2);
+	//iic_stop();	
+	HAL_Delay(2);
+
 	iic_start();
 	iic_send_byte(devaddr);
 	iic_send_byte((uint8_t)((addr>>0x08)&0x00ff));
@@ -21,42 +90,20 @@ uint16_t ex_eeprom_read(uint8_t devaddr,uint16_t addr,uint8_t* buf,uint16_t len)
 	iic_stop();	
     HAL_Delay(5);
     iic_pins_deinit();
+	HAL_Delay(5);
+	if((void*)osMutexExEeprom)osMutexRelease(osMutexExEeprom);	
 	return 1;
 }
-/*
-uint16_t ex_eeprom_write(uint8_t devaddr,uint16_t addr,uint8_t* buf,uint16_t len)
-{
-	uint16_t i;
-    uint16_t t16;
-	uint8_t tmpBuf[64];
-	ex_eeprom_read(devaddr,addr,tmpBuf,len);
-	iic_pins_init();
-	
-	for(i=0;i<len;i++){
-		if(tmpBuf[i]==buf[i])continue;
-		
-		iic_start();
-		iic_send_byte(devaddr);
-		t16=addr+i;
-		iic_send_byte((uint8_t)((t16 >> 0x08)&0x00ff));
-		iic_send_byte((uint8_t)(t16 & 0x00ff));
-		
-		iic_send_byte(buf[i]);
-		iic_stop();
-        HAL_Delay(5);
-	}
-    HAL_Delay(2);
-    iic_pins_deinit();    
-	return 1;
-}
-*/
+
+
 uint16_t ex_eeprom_write(uint8_t devaddr,uint16_t addr,uint8_t* buf,uint16_t len)
 {
 	uint16_t i;
     uint16_t t16,pagAddr,subAddr;
-
+	if((void*)osMutexExEeprom)osMutexWait(osMutexExEeprom,osWaitForever);
+	
 	iic_pins_init();
-	HAL_Delay(2);
+	HAL_Delay(5);
 	pagAddr=addr / EX_EEPROM_PAGE_SIZE;
 	subAddr=addr % EX_EEPROM_PAGE_SIZE;
 
@@ -82,8 +129,10 @@ uint16_t ex_eeprom_write(uint8_t devaddr,uint16_t addr,uint8_t* buf,uint16_t len
 		}
 	}
 
-    HAL_Delay(2);
-    iic_pins_deinit();    
+    HAL_Delay(5);
+    iic_pins_deinit();   
+	HAL_Delay(5);
+	if((void*)osMutexExEeprom)osMutexRelease(osMutexExEeprom);	
 	return 1;
 }
 
@@ -116,7 +165,7 @@ uint16_t ex_eeprom_init_part_desc_clog_hour()
 	stp->recordSize=sizeof(consumeLog_t);
 	//stp->recordNum=0x00;
 	stp->recordWriteLoc=0x00;
-	stp->recordReadLoc=0x00;
+	stp->recordNum=0x00;
 	stp->recordUnRead=0x00;
 	
 	crc_append(buf,sizeof(exEepromPartDesc_t)-2);
@@ -138,7 +187,7 @@ uint16_t ex_eeprom_init_part_desc_clog_day(void)
 	stp->recordSize=sizeof(consumeLog_t);
 	//stp->recordNum=0x00;
 	stp->recordWriteLoc=0x00;
-	stp->recordReadLoc=0x00;
+	stp->recordNum=0x00;
 	stp->recordUnRead=0x00;
 	
 	crc_append(buf,sizeof(exEepromPartDesc_t)-2);
@@ -158,9 +207,9 @@ uint16_t ex_eeprom_init_part_desc_clog_month(void)
 	stp->partSize=PART_CONSTLOG_MON_SIZE;
 	stp->partStartAddr=EXEEP_START_ADDR_PART_BODY_CLOG_MON;
 	stp->recordSize=sizeof(consumeLog_t);
-	//stp->recordNum=0x00;
+
 	stp->recordWriteLoc=0x00;
-	stp->recordReadLoc=0x00;
+	stp->recordNum=0x00;
 	stp->recordUnRead=0x00;
 	
 	crc_append(buf,sizeof(exEepromPartDesc_t)-2);
@@ -182,7 +231,7 @@ uint16_t ex_eeprom_init_part_desc_eventlog(void)
 	stp->recordSize=sizeof(eventLog_t);
 	//stp->recordNum=0x00;
 	stp->recordWriteLoc=0x00;
-	stp->recordReadLoc=0x00;
+	stp->recordNum=0x00;
 	stp->recordUnRead=0x00;
 	
 	crc_append(buf,sizeof(exEepromPartDesc_t)-2);
@@ -283,17 +332,10 @@ uint16_t ex_data_write_record(uint8_t partNb,uint8_t* buf,uint16_t len)
 	t16=(t16%limitsItem);
 	partInf.recordWriteLoc=t16;
 	
-	t16=partInf.recordUnRead;
+	if(partInf.recordNum < limitsItem)partInf.recordNum++;
 	if(partInf.recordUnRead < limitsItem)partInf.recordUnRead++;
-	else{
-		t16=partInf.recordReadLoc;
-		t16++;
-		t16=(t16%limitsItem);
-		partInf.recordReadLoc=t16;
-	}
 
-	//if(partInf.recordNum<limitsItem)partInf.recordNum++;
-	
+	//if(partInf.recordNum<limitsItem)partInf.recordNum++;	
 	crc_append((uint8_t*)&partInf,sizeof(exEepromPartDesc_t)-2);
 	ex_eeprom_write(SLV_ADDR,partInfAddr,(uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
 	
@@ -305,7 +347,7 @@ uint16_t ex_data_read_record_loc(uint8_t partNb,uint16_t recordLoc,uint8_t* buf,
 {
 	return 1;
 }
-
+/*
 uint16_t ex_data_read_record(uint8_t partNb,uint8_t* buf,uint16_t len,uint16_t* unRead)
 {
 	uint16_t t1,t2,ItemSize,bodyItemAddr,limitsItem;
@@ -330,7 +372,7 @@ uint16_t ex_data_read_record(uint8_t partNb,uint8_t* buf,uint16_t len,uint16_t* 
 	
 	return ItemSize;
 }
-
+*/
 uint16_t record_save_gas_log(uint8_t partNb)
 {
 	uint32_t t32;
@@ -465,7 +507,7 @@ uint16_t record_read_start_to_end(uint8_t partNb,uint32_t tsStart,uint32_t tsEnd
 	if(loc<0)return 0;
 	
 	exEepromPartDesc_t partDesc;
-	ex_data_get_part_inf(partNb,(uint8_t*)&limitsItem,sizeof(exEepromPartDesc_t));
+	ex_data_get_part_inf(partNb,(uint8_t*)&partDesc,sizeof(exEepromPartDesc_t));
 	
 	limitsItem=partDesc.partSize/partDesc.recordSize;
 	endloc=partDesc.recordWriteLoc;
@@ -481,12 +523,12 @@ uint16_t record_read_start_to_end(uint8_t partNb,uint32_t tsStart,uint32_t tsEnd
 		m_mem_cpy_len((uint8_t*)&t32,buf,sizeof(uint32_t));
 		if(t32>tsEnd)break;
 		if(partNb<3){
-			if(len+sizeof(__sy_gasLog_t)>ssize)break;
-			t16=__sy_gas_log_format((__sy_gasLog_t*)(buf+len),(consumeLog_t*)(tbuf));
+			if(len+sizeof(__hzrq_gasLog_t)>ssize)break;
+			t16=__hzrq_gas_log_format((__hzrq_gasLog_t*)(buf+len),(consumeLog_t*)(tbuf));
 			len+=t16;
 		}else{
-			if(len+sizeof(__sy_eventLog_t)>ssize)break;
-			t16=__sy_event_log_format((__sy_eventLog_t*)(buf+len),(eventLog_t*)(tbuf));
+			if(len+sizeof(__hzrq_gasLog_t)>ssize)break;
+			t16=__hzrq_gas_log_format((__hzrq_gasLog_t*)(buf+len),(consumeLog_t*)(tbuf));
 			len+=t16;
 		}
 		if(loc==endloc)break;
@@ -496,14 +538,227 @@ uint16_t record_read_start_to_end(uint8_t partNb,uint32_t tsStart,uint32_t tsEnd
 }	
 
 //const uint8_t ExEepromTest[]={0xaa,0xaa,0xaa,0xaa};
+
+//事件纪录
+
+uint16_t record_save_event_log(uint16_t eventCode)
+{
+	eventLog_t eventlog={0};
+	//uint8_t buf[32];
+	uint16_t t16;
+	uint16_t len,limitsItem,bodyItemAddr,ItemSize;
+	exEepromPartDesc_t partInf;
+	ex_eeprom_read(SLV_ADDR,EXEEP_START_ADDR_PART_DESC_EVENTLOG,(uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
+	t16=crc_verify((uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
+	if(!t16){
+		ex_eeprom_init_part_desc_eventlog();	
+		return 0;
+	}	
+	
+	ItemSize=partInf.recordSize;
+	//if(len!=ItemSize)return 0;
+	limitsItem=partInf.partSize/ItemSize;
+
+	bodyItemAddr=partInf.partStartAddr + ItemSize * partInf.recordWriteLoc;
+	
+	//load buffer
+	sysDataTime_t dt;
+	m_mem_cpy_len((uint8_t*)&dt,(uint8_t*)&sysRtcDataTime,sizeof(sysDataTime_t));
+
+	eventlog.ts=system_dt_to_time_stamp(&dt);;
+	eventlog.eventCode=eventCode;
+	eventlog.dcls=sysData.DLCS;
+	eventlog.valveSta=vavleState;
+	eventlog.volume=totalVolume;
+	//eventlog.periodVolum;
+	//eventlog.price;
+	eventlog.balanceVol=overageMoney;
+	eventlog.balance=overageMoney;
+	eventlog.devSta=sysData.devStatus.t32;
+	eventlog.lock=sysData.lockReason.t32;	
+	eventlog.readFlg=0;
+	//eventlog.crc16;
+	//endload
+	
+	crc_append((uint8_t*)&eventlog,sizeof(eventLog_t)-2);
+	ex_eeprom_write(SLV_ADDR,bodyItemAddr,(uint8_t*)&eventlog,sizeof(eventLog_t));
+	
+	ex_eeprom_read(SLV_ADDR,bodyItemAddr,(uint8_t*)&eventlog,sizeof(eventLog_t));
+	t16=crc_verify((uint8_t*)&eventlog,sizeof(eventLog_t));	
+	if(!t16)return 0;
+	
+	
+	t16=partInf.recordWriteLoc;
+	t16++;
+	t16=(t16%limitsItem);
+	partInf.recordWriteLoc=t16;
+	
+	if(partInf.recordNum < limitsItem)partInf.recordNum++;
+	
+	
+	if(partInf.recordUnRead < limitsItem)partInf.recordUnRead++;
+
+
+	crc_append((uint8_t*)&partInf,sizeof(exEepromPartDesc_t)-2);
+	ex_eeprom_write(SLV_ADDR,EXEEP_START_ADDR_PART_DESC_EVENTLOG,(uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
+	
+	t16=crc_verify((uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
+	return t16;	
+}
+
+int8_t eventlogReadedTab[EVENT_RECORD_ITEM_LIMITS]={0};
+uint16_t  record_read_eventlog_init(void)
+{
+	eventLog_t eventlog={0};
+	uint16_t bodyItemAddr,t16=1,i=0;
+	//uint16_t itemAddr=EXEEP_START_ADDR_PART_BODY_EVENT_CLOG;
+	exEepromPartDesc_t partInf;
+	ex_eeprom_read(SLV_ADDR,EXEEP_START_ADDR_PART_DESC_EVENTLOG,(uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
+	t16=crc_verify((uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
+	if(!t16){
+		ex_eeprom_init_part_desc_eventlog();	
+		return 0;
+	}	
+	
+	for(i=0;i<EVENT_RECORD_ITEM_LIMITS;i++){
+		
+		if(eventlogReadedTab[i]){
+			bodyItemAddr=partInf.partStartAddr+i*partInf.recordSize;
+			ex_eeprom_read(SLV_ADDR,bodyItemAddr,(uint8_t*)&eventlog,sizeof(eventLog_t));
+			t16=crc_verify((uint8_t*)&eventlog,sizeof(eventLog_t));	
+			if(!t16)break;		
+			if(eventlog.readFlg==0){
+				eventlog.readFlg=1;
+				crc_append((uint8_t*)&eventlog,sizeof(eventLog_t)-2);
+				ex_eeprom_write(SLV_ADDR,bodyItemAddr,(uint8_t*)&eventlog,sizeof(eventLog_t));				
+			}
+		}
+
+	}
+	return t16;
+}
+uint16_t record_read_eventlog_new(uint8_t* buf,uint16_t ssize,uint16_t rdEventCode,uint16_t rdItems)
+{
+	eventLog_t eventlog={0};
+	uint16_t i,len,t16,ergodicLoc,limitsItem,bodyItemAddr;
+	uint16_t retLen=0;
+	exEepromPartDesc_t partInf;
+	
+	record_read_eventlog_init();
+	m_mem_set((uint8_t*)eventlogReadedTab,0,sizeof(eventlogReadedTab));
+	
+	ex_eeprom_read(SLV_ADDR,EXEEP_START_ADDR_PART_DESC_EVENTLOG,(uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
+	t16=crc_verify((uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
+	if(!t16){
+		ex_eeprom_init_part_desc_eventlog();	
+		return 0;
+	}
+	//找到起始位置
+	limitsItem=partInf.partSize/partInf.recordSize;
+	
+	/*
+	t16=partInf.recordWriteLoc+limitsItem;
+	t16-=partInf.recordUnRead;
+	t16%=limitsItem;
+	ergodicLoc=t16;	
+	*/
+	
+	ergodicLoc=0;
+	for(i=0;i<rdItems && i<limitsItem;i++){
+
+		if(i>=partInf.recordNum)break;
+		if(retLen+sizeof(__hzrq_eventLog_t)>ssize){
+			//has more;
+			break;
+		}
+		do{
+			t16=0;
+			bodyItemAddr=partInf.partStartAddr+ergodicLoc*partInf.recordSize;
+			ex_eeprom_read(SLV_ADDR,bodyItemAddr,(uint8_t*)&eventlog,sizeof(eventLog_t));
+			t16=crc_verify((uint8_t*)&eventlog,sizeof(eventLog_t));	
+			if(!t16)break;	
+			//if(eventlog.ts<startTs || eventlog.ts>endTs)break;
+			if(eventlog.readFlg)break;
+			if(rdEventCode!=0xffff){
+				if(eventlog.eventCode!=rdEventCode)break;
+			}
+			retLen+=__hzrq_event_log_format((__hzrq_eventLog_t*)(buf+retLen),&eventlog);
+			eventlogReadedTab[ergodicLoc]=1;
+		//
+		}while(0);
+		ergodicLoc++;
+		
+	}
+//	if(t16==0){
+//	}
+	return retLen;	
+}
+
+uint16_t record_read_eventlog_start_to_end(uint8_t* buf,uint16_t ssize,uint32_t startTs,uint32_t endTs,uint16_t rdEventCode,uint16_t rdItems)
+{
+	//
+	eventLog_t eventlog={0};
+	uint16_t i,len,t16,ergodicLoc,limitsItem,bodyItemAddr;
+	uint16_t retLen=0;
+	exEepromPartDesc_t partInf;
+	
+	record_read_eventlog_init();
+	m_mem_set((uint8_t*)eventlogReadedTab,0,sizeof(eventlogReadedTab));	
+	
+	ex_eeprom_read(SLV_ADDR,EXEEP_START_ADDR_PART_DESC_EVENTLOG,(uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
+	t16=crc_verify((uint8_t*)&partInf,sizeof(exEepromPartDesc_t));	
+	if(!t16){
+		ex_eeprom_init_part_desc_eventlog();	
+		return 0;
+	}
+	//找到起始位置
+	limitsItem=partInf.partSize/partInf.recordSize;
+	//ergodicLoc=partInf.recordWriteLoc;
+	t16=partInf.recordWriteLoc+limitsItem;
+	t16-=partInf.recordNum;
+	t16%=limitsItem;
+	ergodicLoc=t16;
+
+	len=0;
+	if(startTs==~0x00UL)startTs=0UL;
+	
+	for(i=0;i<rdItems;i++){
+
+		if(i>=partInf.recordNum)break;
+		if(retLen+sizeof(__hzrq_eventLog_t)>ssize){
+			//has more;
+			break;
+		}
+		do{
+			t16=0;
+			bodyItemAddr=partInf.partStartAddr+ergodicLoc*partInf.recordSize;
+			ex_eeprom_read(SLV_ADDR,bodyItemAddr,(uint8_t*)&eventlog,sizeof(eventLog_t));
+			t16=crc_verify((uint8_t*)&eventlog,sizeof(eventLog_t));	
+			if(!t16)break;	
+			if(eventlog.ts<startTs || eventlog.ts>endTs)break;
+			if(rdEventCode!=0xffff){
+				if(eventlog.eventCode!=rdEventCode)break;
+			}			
+			retLen+=__hzrq_event_log_format((__hzrq_eventLog_t*)(buf+retLen),&eventlog);
+			eventlogReadedTab[ergodicLoc]=1;
+		//
+		}while(0);
+		ergodicLoc++;
+	}
+//	if(t16==0){
+//	}
+	return retLen;
+}
+
 void ex_data_test(void)
 {
-	// uint8_t buf[4];
-	// ex_eeprom_write(SLV_ADDR,255,(uint8_t*)ExEepromTest,4);
+	uint8_t ExEepromTest[8]={0x55,0xaa,0x55,0xaa,0xaa,0x11,0x33,0x33};
+	 uint8_t buf[8]={0};
+	 ex_eeprom_write(SLV_ADDR,255,(uint8_t*)ExEepromTest,8);
 	// __nop();
-	// ex_eeprom_read(SLV_ADDR,255,(uint8_t*)buf,4);
+	 ex_eeprom_read(SLV_ADDR,255,(uint8_t*)buf,8);
 	//ex_eeprom_format();
-	ex_eeprom_verify();
+	//ex_eeprom_verify();
 	__nop();
 }
 

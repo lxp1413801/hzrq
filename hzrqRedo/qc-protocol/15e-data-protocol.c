@@ -3,7 +3,7 @@
 //stDevStatus_t lastDevStatus,nowDevStatus;
 
 //stlockReasonBits_t lockReason;
-vavleState_t vavleState;
+vavleState_t vavleState=VALVE_OFF;
 
 int8_t rssi;
 uint8_t opStatus;
@@ -48,7 +48,7 @@ const stDeviceInf_t sysDataDefault={
 	{0x18,0x08,0x08,0x00},		//uint8_t		PD[4];
 	16,	//uint8_t		hzrqMeterIdLen;
 	{0},//uint8_t		hzrqReverse[3]
-	"2125200010000001",	//uint8_t		hzrqMeterId[32]
+	"7125200510000001",	//uint8_t		hzrqMeterId[32]
 	{0},						//uint8_t		DeviceName[16];			//设备名称或者型号	
 
 		//????,?????????
@@ -96,9 +96,11 @@ const stDeviceInf_t sysDataDefault={
 	0,							//uint16_t	companyCode;		
 	0,							//uint16_t	reverse02;
 	//	
+	/*
 	{CTCC_TEST_IOT_IP_BIN,0x00},	//severInf_t	severTest;
 	{CTCC_REALEAS_IOT_IP_BIN,0x00},	//severInf_t	severRelease;
 	{HW_TEST_IOT_IP_BIN,0x00},		//severInf_t	severUser;
+	*/
 	1,							//uint8_t		severIndex;
 	0,							//uint8_t		reverse00[3];
 	43200,						//unNetTimeOut
@@ -146,14 +148,15 @@ const stDeviceInf_t sysDataDefault={
 	0,							//int32_t		totalPayMoney;					//总金额	
 
 	1,							//uint8_t		curStep;
-	0,							//uint8_t		offReason;//uint8_t     xreverse0;	
-	0,//{0},						//stDevStatus_t	devStatus;				//设备状态
-	0,							//stlockReasonBits_t	lockReason;				//锁定记录
-	0,							//xreverse0
-	
+	0,							//uint8_t		offReason;	
+	0,//{0},						//xreverse0;
+	0,							//devStatus
+	0,							//lockReason;	
+	0x00L,						//int32_t		crBalance;
+	0x00L,						//int32_t		crBalanceVol;	
+	12345,						//int32_t		crPrice;
 	//<--for szrq
-	0x00L,						//int32_t		szrqBalance;
-	0x00L,						//int32_t		szrqBalanceVol;
+/*
 	0x00L,						//int32_t		szrqSeverVolume;
 	0x00L,						//int32_t		szrqSeverSetpStartVol;
 	{0},						//uint8_t		szrqSeverSettleTime[6];
@@ -167,6 +170,7 @@ const stDeviceInf_t sysDataDefault={
 	{0x18,0x25},				//uint8_t		szrqtPeriodTime[2];				//上报时间
 	0x28,						//uint8_t		szrqtFreezeDay;					//冻结日
 	0x12,						//uint8_t		szrqtFreezeHour;				//冻结时	
+	*/
 	//<<-- add for hzrq
 	__hzrq_ACCOUNT_STA_UNOPEN,//uint8_t		hzrqAccountSta;
 	__hzrq_MOBLE_SEVERS_CTCC,//uint8_t		hzrqMobleSeverInf;
@@ -181,9 +185,19 @@ const stDeviceInf_t sysDataDefault={
 	0,//uint8_t 	hzrqOverdraftStat;				//1	透支状态
 	0,//uint8_t 	hzrqBalanceVolSta;				//1	余量状态
 		
-	0,//int32_t 	hzrqBalanceVol;				//4	剩余气量
-	0,//int32_t 	hzrqPrice;					//4	单价
-	0,//int32_t 	hzrqBalanceMoney;			//4	剩余金额		
+
+	0,//int32_t		reverseVol;	
+	
+	0,	//uint8_t	hzrqPeriodType;				//0：表示按天来发送，1：表示按月来发送
+	0,	//uint8_t 	hzrqPeriodValue;
+	0,	//uint8_t 	hzrqHour;
+	0,	//uint8_t 	hzrqMinute;
+		
+	0,//uint16_t 	hzrqCommFailTimes;
+	1234,////uint16_t 	hzrqSeverPort;
+	"127.0.0.1",//uint8_t		hzrqSeverAddr;
+	"ctnb",//uint8_t		hzrqApn[32];
+	0,//uint16_t	hzrqRefusesPeekInterval;
 	//-->>	
 	
 	//-->	

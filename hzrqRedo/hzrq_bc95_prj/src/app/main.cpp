@@ -95,7 +95,7 @@ void pre_star_thread_main_00(void)
 	
 	qc_data_mutex_create();
 	m_thread_create_sysdata();
-	qc_data_sysdata_set_default();
+	//qc_data_sysdata_set_default();
 
 	//szrq_part_format();
 	qc_data_sysdata_init();
@@ -191,9 +191,15 @@ void vTheadMain(void * pvParameters)
 	}
 }
 
+void qc_ex_eeprom_mutex_create(void)
+{
+	osMutexDef(osMutexExEeprom);
+	osMutexExEeprom = osMutexCreate(osMutex(osMutexExEeprom));	
+}
 
 void m_thread_create_main(void)
 {
+	qc_ex_eeprom_mutex_create();
 	osThreadDef(TheadMain, vTheadMain, osPriorityHigh, 0, configMINIMAL_STACK_SIZE*2);
 	vTheadMainID=osThreadCreate(osThread(TheadMain), NULL);	
 }

@@ -39,7 +39,8 @@ void m_gpio_into_lpw(void)
 
 
 
-	GPIO_InitStruct.Pin=GPIO_PIN_2 + GPIO_PIN_13 + GPIO_PIN_14 + GPIO_PIN_15;
+	//GPIO_InitStruct.Pin=GPIO_PIN_2 + GPIO_PIN_13 + GPIO_PIN_14 + GPIO_PIN_15;
+	GPIO_InitStruct.Pin=GPIO_PIN_2 ;
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 	HAL_GPIO_Init(GPIOB,&GPIO_InitStruct);
 	__HAL_RCC_GPIOB_CLK_DISABLE();		
