@@ -131,6 +131,8 @@
 	extern uint16_t record_save_event_log(uint16_t eventCode);
 	extern uint16_t record_read_eventlog_start_to_end(uint8_t* buf,uint16_t ssize,uint32_t startTs,uint32_t endTs,uint16_t rdEventCode,uint16_t rdItems);
 	extern uint16_t record_read_eventlog_new(uint8_t* buf,uint16_t ssize,uint16_t rdEventCode,uint16_t rdItems);
+	extern uint16_t record_read_vol_log_hour_start_end(uint8_t* buf,uint16_t ssize,uint32_t startTm,uint32_t endTm);
+	extern uint16_t record_read_vol_log_day_start_end(uint8_t* buf,uint16_t ssize,uint32_t startTm,uint32_t endTm);
 	extern void ex_data_test(void);
 	
 #ifdef __cplusplus

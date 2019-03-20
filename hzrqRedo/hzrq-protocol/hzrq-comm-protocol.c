@@ -23,6 +23,7 @@ volatile uint16_t __hzrqUnSendNum=0x00;
 
 #define __hzrq_MAC_LEN 32
 #define __hzrq_DFID_LEN 2
+
 uint16_t __hzrq_crc_sum(uint8_t* puchMsg,uint16_t usDataLen)
 {  
 	uint16_t wCRCin = 0x0000;  
@@ -43,6 +44,7 @@ uint16_t __hzrq_crc_sum(uint8_t* puchMsg,uint16_t usDataLen)
 	}  
 	return (wCRCin) ;  
 }
+
 uint16_t __hzrq_crc_verify(uint8_t* message, uint16_t n)
 {
 
@@ -64,7 +66,6 @@ void __hzrq_crc_append(uint8_t* message, uint16_t n)
     message[n+1] = (uint8_t)(crc & 0xff);
     message[n] = (uint8_t)((crc >> 8) & 0xff);
 }
-
 
 //hatq api
 void __hzrq_load_rtc(uint8_t* buf)
@@ -146,31 +147,11 @@ uint32_t __hzrq_swap_get_t32(uint8_t* src)
 	return t32;
 }
 
-uint16_t __hzrq_gas_log_format(__hzrq_gasLog_t* syGasLog,consumeLog_t* commGasLog)
+uint16_t __hzrq_gas_log_format(__hzrq_gasLog_t* hzrqGasLog,consumeLog_t* commGasLog)
 {
-
-	uint32_t t32;
-	uint8_t buf[16];
-	sysDataTime_t* pdt=(sysDataTime_t*)buf;
-	t32=commGasLog->ts;
-	time_stamp_to_system_dt(t32,pdt);
-	//YYMMDDhhmm
-	syGasLog->dt[0]=pdt->YY;
-	syGasLog->dt[1]=pdt->MM;
-	syGasLog->dt[2]=pdt->DD;
-	syGasLog->dt[3]=pdt->hh;
-	syGasLog->dt[4]=pdt->mm;
-	//XXXXXXXX.XX
-	t32=commGasLog->volume;
-	t32=t32/(sysData.QS);
-	m_mem_set(buf,0,sizeof(buf));
-	m_int_2_str(buf+7,t32,8);
-	
-	t32=t32%(sysData.QS);
-	t32=(t32*100)/(sysData.QS);
-	m_int_2_str(buf+9,t32,2);
-	//hehe~~~
-	m_str_h2b(syGasLog->volume,buf,10);
+	uint32_t t32=commGasLog->volume;
+	t32*=10;
+	__hzrq_swap_load_t32(hzrqGasLog->volume,t32);
 	return sizeof(__hzrq_gasLog_t);
 }
 
@@ -2955,6 +2936,7 @@ int16_t hzrq_ins_rd_event_log(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t
 	t16=_hzrq_load_frame_crc_append(sbuf,t16);
 	return t16;
 }
+
 int16_t hzrq_ins_rd_event_log_new(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t ssize)
 {
 	uint8_t* p;
@@ -2993,6 +2975,119 @@ int16_t hzrq_ins_rd_event_log_new(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint
 	t16=_hzrq_load_frame_crc_append(sbuf,t16);
 	return t16;
 }
+
+int16_t hzrq_ins_rd_vol_log_hour(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t ssize)
+{
+	uint8_t* p;
+	uint32_t tmStart,tmEnd;
+	int16_t t16,logLen,reqReadItems;
+	uint8_t fc,readDay;
+	uint8_t rtBuf[6]={0};
+	t16=_hzrq_received_crc_verify(rbuf,rlen);
+	if(t16==0){return -1;}		
+	fc=_hzrq_get_func_code(rbuf);	
+	
+	__hzrq_dfdReadVolLogDayReq_t* stb=(__hzrq_dfdReadVolLogDayReq_t*)(rbuf+sizeof(__hzrq_frameHerder_t));
+	readDay=stb->days;
+	reqReadItems=stb->days;
+	reqReadItems*=24;
+	m_mem_cpy_len(rtBuf,stb->startDate,3);
+	tmStart=__hzrq_download_rtc(rtBuf);
+	tmStart/=86400UL;
+	tmStart*=86400UL;
+	
+	tmEnd=tmStart+(uint32_t)readDay*86400UL;
+	
+	__hzrq_ctrlByteDef_t cb;
+	cb.b=0;
+	cb.bits.bFuncCode=fc;
+	cb.bits.bDir=__bHZRQ_CBDIR_UP;
+	cb.bits.bhasMore=__bHZRQ_CBHASMORE_OVER;
+	t16=_hzrq_load_frame_header(sbuf,ssize,0,cb.b,__hzrqMid);
+	
+	
+	__hzrq_dfdReadVolLogDayReply_t* sts=(__hzrq_dfdReadVolLogDayReply_t*)(sbuf+sizeof(__hzrq_frameHerder_t));
+	__hzrq_swap_load_t16(sts->iden,__hzrq_DFID_READ_VOLLOG_HOUR);
+
+	m_mem_cpy_len(sts->startDate,stb->startDate,3);
+	t16+=sizeof(__hzrq_dfdReadVolLogDayReply_t);
+	
+	
+	p=sbuf+t16;
+	logLen=record_read_vol_log_hour_start_end(p,ssize-32,tmStart,tmEnd);	
+	logLen-=(logLen%(24*4));
+	t16+=logLen;
+
+	sts->days=(uint8_t)logLen/(24*4);
+	t16+=3;
+
+	t16=__hzrq_load_frame_mod_len(sbuf,t16);	
+	t16=_hzrq_load_frame_encrypt(sbuf,t16);	
+	t16=_hzrq_load_frame_crc_append(sbuf,t16);
+	return t16;	
+}
+
+int16_t hzrq_ins_rd_vol_log_day(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t ssize)
+{
+	uint8_t* p;
+	uint32_t tmStart,tmEnd;
+	int16_t t16,logLen,reqReadItems;
+	uint8_t fc,readDay;
+	uint8_t rtBuf[6]={0};
+	t16=_hzrq_received_crc_verify(rbuf,rlen);
+	if(t16==0){return -1;}		
+	fc=_hzrq_get_func_code(rbuf);	
+	
+	__hzrq_dfdReadVolLogDayReq_t* stb=(__hzrq_dfdReadVolLogDayReq_t*)(rbuf+sizeof(__hzrq_frameHerder_t));
+	readDay=stb->days;
+	reqReadItems=stb->days;
+	reqReadItems*=24;
+	m_mem_cpy_len(rtBuf,stb->startDate,3);
+	tmStart=__hzrq_download_rtc(rtBuf);
+	tmStart/=86400UL;
+	tmStart*=86400UL;
+	
+	tmEnd=tmStart+(uint32_t)readDay*86400UL;
+	
+	__hzrq_ctrlByteDef_t cb;
+	cb.b=0;
+	cb.bits.bFuncCode=fc;
+	cb.bits.bDir=__bHZRQ_CBDIR_UP;
+	cb.bits.bhasMore=__bHZRQ_CBHASMORE_OVER;
+	t16=_hzrq_load_frame_header(sbuf,ssize,0,cb.b,__hzrqMid);
+	
+	
+	__hzrq_dfdReadVolLogDayReply_t* sts=(__hzrq_dfdReadVolLogDayReply_t*)(sbuf+sizeof(__hzrq_frameHerder_t));
+	__hzrq_swap_load_t16(sts->iden,__hzrq_DFID_READ_VOLLOG_DAY);
+
+	m_mem_cpy_len(sts->startDate,stb->startDate,3);
+	t16+=sizeof(__hzrq_dfdReadVolLogDayReq_t);
+	
+	
+	p=sbuf+t16;
+	logLen=record_read_vol_log_day_start_end(p,ssize-32,tmStart,tmEnd);	
+	logLen-=(logLen%(1*4));
+	t16+=logLen;
+
+	sts->days=(uint8_t)logLen/(1*4);
+	t16+=3;
+
+	t16=__hzrq_load_frame_mod_len(sbuf,t16);	
+	t16=_hzrq_load_frame_encrypt(sbuf,t16);	
+	t16=_hzrq_load_frame_crc_append(sbuf,t16);
+	return t16;	
+}
+
+int16_t hzrq_ins_rd_vol_log_month(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t ssize)
+{
+	return 0;
+}
+
+int16_t hzrq_ins_default(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t ssize)
+{
+	return 0;
+}
+
 int16_t hzrq_comm_received_process(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t ssize,uint8_t popType)
 {
 	int16_t ret;
@@ -3055,7 +3150,11 @@ int16_t hzrq_comm_received_process(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uin
 		////A.2　记录数据
 		case __hzrq_DFID_READ_EVENTLOG:			ret=hzrq_ins_rd_event_log(rbuf,rlen,sbuf,ssize);			break;
 		case __hzrq_DFID_READ_EVENTLOG_NEW:		ret=hzrq_ins_rd_event_log_new(rbuf,rlen,sbuf,ssize);		break;
-		default:ret=0;break;
+		case __hzrq_DFID_READ_VOLLOG_HOUR:		ret=hzrq_ins_rd_vol_log_hour(rbuf,rlen,sbuf,ssize);			break;
+		case __hzrq_DFID_READ_VOLLOG_DAY:		ret=hzrq_ins_rd_vol_log_day(rbuf,rlen,sbuf,ssize);			break;
+		case __hzrq_DFID_READ_VOLLOG_MONTH:		ret=hzrq_ins_rd_vol_log_month(rbuf,rlen,sbuf,ssize);		break;
+		
+		default:								ret=hzrq_ins_default(rbuf,rlen,sbuf,ssize);					break;
 		
 	}
 	return ret;

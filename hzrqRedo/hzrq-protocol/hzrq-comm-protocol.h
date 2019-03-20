@@ -642,9 +642,9 @@
 	
 	//与数据记录有关的数据结构定义
 	typedef struct{
-		uint8_t dt[5];
+		//uint8_t dt[5];
 		uint8_t	volume[4];
-		uint8_t	volumeEx;
+		//uint8_t	volumeEx;
 	}__hzrq_gasLog_t;
 	
 	typedef struct{

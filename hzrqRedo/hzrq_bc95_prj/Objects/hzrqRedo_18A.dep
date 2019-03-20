@@ -87,8 +87,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -102,7 +102,7 @@ I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0x
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
 I (.\src\./app/cmd_line.h)(0x5C78A533)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
-F (.\src\app\data.cpp)(0x5C90974C)(--cpp -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\data.o --omf_browse .\objects\data.crf --depend .\objects\data.d)
+F (.\src\app\data.cpp)(0x5C91EDA9)(--cpp -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\data.o --omf_browse .\objects\data.crf --depend .\objects\data.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -190,8 +190,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -293,8 +293,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -396,8 +396,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -499,8 +499,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -602,8 +602,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -705,8 +705,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -808,8 +808,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -911,8 +911,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -1014,8 +1014,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -3132,8 +3132,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -3235,8 +3235,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -3338,8 +3338,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -3441,8 +3441,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -3544,8 +3544,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -3647,8 +3647,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -3750,8 +3750,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -4064,8 +4064,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -4244,8 +4244,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -4347,8 +4347,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -4362,7 +4362,7 @@ I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0x
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
 I (.\src\./app/cmd_line.h)(0x5C78A533)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
-F (..\hzrq-protocol\hzrq-data-record.c)(0x5C90A863)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\hzrq-data-record.o --omf_browse .\objects\hzrq-data-record.crf --depend .\objects\hzrq-data-record.d)
+F (..\hzrq-protocol\hzrq-data-record.c)(0x5C920205)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\hzrq-data-record.o --omf_browse .\objects\hzrq-data-record.crf --depend .\objects\hzrq-data-record.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -4450,8 +4450,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)
@@ -4465,7 +4465,7 @@ I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0x
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
 I (.\src\./app/cmd_line.h)(0x5C78A533)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
-F (..\hzrq-protocol\hzrq-comm-protocol.c)(0x5C908662)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\hzrq-comm-protocol.o --omf_browse .\objects\hzrq-comm-protocol.crf --depend .\objects\hzrq-comm-protocol.d)
+F (..\hzrq-protocol\hzrq-comm-protocol.c)(0x5C920219)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\hzrq-comm-protocol.o --omf_browse .\objects\hzrq-comm-protocol.crf --depend .\objects\hzrq-comm-protocol.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -4553,8 +4553,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\float.h)(0x57F606B6)
 I (..\qc-protocol\15e-data-protocol.h)(0x5C8B0FBA)
 I (..\qc-protocol\data-protocol-ex.h)(0x5BBAFDDD)
-I (..\hzrq-protocol\hzrq-data-record.h)(0x5C9092DE)
-I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C90646B)
+I (..\hzrq-protocol\hzrq-data-record.h)(0x5C92022B)
+I (..\hzrq-protocol\hzrq-comm-protocol.h)(0x5C91D242)
 I (.\src\./api/m_api.h)(0x5C7392FF)
 I (.\src\./api/ui.h)(0x5C874EAA)
 I (.\src\./api/valve_api.h)(0x5A422EB2)

@@ -130,7 +130,7 @@ uint16_t qc_data_sysdata_init(void)
 	//
 	//freeze_part_init();
 	//rf_send_fifo_format();
-	ex_eeprom_format();
+	//ex_eeprom_format();
 	rf_send_fifo_init();
 	
 	
@@ -549,7 +549,6 @@ uint16_t rf_send_fifo_get_tail(uint8_t* buf,uint16_t* unreadNum)
 
 uint16_t rf_send_fifo_delete_tail(void)
 {
-
 	rfSendFifoHeader_t partHeader;
 
 	qc_data_read_from_media((uint8_t*)&partHeader,RF_SEND_FIFO_HEAD_START_ADDR,sizeof(rfSendFifoHeader_t));	

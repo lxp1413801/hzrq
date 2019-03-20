@@ -1,70 +1,7 @@
 #include "./includes/includes.h"
 uint8_t batCapacity;
-/*
-void HAL_Delay(__IO uint32_t Delay)
-{
-  uint32_t tickstart = 0;
-  tickstart = HAL_GetTick();
-	uint32_t t32=tickstart;
-  while(t32 - tickstart < Delay)
-  {
-	  
-	  t32=HAL_GetTick();
-	  __nop();
-  }
-}
-*/
-/*
-uint16_t ex_eeprom_read(uint8_t devaddr,uint16_t addr,uint8_t* buf,uint16_t len)
-{
-	uint16_t i;
-    uint16_t t16,pagAddr,subAddr;
-	if((void*)osMutexExEeprom)osMutexWait(osMutexExEeprom,osWaitForever);
-	
-	iic_pins_init();
-	HAL_Delay(2);
-	pagAddr=addr / EX_EEPROM_PAGE_SIZE;
-	subAddr=addr % EX_EEPROM_PAGE_SIZE;
 
-	while(len>0){
-		iic_start();
-		iic_send_byte(devaddr);
-		t16=(pagAddr * EX_EEPROM_PAGE_SIZE)+subAddr;
-		iic_send_byte((uint8_t)((t16 >> 0x08)&0x00ff));
-		iic_send_byte((uint8_t)(t16 & 0x00ff));	
 
-		iic_start();
-		iic_send_byte(devaddr+1);	
-		
-		for(i=subAddr;i<EX_EEPROM_PAGE_SIZE;i++){
-			if(len>0)len--;
-			else
-				break;
-			//iic_send_byte(*buf++);
-			if(i<EX_EEPROM_PAGE_SIZE-1 && len!=0){
-			*buf++=iic_received_byte_if_ack(IIC_ACK);
-			}else{
-				*buf++=iic_received_byte_if_ack(IIC_NACK);
-			}
-		}
-		
-		iic_stop();
-        HAL_Delay(2);	
-		if(len){
-			pagAddr++;
-			subAddr=0;
-		}else{
-			break;
-		}
-	}
-
-    HAL_Delay(2);
-    iic_pins_deinit();   
-	HAL_Delay(2);
-	if((void*)osMutexExEeprom)osMutexRelease(osMutexExEeprom);	
-	return 1;
-}
-*/
 uint16_t ex_eeprom_read(uint8_t devaddr,uint16_t addr,uint8_t* buf,uint16_t len)
 {
 	//device must enable 
@@ -494,7 +431,7 @@ int16_t record_search_at_ts(uint8_t partNb,uint32_t ts)
 }
 
 //读取一个时间段的记录
-uint16_t record_read_start_to_end(uint8_t partNb,uint32_t tsStart,uint32_t tsEnd,uint8_t* buf,uint16_t ssize)
+uint16_t record_read_start_to_end(uint8_t partNb,uint8_t* buf,uint16_t ssize,uint32_t tsStart,uint32_t tsEnd)
 {
 	uint32_t t32;
 	int16_t loc,endloc;
@@ -519,24 +456,52 @@ uint16_t record_read_start_to_end(uint8_t partNb,uint32_t tsStart,uint32_t tsEnd
 	do{
 		
 		t16=partDesc.partStartAddr+loc*(partDesc.recordSize);
-		ex_eeprom_read(SLV_ADDR,t16,buf,partDesc.recordSize);
-		m_mem_cpy_len((uint8_t*)&t32,buf,sizeof(uint32_t));
+		ex_eeprom_read(SLV_ADDR,t16,tbuf,partDesc.recordSize);
+		m_mem_cpy_len((uint8_t*)&t32,tbuf,sizeof(uint32_t));
 		if(t32>tsEnd)break;
-		if(partNb<3){
+		do{
+			if(t32<tsStart)break;
+			t16=crc_verify(tbuf,partDesc.recordSize);
+			if(t16==0)break;
 			if(len+sizeof(__hzrq_gasLog_t)>ssize)break;
 			t16=__hzrq_gas_log_format((__hzrq_gasLog_t*)(buf+len),(consumeLog_t*)(tbuf));
 			len+=t16;
-		}else{
-			if(len+sizeof(__hzrq_gasLog_t)>ssize)break;
-			t16=__hzrq_gas_log_format((__hzrq_gasLog_t*)(buf+len),(consumeLog_t*)(tbuf));
-			len+=t16;
-		}
+		}while(0);
+
 		if(loc==endloc)break;
 		loc+=limitsItem;loc++;loc%=limitsItem;
 	}while(1);
+	
+	
 	return len;
 }	
 
+
+uint16_t record_read_vol_log_hour_start_end(uint8_t* buf,uint16_t ssize,uint32_t startTm,uint32_t endTm)
+{
+	//24*4=96
+	uint16_t t16;
+	t16=record_read_start_to_end(PART_SN_CONSTLOG_HOUR,buf,ssize,startTm,endTm);
+	while((t16%96) !=0){
+		m_mem_cpy_len(buf+t16,buf+t16-4,4);
+		t16+=4;
+	}
+	return t16;
+	
+}
+
+uint16_t record_read_vol_log_day_start_end(uint8_t* buf,uint16_t ssize,uint32_t startTm,uint32_t endTm)
+{
+	//24*4=96
+	uint16_t t16;
+	t16=record_read_start_to_end(PART_SN_CONSTLOG_DAY,buf,ssize,startTm,endTm);
+//	while((t16%96) !=0){
+//		m_mem_cpy_len(buf+t16,buf+t16-4,4);
+//		t16+=4;
+//	}
+	return t16;
+	
+}
 //const uint8_t ExEepromTest[]={0xaa,0xaa,0xaa,0xaa};
 
 //事件纪录
