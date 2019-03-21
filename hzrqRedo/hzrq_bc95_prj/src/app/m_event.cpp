@@ -590,6 +590,7 @@ void event_rtc_change_day(void)
 void event_rtc_change_month(void)
 {
 	hzrq_report_next_tm_recalc();
+	if(rtcSync)record_api_save_month_log();
 }
 
 void event_rtc_date_time_x(void)
@@ -615,6 +616,7 @@ void event_rtc_date_time_x(void)
 	}
 	if(aMonthAgo!=sysRtcDataTime.MM)
 	{
+		aMonthAgo=sysRtcDataTime.MM;
 		event_rtc_change_month();
 	}
 }

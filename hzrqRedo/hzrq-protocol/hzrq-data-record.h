@@ -125,6 +125,8 @@
 	extern uint16_t record_api_save_day_log(void);
 	extern uint16_t record_api_save_month_log(void);
 	
+	extern volatile uint32_t recordReadStartTs;
+	
 	//搜索记录中时间大于指定时间ts的第一条记录位置;返回值非负表示位置，返回值负表示搜索失败
 	extern int16_t record_search_at_ts(uint8_t partNb,uint32_t ts);
 	extern uint16_t record_read_start_to_end(uint8_t partNb,uint32_t tsStart,uint32_t tsEnd,uint8_t* buf,uint16_t ssize);
@@ -133,6 +135,7 @@
 	extern uint16_t record_read_eventlog_new(uint8_t* buf,uint16_t ssize,uint16_t rdEventCode,uint16_t rdItems);
 	extern uint16_t record_read_vol_log_hour_start_end(uint8_t* buf,uint16_t ssize,uint32_t startTm,uint32_t endTm);
 	extern uint16_t record_read_vol_log_day_start_end(uint8_t* buf,uint16_t ssize,uint32_t startTm,uint32_t endTm);
+	extern uint16_t record_read_vol_log_month_start_end(uint8_t* buf,uint16_t ssize,uint32_t startTm,uint32_t endTm);
 	extern void ex_data_test(void);
 	
 #ifdef __cplusplus

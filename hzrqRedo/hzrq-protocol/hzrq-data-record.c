@@ -1,4 +1,5 @@
 #include "./includes/includes.h"
+volatile uint32_t recordReadStartTs=0x00UL;
 uint8_t batCapacity;
 
 
@@ -463,7 +464,8 @@ uint16_t record_read_start_to_end(uint8_t partNb,uint8_t* buf,uint16_t ssize,uin
 			if(t32<tsStart)break;
 			t16=crc_verify(tbuf,partDesc.recordSize);
 			if(t16==0)break;
-			if(len+sizeof(__hzrq_gasLog_t)>ssize)break;
+			if(len+sizeof(__hzrq_gasLog_t)>ssize-128)break;
+			if(recordReadStartTs==0x00UL)recordReadStartTs=((consumeLog_t*)tbuf)->ts;
 			t16=__hzrq_gas_log_format((__hzrq_gasLog_t*)(buf+len),(consumeLog_t*)(tbuf));
 			len+=t16;
 		}while(0);
@@ -502,6 +504,19 @@ uint16_t record_read_vol_log_day_start_end(uint8_t* buf,uint16_t ssize,uint32_t 
 	return t16;
 	
 }
+uint16_t record_read_vol_log_month_start_end(uint8_t* buf,uint16_t ssize,uint32_t startTm,uint32_t endTm)
+{
+	//24*4=96
+	uint16_t t16;
+	t16=record_read_start_to_end(PART_SN_CONSTLOG_MON,buf,ssize,startTm,endTm);
+	while((t16%48) !=0){
+		m_mem_cpy_len(buf+t16,buf+t16-4,4);
+		t16+=4;
+	}
+	return t16>48?48:t16;
+	
+}
+
 //const uint8_t ExEepromTest[]={0xaa,0xaa,0xaa,0xaa};
 
 //ÊÂ¼þ¼ÍÂ¼
@@ -647,6 +662,7 @@ uint16_t record_read_eventlog_new(uint8_t* buf,uint16_t ssize,uint16_t rdEventCo
 			if(rdEventCode!=0xffff){
 				if(eventlog.eventCode!=rdEventCode)break;
 			}
+			if(recordReadStartTs==0x00UL)recordReadStartTs=eventlog.ts;
 			retLen+=__hzrq_event_log_format((__hzrq_eventLog_t*)(buf+retLen),&eventlog);
 			eventlogReadedTab[ergodicLoc]=1;
 		//
@@ -704,6 +720,7 @@ uint16_t record_read_eventlog_start_to_end(uint8_t* buf,uint16_t ssize,uint32_t 
 			if(rdEventCode!=0xffff){
 				if(eventlog.eventCode!=rdEventCode)break;
 			}			
+			if(recordReadStartTs==0x00UL)recordReadStartTs=eventlog.ts;
 			retLen+=__hzrq_event_log_format((__hzrq_eventLog_t*)(buf+retLen),&eventlog);
 			eventlogReadedTab[ergodicLoc]=1;
 		//

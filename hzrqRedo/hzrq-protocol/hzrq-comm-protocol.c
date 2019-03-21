@@ -85,6 +85,7 @@ uint32_t __hzrq_download_rtc(uint8_t* dtbuf)
 
 	uint32_t t32;
 	sysDataTime_t dt={0};
+	dt.YYhi=0x20;
 	dt.YY=dtbuf[0];
 	dt.MM=dtbuf[1];
 	dt.DD=dtbuf[2];
@@ -2924,6 +2925,7 @@ int16_t hzrq_ins_rd_event_log(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t
 	t16+=2;
 	
 	p=sbuf+sizeof(__hzrq_frameHerder_t)+3;
+	recordReadStartTs=0x00UL;
 	logLen=record_read_eventlog_start_to_end(p,ssize-32,tmStart,tmEnd,readEventCode,readNum);
 	
 	p=sbuf+sizeof(__hzrq_frameHerder_t)+2;
@@ -2963,6 +2965,7 @@ int16_t hzrq_ins_rd_event_log_new(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint
 	t16+=2;	
 	
 	p=sbuf+sizeof(__hzrq_frameHerder_t)+3;
+	recordReadStartTs=0x00UL;
 	logLen=record_read_eventlog_new(p,ssize-32,readEventCode,readNum);	
 	
 	p=sbuf+sizeof(__hzrq_frameHerder_t)+2;
@@ -3014,10 +3017,17 @@ int16_t hzrq_ins_rd_vol_log_hour(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint1
 	
 	
 	p=sbuf+t16;
+	recordReadStartTs=0x00UL;
 	logLen=record_read_vol_log_hour_start_end(p,ssize-32,tmStart,tmEnd);	
 	logLen-=(logLen%(24*4));
 	t16+=logLen;
-
+	
+	sysDataTime_t dt={0};
+	time_stamp_to_system_dt(recordReadStartTs,&dt);
+	sts->startDate[0]=dt.YY;
+	sts->startDate[1]=dt.MM;
+	sts->startDate[2]=dt.DD;
+	
 	sts->days=(uint8_t)logLen/(24*4);
 	t16+=3;
 
@@ -3065,9 +3075,16 @@ int16_t hzrq_ins_rd_vol_log_day(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16
 	
 	
 	p=sbuf+t16;
+	recordReadStartTs=0x00UL;
 	logLen=record_read_vol_log_day_start_end(p,ssize-32,tmStart,tmEnd);	
 	logLen-=(logLen%(1*4));
 	t16+=logLen;
+
+	sysDataTime_t dt={0};
+	time_stamp_to_system_dt(recordReadStartTs,&dt);
+	sts->startDate[0]=dt.YY;
+	sts->startDate[1]=dt.MM;
+	sts->startDate[2]=dt.DD;
 
 	sts->days=(uint8_t)logLen/(1*4);
 	t16+=3;
@@ -3080,6 +3097,61 @@ int16_t hzrq_ins_rd_vol_log_day(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16
 
 int16_t hzrq_ins_rd_vol_log_month(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t ssize)
 {
+	uint8_t* p;
+	uint32_t tmStart,tmEnd;
+	int16_t t16,logLen,reqReadItems;
+	uint8_t fc;
+	uint8_t rtBuf[6]={0x00,0x01,0x01,0x00,0x00,0x00};
+	t16=_hzrq_received_crc_verify(rbuf,rlen);
+	if(t16==0){return -1;}		
+	fc=_hzrq_get_func_code(rbuf);	
+	
+	__hzrq_dfdReadVolLogMonthReq_t* stb=(__hzrq_dfdReadVolLogMonthReq_t*)(rbuf+sizeof(__hzrq_frameHerder_t));
+	//readDay=stb->days;
+	//reqReadItems=stb->days;
+	//reqReadItems*=24;
+	reqReadItems=12;
+	//m_mem_cpy_len(rtBuf,stb->startDate,3);
+	rtBuf[0]=stb->year;
+	tmStart=__hzrq_download_rtc(rtBuf);
+	rtBuf[1]=0x12;
+	tmEnd=__hzrq_download_rtc(rtBuf);
+	
+	__hzrq_ctrlByteDef_t cb;
+	cb.b=0;
+	cb.bits.bFuncCode=fc;
+	cb.bits.bDir=__bHZRQ_CBDIR_UP;
+	cb.bits.bhasMore=__bHZRQ_CBHASMORE_OVER;
+	t16=_hzrq_load_frame_header(sbuf,ssize,0,cb.b,__hzrqMid);
+	
+	
+	__hzrq_dfdReadVolLogMonthReply_t* sts=(__hzrq_dfdReadVolLogMonthReply_t*)(sbuf+sizeof(__hzrq_frameHerder_t));
+	__hzrq_swap_load_t16(sts->iden,__hzrq_DFID_READ_VOLLOG_MONTH);
+
+	//m_mem_cpy_len(sts->startDate,stb->startDate,3);
+	sts->year=stb->year;
+	t16+=sizeof(__hzrq_dfdReadVolLogMonthReply_t);
+	
+	
+	p=sbuf+t16;
+	recordReadStartTs=0x00UL;
+	logLen=record_read_vol_log_month_start_end(p,ssize-32,tmStart,tmEnd);	
+	//logLen-=(logLen%(1*4));
+	t16+=logLen;
+
+	sysDataTime_t dt={0};
+	time_stamp_to_system_dt(recordReadStartTs,&dt);
+	sts->year=dt.YY;
+
+
+	//sts->days=(uint8_t)logLen/(1*4);
+	t16+=3;
+
+	t16=__hzrq_load_frame_mod_len(sbuf,t16);	
+	t16=_hzrq_load_frame_encrypt(sbuf,t16);	
+	t16=_hzrq_load_frame_crc_append(sbuf,t16);
+	return t16;		
+	
 	return 0;
 }
 
