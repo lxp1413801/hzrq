@@ -1,10 +1,6 @@
 #include "./includes/includes.h"
 volatile uint8_t __hzrqMsgSendSn=0x00;
 volatile uint8_t __hzrqMid=0xff;
-
-
-
-
 //volatile int16_t hzrqCommFailTimes=0x00;
 volatile int16_t hzrqRsrp=0;
 volatile int16_t hzrqSnr=0;
@@ -19,7 +15,6 @@ uint8_t hzrqComBuf[256];
 volatile uint16_t __hzrqEventCode=0x00;
 volatile uint16_t __hzrqErrorCode=0x00;
 volatile uint16_t __hzrqUnSendNum=0x00;
-
 
 #define __hzrq_MAC_LEN 32
 #define __hzrq_DFID_LEN 2
@@ -193,6 +188,7 @@ uint16_t __hzrq_pkcs7padding(uint8_t* buf,uint16_t bufLen,uint16_t kcpsLen)
 	}
 	return retlen;
 }
+
 void __hzrq_get_encrypt_key(uint8_t* encryptKey,uint8_t* random, uint16_t randomLen)
 {
 	//“会话加密密钥”由用“主密钥”对注册数据中的“通信随机码”进行HMAC-SHA256计算得到。
@@ -254,23 +250,6 @@ uint16_t _hzrq_crc_append_send(uint8_t* sbuf,uint16_t slen)
 	return slen;
 }
 
-
-
-//encrypt key
-//AES128 ECB
-/*
-uint16_t _hzrq_pkcs7padding(uint8_t* buf,uint16_t len)
-{
-	uint16_t i,t16,retlen;
-	t16=(16-(len&0x0f));
-	retlen=(len & ~0x0f) +16;
-	for(i=len;i<retlen;i++){
-		buf[i]=t16;
-	}
-	return retlen;
-}
-*/
-
 void _hzrq_load_device_sta(uint8_t* buf)
 {
 	__hzrq_deviceStaByteDef_t sta={0};
@@ -324,9 +303,6 @@ uint16_t _hzrq_load_frame_header(uint8_t* sbuf,uint16_t ssize,uint16_t len,uint8
 	
 	return sizeof(__hzrq_frameHerder_t);
 }
-
-
-
 
 uint16_t _hzrq_load_frame_mac(uint8_t* sbuf,uint16_t len)
 {
@@ -642,6 +618,7 @@ uint16_t hzrq_load_pop_frame(uint8_t* sbuf,uint16_t ssize,uint8_t popType,uint16
 	return len;	
 
 }
+
 uint16_t __hzrq_load_rw_fb_insert_retvalue(uint8_t* sbuf,uint16_t len,uint16_t retvalue)
 {
 	uint16_t frmLen;
@@ -661,6 +638,7 @@ uint16_t __hzrq_load_rw_fb_insert_retvalue(uint8_t* sbuf,uint16_t len,uint16_t r
 	__hzrq_load_frame_mod_len(sbuf,frmLen);
 	return frmLen;
 }
+
 uint16_t hzrq_load_rw_valve(uint8_t* sbuf,uint16_t ssize,uint8_t cb)
 {
 	uint16_t len,t16;
@@ -2907,8 +2885,10 @@ int16_t hzrq_ins_rd_event_log(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t
 	
 	stb=(__hzrq_dfdReadEventLogReq_t*)(rbuf+sizeof(__hzrq_frameHerder_t));
 	//计算起始时间和结束时间
-	tmStart=__hzrq_download_rtc(stb->startDt);
-	tmEnd=__hzrq_download_rtc(stb->endDt);
+	tmStart=__hzrq_download_rtc(stb->startDt);tmStart/=86400UL;tmStart*=86400UL;
+	//tmStart-=(tmStart)
+	tmEnd=__hzrq_download_rtc(stb->endDt);tmEnd/=86400UL;tmEnd*=86400UL;tmEnd+=86400UL;
+	
 	readEventCode=__hzrq_swap_get_t16(stb->eventCode);
 	readNum=stb->readNum;
 	

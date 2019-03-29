@@ -33,7 +33,6 @@ uint16_t ex_eeprom_read(uint8_t devaddr,uint16_t addr,uint8_t* buf,uint16_t len)
 	return 1;
 }
 
-
 uint16_t ex_eeprom_write(uint8_t devaddr,uint16_t addr,uint8_t* buf,uint16_t len)
 {
 	uint16_t i;
@@ -431,10 +430,11 @@ int16_t record_search_at_ts(uint8_t partNb,uint32_t ts)
 	return ret;
 }
 
+sysDataTime_t tempDt;
 //读取一个时间段的记录
 uint16_t record_read_start_to_end(uint8_t partNb,uint8_t* buf,uint16_t ssize,uint32_t tsStart,uint32_t tsEnd)
 {
-	uint32_t t32;
+	uint32_t t32,lastReadTs=0x00Ul;
 	int16_t loc,endloc;
 	uint16_t t16,limitsItem;
 	uint16_t len=0;
@@ -453,9 +453,7 @@ uint16_t record_read_start_to_end(uint8_t partNb,uint8_t* buf,uint16_t ssize,uin
 	endloc+=limitsItem;endloc--;endloc%=limitsItem;
 	
 	if(sizeof(tbuf)<partDesc.recordSize)while(1);
-
 	do{
-		
 		t16=partDesc.partStartAddr+loc*(partDesc.recordSize);
 		ex_eeprom_read(SLV_ADDR,t16,tbuf,partDesc.recordSize);
 		m_mem_cpy_len((uint8_t*)&t32,tbuf,sizeof(uint32_t));
@@ -465,6 +463,21 @@ uint16_t record_read_start_to_end(uint8_t partNb,uint8_t* buf,uint16_t ssize,uin
 			t16=crc_verify(tbuf,partDesc.recordSize);
 			if(t16==0)break;
 			if(len+sizeof(__hzrq_gasLog_t)>ssize-128)break;
+			//<<--排重，这个重要
+			if(partNb==PART_SN_CONSTLOG_HOUR){
+				t32-=(t32%3600UL);
+				if(t32==lastReadTs)break;
+				
+			}else if(partNb==PART_SN_CONSTLOG_DAY){
+				t32-=(t32%86400UL);
+				if(t32==lastReadTs)break;
+			}else{
+				time_stamp_to_system_dt(t32,&tempDt);
+				t32=tempDt.MM;
+				if(t32==lastReadTs)break;
+			}
+			lastReadTs=t32;
+			//-->>
 			if(recordReadStartTs==0x00UL)recordReadStartTs=((consumeLog_t*)tbuf)->ts;
 			t16=__hzrq_gas_log_format((__hzrq_gasLog_t*)(buf+len),(consumeLog_t*)(tbuf));
 			len+=t16;
@@ -473,8 +486,6 @@ uint16_t record_read_start_to_end(uint8_t partNb,uint8_t* buf,uint16_t ssize,uin
 		if(loc==endloc)break;
 		loc+=limitsItem;loc++;loc%=limitsItem;
 	}while(1);
-	
-	
 	return len;
 }	
 
@@ -502,25 +513,30 @@ uint16_t record_read_vol_log_day_start_end(uint8_t* buf,uint16_t ssize,uint32_t 
 //		t16+=4;
 //	}
 	return t16;
-	
 }
+
 uint16_t record_read_vol_log_month_start_end(uint8_t* buf,uint16_t ssize,uint32_t startTm,uint32_t endTm)
 {
 	//24*4=96
+	int32_t t32=0;
 	uint16_t t16;
 	t16=record_read_start_to_end(PART_SN_CONSTLOG_MON,buf,ssize,startTm,endTm);
-	while((t16%48) !=0){
+	//<<--协议问题，不支持无内容回复
+	if(t16==0){
+		t32=swap_uint32(totalVolume*10);
+		m_mem_cpy_len(buf,(uint8_t*)&t32,4);
+		t16=4;
+	}
+	//-->>
+	while(((t16%48) !=0) || t16==0){
 		m_mem_cpy_len(buf+t16,buf+t16-4,4);
 		t16+=4;
 	}
 	return t16>48?48:t16;
-	
 }
 
 //const uint8_t ExEepromTest[]={0xaa,0xaa,0xaa,0xaa};
-
 //事件纪录
-
 uint16_t record_save_event_log(uint16_t eventCode)
 {
 	eventLog_t eventlog={0};
@@ -617,6 +633,7 @@ uint16_t  record_read_eventlog_init(void)
 	}
 	return t16;
 }
+
 uint16_t record_read_eventlog_new(uint8_t* buf,uint16_t ssize,uint16_t rdEventCode,uint16_t rdItems)
 {
 	eventLog_t eventlog={0};
@@ -743,4 +760,4 @@ void ex_data_test(void)
 	//ex_eeprom_verify();
 	__nop();
 }
-
+//file end

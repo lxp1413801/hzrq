@@ -14,7 +14,6 @@ uint8_t aDateAgo=0;
 uint8_t aHourAgo=0;
 uint8_t aMinuteAgo=0;
 uint8_t aSecondAgo=0;
-
 //-->>
 
 uint32_t noEventTimeOut=NO_EVEN_MAX_TIME_OUT;
