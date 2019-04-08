@@ -284,9 +284,9 @@ void _hzrq_load_device_sta(uint8_t* buf)
 	if(sysData.devStatus.bits.bStrongMagnetic){
 		sta.bits.bSte=1;
 	}
-	//__hzrq_swap_load_t16(buf,sta.t16);
-	buf[0]=(uint8_t)(sta.t16 &  0xff);
-	buf[1]=(uint8_t)(sta.t16 >> 8);
+	__hzrq_swap_load_t16(buf,sta.t16);
+	//buf[1]=(uint8_t)(sta.t16 &  0xff);
+	//buf[0]=(uint8_t)(sta.t16 >> 8);
 }
 
 uint16_t _hzrq_load_frame_header(uint8_t* sbuf,uint16_t ssize,uint16_t len,uint8_t cb,uint8_t mid)
@@ -612,6 +612,7 @@ uint16_t hzrq_load_pop_frame(uint8_t* sbuf,uint16_t ssize,uint8_t popType,uint16
 	len+=sizeof(__hzrq_dfPop_t);
 	len+=3;	
 	len=__hzrq_load_frame_mod_len(sbuf,len);
+	
 	len=_hzrq_load_frame_encrypt(sbuf,len);
 	//len=_hzrq_load_frame_mac(sbuf,len);
 	len=_hzrq_load_frame_crc_append(sbuf,len);
@@ -651,8 +652,10 @@ uint16_t hzrq_load_rw_valve(uint8_t* sbuf,uint16_t ssize,uint8_t cb)
 	__hzrq_swap_load_t16(stb->iden,__hzrq_DFID_VALVE_CTRL);
 	if(vavleState==VALVE_ON){
 		stb->valveSta=0;
-	}else{
+	}else if(sysData.lockReason.t32==0UL){
 		stb->valveSta=1;
+	}else{
+		stb->valveSta=2;
 	}
 	len+=sizeof(__hzrq_dfdValveCtrl_t);
 	len+=3;
@@ -979,7 +982,8 @@ int16_t hzrq_ins_exe_end(uint8_t* rbuf,uint16_t rlen)
 	if(__hzrqErrorCode ==__hzrq_ERR_NONE){
 		api_calc_all();
 		sysData.crBalance=__hzrq_swap_get_t32(stb->balanceMoney);
-		sysData.crBalanceVol=__hzrq_swap_get_t32(stb->balanceVol);
+		int32_t t32=__hzrq_swap_get_t32(stb->balanceVol);
+		sysData.crBalanceVol=t32/10;
 		sysData.hzrqOverdraftStat=stb->overdraftStat;
 		sysData.hzrqBalanceVolSta=stb->balanceVolSta;
 		sysData.crPrice=__hzrq_swap_get_t32(stb->price);
@@ -2704,7 +2708,7 @@ int16_t hzrq_ins_rw_onconn_tmout(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint1
 		api_sysdata_save();
 		__disable_irq();
 		tm=stb->noConnectTimeOut;
-		tm*=1440;
+		tm*=24;
 		sysData.unNetTimeOut=tm;
 		__enable_irq();	
 		api_sysdata_save();		
@@ -2721,8 +2725,8 @@ int16_t hzrq_ins_rw_onconn_tmout(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint1
 		t16=_hzrq_load_frame_header(sbuf,ssize,0,cb.b,__hzrqMid);	
 		stb=(__hzrq_dfdNoConnectTimeOut_t*)(sbuf+sizeof(__hzrq_frameHerder_t));
 		__hzrq_swap_load_t16(stb->iden,__hzrq_DFID_NOCONN_TIMEOUT);
-		tm=sysData.qcNoFlowTimeOut;
-		tm/=1440;
+		tm=sysData.unNetTimeOut;
+		tm/=24;
 		stb->noConnectTimeOut=(uint8_t)(tm);
 		t16+=sizeof(__hzrq_dfdNoConnectTimeOut_t);
 		t16+=3;

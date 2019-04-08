@@ -613,6 +613,10 @@
 	#define __hzrq_EVENT_POWER_DOWN		7
 	#define __hzrq_EVENT_FLOW_ABNORMAL	8
 	#define __hzrq_EVENT_METER_FAULT	9
+	//<<--custom defined
+	#define __hzrq_EVENT_METER_LEAKAGE	0xA001
+	//-->>
+	
 	
 	//A.8　错误码
 	/*
