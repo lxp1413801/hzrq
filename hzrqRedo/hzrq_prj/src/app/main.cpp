@@ -100,14 +100,7 @@ void pre_star_thread_main_00(void)
 	//szrq_part_format();
 	qc_data_sysdata_init();
 	ex_eeprom_verify();
-	//if(sysData.QN != default_QN)sysData.QN = default_QN;
-	//if(!m_str_match(sysData.commSN,(uint8_t*)"CDQC181100000001"))m_str_cpy(sysData.commSN,(uint8_t*)"CDQC181100000001");
-//	if(!m_str_cmp_len(sysData.severRelease.ip,szrqDefaultSever.ip,4)){
-//		m_mem_cpy_len(sysData.severRelease.ip,szrqDefaultSever.ip,4);
-//	}
-//	if(sysData.severRelease.port != szrqDefaultSever.port){
-//		sysData.severRelease.port = szrqDefaultSever.port;
-//	}
+
 	rtVolumeRefreshFlag=true;
 	api_calc_all();
 }
@@ -200,7 +193,7 @@ void qc_ex_eeprom_mutex_create(void)
 void m_thread_create_main(void)
 {
 	qc_ex_eeprom_mutex_create();
-	osThreadDef(TheadMain, vTheadMain, osPriorityHigh, 0, configMINIMAL_STACK_SIZE*2);
+	osThreadDef(TheadMain, vTheadMain, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
 	vTheadMainID=osThreadCreate(osThread(TheadMain), NULL);	
 }
 

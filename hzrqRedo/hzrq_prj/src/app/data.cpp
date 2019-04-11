@@ -131,6 +131,7 @@ uint16_t qc_data_sysdata_init(void)
 	//freeze_part_init();
 	//rf_send_fifo_format();
 	//ex_eeprom_format();
+	rf_send_fifo_format();
 	rf_send_fifo_init();
 	
 	

@@ -30,6 +30,7 @@ volatile bool rtVolumeRefreshFlag=true;
 volatile uint32_t popTimesEveryday=0x00;
 overageVMState_t ovmStatus;
 
+
 //add 20171221
 volatile int32_t OVerageVMRemainder=0x00;
 //end
@@ -48,7 +49,7 @@ const stDeviceInf_t sysDataDefault={
 	{0x18,0x08,0x08,0x00},		//uint8_t		PD[4];
 	16,	//uint8_t		hzrqMeterIdLen;
 	{0},//uint8_t		hzrqReverse[3]
-	"3125200510000007",	//uint8_t		hzrqMeterId[32]
+	"4125200510000107",	//uint8_t		hzrqMeterId[32]
 	{0},						//uint8_t		DeviceName[16];			//设备名称或者型号	
 
 		//????,?????????
@@ -423,6 +424,8 @@ uint32_t cal_second_in_day(void)
 }
 
 //V104
+
+
 void qc_data_clear_sysdata_to_dcls_b(void)
 {
 	uint16_t i=0;
@@ -438,14 +441,14 @@ void qc_data_clear_sysdata_to_dcls_b(void)
 	//清除超流
 	sysData.HightFlowProtectEn=default_HIGHT_FLOW_PROTECT_EN;	
 	//清除余量
-	//sysData.OVerageVM=default_OVERAGE_VM_B;
-	sysData.OVerageVM=0L;
+	sysData.OVerageVM=default_OVERAGE_VM_B;
+	//sysData.OVerageVM=0L;
 	//报警值默认
 	sysData.warnSetOverageVM=default_WARNING_VOLUMING;
 	sysData.offSetOverageVM=0;
 	sysData.limitOffsetVM=-1000;
 	//清除单价
-	sysData.curPrice=100;
+	sysData.curPrice=10000;
 	//清除阶梯
 
 	sysData.totalPayMoney=0x00ul;
@@ -463,7 +466,7 @@ void qc_data_clear_sysdata_to_dcls_b(void)
 	}
 	//sysData.LastBSNVM=0;
 	//阶段转为B
-	sysData.DLCS=DLC_STATUS_C;	
+	sysData.DLCS=DLC_STATUS_B;	
 }
 void qc_data_clear_sysdata_to_dcls_a(void)
 {

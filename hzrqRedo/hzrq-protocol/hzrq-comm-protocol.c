@@ -256,7 +256,7 @@ void _hzrq_load_device_sta(uint8_t* buf)
 	
 	buf[0]=0;
 	buf[1]=0;
-	if(vavleState==VALVE_ON){
+	if(vavleState==VALVE_ON || vavleState==VALVE_OPERATION_ON){
 		sta.bits.bVavleStaFiOpen=1;
 	}
 	if(sysData.lockReason.t32 && vavleState==VALVE_OFF){
@@ -284,9 +284,9 @@ void _hzrq_load_device_sta(uint8_t* buf)
 	if(sysData.devStatus.bits.bStrongMagnetic){
 		sta.bits.bSte=1;
 	}
-	__hzrq_swap_load_t16(buf,sta.t16);
-	//buf[1]=(uint8_t)(sta.t16 &  0xff);
-	//buf[0]=(uint8_t)(sta.t16 >> 8);
+	//__hzrq_swap_load_t16(buf,sta.t16);
+	buf[0]=(uint8_t)(sta.t16 &  0xff);
+	buf[1]=(uint8_t)(sta.t16 >> 8);
 }
 
 uint16_t _hzrq_load_frame_header(uint8_t* sbuf,uint16_t ssize,uint16_t len,uint8_t cb,uint8_t mid)
@@ -601,7 +601,13 @@ uint16_t hzrq_load_pop_frame(uint8_t* sbuf,uint16_t ssize,uint8_t popType,uint16
 	}
 	stb->powerType=__hzrq_POWER_TYPE_LISOCL;
 	__hzrq_swap_load_t16(stb->batVoltage,voltBat);
-	stb->batPercent=90;
+	if(pwrStatus==POWER_STATUS_LOW){
+		stb->batPercent=20;
+	}else if(pwrStatus==POWER_STATUS_DOWN){
+		stb->batPercent=10;
+	}else{
+		stb->batPercent=90;
+	}
 	
 	m_rtc_get(&sysRtcDataTime);
 	m_mem_cpy_len((uint8_t*)&dt,(uint8_t*)&sysRtcDataTime,sizeof(sysDataTime_t));
@@ -613,7 +619,7 @@ uint16_t hzrq_load_pop_frame(uint8_t* sbuf,uint16_t ssize,uint8_t popType,uint16
 	len+=3;	
 	len=__hzrq_load_frame_mod_len(sbuf,len);
 	
-	len=_hzrq_load_frame_encrypt(sbuf,len);
+	//len=_hzrq_load_frame_encrypt(sbuf,len);
 	//len=_hzrq_load_frame_mac(sbuf,len);
 	len=_hzrq_load_frame_crc_append(sbuf,len);
 	return len;	
@@ -640,6 +646,27 @@ uint16_t __hzrq_load_rw_fb_insert_retvalue(uint8_t* sbuf,uint16_t len,uint16_t r
 	return frmLen;
 }
 
+uint8_t __hzrq_fi_valve_lock(void)
+{
+	uint8_t ret=0;
+	
+	do{
+		if(sysData.lockReason.bits.bSeverOff )ret=1;
+		if(sysData.lockReason.bits.bBalance )ret=1;;
+		if(sysData.lockReason.bits.bShellOpen)ret=1;;
+		uint8_t tmtry=sysData.qcNoTryTimes;
+		if(tmtry==1)tmtry=2;		
+		if(sysData.lockReason.bits.bNoflow>=tmtry && tmtry!=0)ret=1;;
+		
+		//if(lockReason.bits.bSmallFlow)return 0;
+		if(sysData.lockReason.bits.bStrongMagnetic >=MAX_STE_OFF_TIMES)ret=1;;		
+		
+	}while(0);
+	return ret;
+}
+
+
+
 uint16_t hzrq_load_rw_valve(uint8_t* sbuf,uint16_t ssize,uint8_t cb)
 {
 	uint16_t len,t16;
@@ -652,10 +679,12 @@ uint16_t hzrq_load_rw_valve(uint8_t* sbuf,uint16_t ssize,uint8_t cb)
 	__hzrq_swap_load_t16(stb->iden,__hzrq_DFID_VALVE_CTRL);
 	if(vavleState==VALVE_ON){
 		stb->valveSta=0;
-	}else if(sysData.lockReason.t32==0UL){
-		stb->valveSta=1;
 	}else{
-		stb->valveSta=2;
+		if(__hzrq_fi_valve_lock()){
+			stb->valveSta=2;
+		}else{
+			stb->valveSta=1;
+		}
 	}
 	len+=sizeof(__hzrq_dfdValveCtrl_t);
 	len+=3;
@@ -895,7 +924,8 @@ int16_t hzrq_ins_exe_register(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t
 	
 	t16=rf_send_fifo_get_tail(sbuf,(uint16_t*)&__hzrqUnSendNum);
 	if(__hzrqUnSendNum>0){
-		t16=__hzrq_load_frame_mod_hasmore_mid(sbuf,t16,__bHZRQ_CBHASMORE_OVER,__hzrqMsgSendSn);
+		//t16=__hzrq_load_frame_mod_hasmore_mid(sbuf,t16,__bHZRQ_CBHASMORE_OVER,__hzrqMsgSendSn);
+		t16=_hzrq_load_frame_encrypt(sbuf,t16);
 		t16=_hzrq_crc_append_send(sbuf,t16);		
 	}else{
 		t16=0;
@@ -1013,6 +1043,7 @@ int16_t hzrq_ins_rw_valve_sta(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t
 		stb=(__hzrq_dfdValveCtrl_t*)(rbuf+sizeof(__hzrq_frameHerder_t));
 		if(stb->valveCtrl==0){
 			//开
+			sysData.offReason=OFF_REASON_NONE;
 			sysData.lockReason.t32=0x00UL;
 			api_sysdata_save();			
 		}else if(stb->valveCtrl==1){
@@ -1468,7 +1499,10 @@ int16_t hzrq_ins_rw_account_sta(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16
 	t16=_hzrq_received_crc_verify(rbuf,rlen);
 	if(t16==0){return -1;}	
 	fc=_hzrq_get_func_code(rbuf);
-	if(fc==__bHZRQ_CBFC_DATA_READ){
+	if(sysData.DLCS==DLC_STATUS_A){
+		retValue=__hzrq_ERR_WRITE_PARAM;
+		
+	}else if(fc==__bHZRQ_CBFC_DATA_READ){
 		
 	}else if(fc==__bHZRQ_CBFC_DATA_WRITE || fc==__bHZRQ_CBFC_WRITE_FEEDBACK){
 		//mac
@@ -1479,11 +1513,29 @@ int16_t hzrq_ins_rw_account_sta(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16
 		stb=(__hzrq_dfdAccountSTa_t*)(rbuf+sizeof(__hzrq_frameHerder_t));
 		
 		api_sysdata_save();
-		__disable_irq();
 		sysData.hzrqAccountSta=stb->accountSta;
-		__enable_irq();	
+		if(stb->accountSta==0){
+			m_flow_all_data_init();
+			qc_data_realtime_data_clear();
+			qc_data_device_even_lock_clear();
+			sysData.DLCS=DLC_STATUS_B;
+			
+			sysData.OVerageVM=default_OVERAGE_VM_B;
+			sysData.warnSetOverageVM=default_WARNING_VOLUMING;
+			sysData.offSetOverageVM=0;
+			sysData.limitOffsetVM=-1000;			
+			
+		}else{
+			m_flow_all_data_init();
+			qc_data_realtime_data_clear();
+			qc_data_device_even_lock_clear();	
+			sysData.DLCS=DLC_STATUS_C;			
+		}
+		
+		//__disable_irq();
+		sysData.hzrqAccountSta=stb->accountSta;
+		//__enable_irq();	
 		api_sysdata_save();		
-	
 	}
 	__hzrq_ctrlByteDef_t cb;
 	cb.b=0;
@@ -2029,7 +2081,11 @@ int16_t hzrq_ins_rw_app_swver(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t
 		__hzrq_dfdAppSwVer_t* stb=(__hzrq_dfdAppSwVer_t*)(sbuf+sizeof(__hzrq_frameHerder_t));
 		__hzrq_swap_load_t16(stb->iden,__hzrq_DFID_APPSW_VER);
 		//__hzrq_swap_load_t16(stb->venderCode,sysData.vendorCode);
-		m_mem_cpy_len(stb->appSoftVer,sysData.hzrqAppSwVer,4);
+		//m_mem_cpy_len(stb->appSoftVer,sysData.hzrqAppSwVer,4);
+		stb->appSoftVer[0]=0;
+		stb->appSoftVer[1]=m_hex_2_bcd(NB20E11_SUB_VER);
+		stb->appSoftVer[2]=m_hex_2_bcd(config_NB_PLAT + 1);
+		stb->appSoftVer[3]=m_hex_2_bcd(sw_VER_NUM);
 		t16+=sizeof(__hzrq_dfdAppSwVer_t);
 		t16+=3;
 		t16=__hzrq_load_frame_mod_len(sbuf,t16);	

@@ -269,39 +269,81 @@ void m_uint32_2_bcd(uint8_t* bcd,uint16_t ssize,uint32_t x)
 	m_mem_cpy_len(bcd,buf,ssize);
 
 }
+/*
+int16_t m_str_loc_char(uint8_t* str,uint16_t len,uint8_t chr,uint8_t tms)
+{
+	uint16_t i;
+	int ret=-1;
+	uint8_t t8=0;
+	for(i=0;i<len;i++){
+		if(str[i]==chr)t8++;
+		if(t8>=tms){
+			ret=i;
+			break;
+		}
+	}
+	return ret;
+}
+*/
+uint8_t __x_chr2hex(uint8_t c) 
+{
+	uint8_t h;
+    if(c>='0' && c <='9')h|=(c-'0'); \
+    else if(c>='A' && c<='F')h|=(c-'A'+0x0a); 
+    else if(c>='a' && c<='f')h|=(c-'a'+0x0a); 
+    else h|=0; 
+	return h;
+}
+
+uint32_t __x_hex_2__int32(uint8_t* hex,uint16_t len)
+{
+	uint16_t i;
+	uint32_t t32=0UL;
+	for(i=0;i<len;i++){
+		t32<<=4;
+		t32|=__x_chr2hex(hex[i]);
+	}
+	return t32;
+}
 
 int16_t nb_get_nuestatus_cell(void)
 {
 	int32_t t32;
 	uint8_t* p;
-	int16_t ret=0;
+	int16_t ret=0,l1,l2,rlen;
 	uint8_t* recbuf=nbAplReceivedBuffer;
 	uint16_t t16,reclen=sizeof(nbAplReceivedBuffer);
 	ret=mtk_at_cmd((uint8_t*)"AT*MENGINFO=0\r\n",(uint8_t*)"OK",recbuf,reclen,2*configTICK_RATE_HZ);
 	if(ret<=0)return ret;	
+	rlen=ret;
 	//NUESTATS:CELL,2504,87,1,-804,-108,-745,231
 	//<earfcn>,<fcn offset>,<pci>,<cellid>,<rsrp>,<rsrq>,<ssi>,<snr>,<band>
-	//git 
+	//git :MENGINFOSC: 2506,2,37,"E978052",-100,-7,-93,5,5,"9B95",0,150
 	ret=m_str_match_ex(recbuf,(uint8_t*)"*MENGINFOSC: ",&t16);
 	if(ret<=0)return ret;	
 	p=recbuf+t16+sizeof("*MENGINFOSC: ")-1;
+	
+	//fcn
 	hzrqRealNearFcn=(uint16_t)nb_scanf_int32(p,',',&t16);
 	//fcn offset
 	p=p+t16+1;
 	t32=nb_scanf_int32(p,',',&t16);
-
 	//pci
 	p=p+t16+1;
 	t32=nb_scanf_int32(p,',',&t16);
 	
 	
 	//cellid
-	p=p+t16+2;
-	//t32=nb_scanf_int32(p,',',&t16);	
-	m_str_match_ex(recbuf,(uint8_t*)",",&t16);
-	//m_uint32_2_bcd(hzrqCellId,sizeof(hzrqCellId),t32);
+	l1=m_str_loc_char(recbuf,rlen,'"',1);
+	if(l1<0)return 0;
+	l2=m_str_loc_char(recbuf,rlen,'"',2);
+	if(l2<0)return 0;
+	t32=__x_hex_2__int32(recbuf+l1+1,l2-l1-1);
+	m_uint32_2_bcd(hzrqCellId,sizeof(hzrqCellId),t32);
+	
+
 	//rsrp
-	p=p+t16+1;
+	p=recbuf+l2+2;
 	hzrqRsrp=nb_scanf_int32(p,',',&t16);
 	
 	//rsrq
@@ -312,15 +354,17 @@ int16_t nb_get_nuestatus_cell(void)
 	t32=nb_scanf_int32(p,',',&t16);
 	//snr
 	p=p+t16+1;
-	hzrqSnr=nb_scanf_int32(p,'\r',&t16);
+	hzrqSnr=nb_scanf_int32(p,',',&t16);
 	//<band>
 	p=p+t16+1;
 	t32=nb_scanf_int32(p,',',&t16);
 	//<tac>
-	p=p+t16+1;
-	t32=nb_scanf_int32(p,',',&t16);	
+
+	l2=m_str_loc_char(recbuf,rlen,'"',4);
+	p=recbuf+l2+2;	
+	if(l2<0)return 0;
 	//<tac>
-	p=p+t16+1;
+	//p=p+t16+1;
 	t32=nb_scanf_int32(p,',',&t16);	
 	hzrqEclLevel=(int8_t)t32;	
 	return ret;

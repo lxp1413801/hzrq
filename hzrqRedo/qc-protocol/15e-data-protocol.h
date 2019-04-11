@@ -205,6 +205,7 @@
 			uint32_t bNoNetwork:1;
 			uint32_t bBalance:1;
 			uint32_t bShellOpen:1;
+			uint32_t bBatLow:1;
 		}bits;
 	}stlockReasonBits_t;	
 

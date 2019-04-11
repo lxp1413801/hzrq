@@ -103,7 +103,7 @@ ARM Macro Assembler    Page 2
    59 00000200 00000200 
                        Heap_Size
                                EQU              0x00000200
-   60 00000200         
+   60 00000200         ;Heap_Size       EQU     0
    61 00000200                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
 3
    62 00000000         __heap_base

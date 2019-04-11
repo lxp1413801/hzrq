@@ -257,6 +257,7 @@ int16_t __hal_sysdata_save(void)
 	if(!voltage_vdd_status_nomal())return 0;
 	//api_calc_all_redo();
 	osMutexWait(osMutexSysData,osWaitForever);
+	m_mem_cpy_len(commonBuf,(uint8_t*)(&sysData),sizeof(stDeviceInf_t));
 	__hal_calc_all_redo();
 	sysData.totalVolume=totalVolume;
     if(sysData.DWM==DWM_STEP_MONEY_MODE){
@@ -267,14 +268,11 @@ int16_t __hal_sysdata_save(void)
     }else{
 		sysData.OVerageVM=overrageVolume;        
     }	
-
-	//save even flag+
-	//sysData.devStatus.t32=nowDevStatus.t32;
-	//save lock flag
-	//sysData.lockReason.t32=lockReason.t32;
-    //save dlcs
+	
+	//__disable_irq();
 	crc_append((uint8_t*)(&sysData),sizeof(stDeviceInf_t)-2);
-	m_mem_cpy_len(commonBuf,(uint8_t*)(&sysData),sizeof(stDeviceInf_t));
+	//m_mem_cpy_len(commonBuf,(uint8_t*)(&sysData),sizeof(stDeviceInf_t));
+	//__enable_irq();
 	
 	qc_data_write_to_media(SYS_DATA_MAIN_ADDR,(uint8_t*)(&sysData),sizeof(stDeviceInf_t));
 	qc_data_read_from_media((uint8_t*)(&sysData),SYS_DATA_MAIN_ADDR,sizeof(stDeviceInf_t));
@@ -420,7 +418,7 @@ void m_thread_create_sysdata(void)
 {
 	reqMsgQ=osMessageCreate(osMessageQ(reqMsgQ),NULL);
 	respMsgQ=osMessageCreate(osMessageQ(respMsgQ),NULL);
-	osThreadDef(ThreadDataSave, vThreadDataSave, osPriorityNormal, 0, configMINIMAL_STACK_SIZE);
+	osThreadDef(ThreadDataSave, vThreadDataSave, osPriorityAboveNormal, 0, 2*configMINIMAL_STACK_SIZE);
 	idThreadDataSave=osThreadCreate(osThread(ThreadDataSave), NULL);		
 }
 

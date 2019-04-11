@@ -435,15 +435,16 @@ void ui_disp_menu_totale_vol(void);
 void __ui_disp_menu_home_main(void)
 {
 	uint32_t t32;
-	if(sysData.DLCS==DLC_STATUS_A){
+	if(sysData.DLCS<=DLC_STATUS_B){
 
 		t32=globleTickerSec;
 		t32>>=1;
 		t32%=3;
 		switch(t32){
-			case 0x00:ui_disp_menu_id();break;
-			//case 0x00:ui_disp_menu_totale_vol();break;
-			case 0x01:ui_disp_overage_v();break;
+			//case 0x00:ui_disp_menu_id();break;
+			case 0x00:ui_disp_overage_v();break;
+			case 0x01:ui_disp_menu_totale_vol();break;
+			//case 0x01:ui_disp_overage_v();break;
 			case 0x02:ui_disp_menu_rssi();break;
 		}
 	}else{
@@ -862,7 +863,11 @@ void ui_disp_menu_szrq_ov_vol(void)
 {
 	int32_t ov;
 	lcd_clear_all(); 
-	ov=sysData.crBalanceVol;
+	if(sysData.DWM==DWM_COMMON_MODE && sysData.DLCS<=DLC_STATUS_B){
+		ov=overrageVolume;
+	}else{
+		ov=sysData.crBalanceVol;
+	}
 	__ui_disp_int32_to_float(ov,2);
 	m_lcd_disp_seg_balance_vol();
 }

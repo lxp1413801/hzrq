@@ -12,9 +12,8 @@ void app_valve_off(void)
     //lcd_clear_all();
     //m_lcd_disp_str_refresh(__xT("Off--"));   
 
-	api_sysdata_save();
-	//m_flow_data_init();
-	m_flow_all_data_init();
+	//api_sysdata_save();
+	//m_flow_all_data_init();
 	
 	m_gpio_config_vavle();
 	valveRuntime=sysData.VavleOffTime;
@@ -34,11 +33,7 @@ void app_valve_on(void)
 	uint16_t t16;
 	uint8_t btsta;
 	uint16_t valveRuntime;
-    if(vavleState==VALVE_ON)return;
-    
-	//lcd_clear_all();
-	//m_lcd_disp_str_refresh(__xT("On--"));    
-
+    //if(vavleState==VALVE_ON)return;
 	m_flow_all_data_init();
 	valveRuntime=sysData.VavleOnTime;
     if(valveRuntime<3)valveRuntime=3;

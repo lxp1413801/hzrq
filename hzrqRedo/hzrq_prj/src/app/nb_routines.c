@@ -323,17 +323,18 @@ void vTheadL620(void * pvParameters)
 					if(__hzrqUnSendNum>0){
 						__hzrqUnSendNum=rf_send_fifo_delete_tail();
 					}
-					
 					if(__hzrqUnSendNum>0){
-						
 						sendStaMichine=__hzrq_SEND_SM_REGISTER;
 						continue;
 					}
 				}
 				if(ret<=0)break;
 				len=ret;
+				noNetworkTimer=0;
 			}while(1);
-			
+			if(ret<=0){	
+				sysData.hzrqCommFailTimes++;
+			}
 			menu=MENU_HOME;
 			subMenu=subMENU_HOME_NB_END;		
 			ui_disp_menu();	

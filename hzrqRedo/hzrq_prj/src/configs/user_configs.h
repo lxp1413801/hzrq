@@ -186,7 +186,7 @@ extern "C"{
 	
 	//默认阶段
 	#ifndef degault_DLC_STATUS
-		#define degault_DLC_STATUS DLC_STATUS_C
+		#define degault_DLC_STATUS DLC_STATUS_A
 	#endif
 	
 	//定义默认过流保护

@@ -82,6 +82,11 @@ void even_send_msg_to_rf_send_pop(uint8_t popType,uint16_t eventCode,uint8_t eve
 {
 	uint16_t len;
 	uint8_t buf[256];
+	if(popType==__hzrq_POP_TYPE_TIMER){
+		if(sysData.DLCS <DLC_STATUS_B)return;
+	}else if(popType==__hzrq_POP_TYPE_EVENT){
+		if(sysData.DLCS <=DLC_STATUS_B)return;
+	}
 	//<<
 	len=hzrq_load_pop_frame(buf,sizeof(buf),popType,eventCode,eventFlg);
 	if(popType==__hzrq_POP_TYPE_EVENT && rtcSync)record_save_event_log(eventCode);
@@ -116,6 +121,7 @@ void vavle_off_from_app_hook(void)
 }
 void app_valve_on_msg_send(void)
 {
+	m_flow_all_data_init();
 	if((void*)vTheadMainID){
 		osSignalSet( vTheadMainID, flg_MAIN_THREAD_VALVE_ON);
 		osDelay(5);
@@ -124,6 +130,8 @@ void app_valve_on_msg_send(void)
 
 void app_valve_off_msg_send(void)
 {
+	api_sysdata_save();
+	m_flow_all_data_init();	
 	if((void*)vTheadMainID){
 		osSignalSet( vTheadMainID, flg_MAIN_THREAD_VALVE_OFF);
 		osDelay(5);
@@ -134,6 +142,7 @@ void app_valve_off_msg_send(void)
 void vavle_on_from_app(void)
 {
 	if(vavleState!=VALVE_OFF)return;
+	vavleState=VALVE_OPERATION_ON;
 	vavle_on_from_app_hook();
 	app_valve_on_msg_send();
 
@@ -161,6 +170,7 @@ void vavle_off_from_app(uint8_t reson)
 	}
 	if(fiOff){
 		VavleOffReason=reson;
+		vavleState=VALVE_OPERATION_OFF;
 		vavle_off_from_app_hook();
 		app_valve_off_msg_send();		
 	}
@@ -308,11 +318,9 @@ uint16_t even_key_down_valve_ctrl(void)
 		rtVolumeRefreshFlag=true;
 
 		m_flow_all_data_init();
-
 		api_calc_all();	
 		//
 		vavle_on_from_app();
-
 		menu=MENU_DLCS;
 		subMenu=subMENU_DLCS;
 		noEventTimeOut=120;
@@ -481,12 +489,12 @@ void event_no_network_process(void)
 	}
 	if(sysData.devStatus.bits.bNoNetWork)return;
 	t32=sysData.unNetTimeOut;
-	//t32*=(86400L);
-	t32*=(1440L);
+	//t32*=(1440L);
+	t32*=60;
 	noNetworkTimer++;
 	if(noNetworkTimer>=t32){
 		sysData.devStatus.bits.bNoNetWork=1;
-		//lockReason.bits.bNoNetwork=1;
+		sysData.lockReason.bits.bNoNetwork=1;
 		vavle_off_from_app(OFF_REASON_CZSN_NONET);
 	}
 }
@@ -1189,7 +1197,7 @@ void vTheadFlowPuls(void * pvParameters)
 
 void m_thread_create_flow_puls(void)
 {
-	osThreadDef(TheadFlowPuls, vTheadFlowPuls, osPriorityHigh, 0, configMINIMAL_STACK_SIZE*1);
+	osThreadDef(TheadFlowPuls, vTheadFlowPuls, osPriorityRealtime, 0, configMINIMAL_STACK_SIZE*1);
 	vTheadFlowPulsID=osThreadCreate(osThread(TheadFlowPuls), NULL);		
 }
 //file end
