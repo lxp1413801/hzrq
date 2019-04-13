@@ -571,7 +571,7 @@ int16_t l620_received(uint8_t* rbuf,uint16_t rsize)
 	subMenu=subMENU_HOME_NB_REC;	
 	ui_disp_menu();	
 	
-	ret=mtk_at_cmd(NULL,(uint8_t*)"M2MCLIRECV:",rbuf,rsize,20*configTICK_RATE_HZ);
+	ret=mtk_at_cmd(NULL,(uint8_t*)"M2MCLIRECV:",rbuf,rsize,16*configTICK_RATE_HZ);
 	return ret;
 }
 

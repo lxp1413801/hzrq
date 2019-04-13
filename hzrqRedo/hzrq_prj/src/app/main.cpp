@@ -181,6 +181,19 @@ void vTheadMain(void * pvParameters)
 				subMenu=bkSubMenu;				
 			}			
 		}
+		if(event.value.signals & flg_MAIN_THREAD_IR_ERR){
+			m_usart1_se_deinit();
+			osDelay(10);
+			if(menu==MENU_IR)m_usart1_se_init(9600);
+			
+		}		
+		if(event.value.signals & flg_MAIN_THREAD_IR_RECEIVED){
+			__nop();
+			cmd_line_process();
+			__uartSeRceivedBufCount=0;
+			
+		}
+
 	}
 }
 

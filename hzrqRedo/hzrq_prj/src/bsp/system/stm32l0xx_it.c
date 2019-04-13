@@ -149,7 +149,7 @@ void SysTick_Handler(void)
 	HAL_IncTick();
 	//uart4_idle_time_hook();
 	m_lpusart1_idle_time_hook();
-	m_usart1_se_idle_time_hook();
+	//m_usart1_se_idle_time_hook();
 	//m_usart1_se_idle_time_reset();
 	//ir_idle_time_hook();
 	osSystickHandler();

@@ -83,7 +83,9 @@ uint16_t qc_data_sysdata_init(void)
 	buf=(uint8_t*)(&sysData);
 
 	qc_data_read_from_media(buf,SYS_DATA_MAIN_ADDR,sizeof(stDeviceInf_t));
+	__disable_irq();
 	ret=crc_verify(buf,sizeof(stDeviceInf_t));
+	__enable_irq();
 	if(!ret){
 		qc_data_read_from_media(buf,(uint32_t)(&sysDataDefault),sizeof(stDeviceInf_t));
 		

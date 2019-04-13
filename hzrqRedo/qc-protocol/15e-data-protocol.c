@@ -49,7 +49,7 @@ const stDeviceInf_t sysDataDefault={
 	{0x18,0x08,0x08,0x00},		//uint8_t		PD[4];
 	16,	//uint8_t		hzrqMeterIdLen;
 	{0},//uint8_t		hzrqReverse[3]
-	"4125200510000107",	//uint8_t		hzrqMeterId[32]
+	"0125200510000004",	//uint8_t		hzrqMeterId[32]
 	{0},						//uint8_t		DeviceName[16];			//设备名称或者型号	
 
 		//????,?????????

@@ -17,13 +17,16 @@ extern "C" {
 #define NO_EVEN_MAX_TIME_OUT (15)
 
 extern TaskHandle_t vTheadMainID;
-#define flg_MAIN_THREAD_SUSPEND		(1ul<<0)
-#define flg_MAIN_THREAD_RESUME		(1ul<<1)
-#define flg_MAIN_THREAD_VALVE_OFF	(1ul<<2)
-#define flg_MAIN_THREAD_VALVE_ON	(1ul<<3)
+//#define flg_MAIN_THREAD_SUSPEND		(1ul<<0)
+//#define flg_MAIN_THREAD_RESUME		(1ul<<1)
+#define flg_MAIN_THREAD_VALVE_OFF	(1ul<<0)
+#define flg_MAIN_THREAD_VALVE_ON	(1ul<<1)
+#define flg_MAIN_THREAD_IR_RECEIVED	(1ul<<2)	
+#define flg_MAIN_THREAD_IR_ERR	(1ul<<3)	
+
 
 //#define flg_PORTA_PIN10_EIXT	(1ul<<2)
-#define flg_MAIN_THREAD_ALL_BITS	(flg_MAIN_THREAD_SUSPEND | flg_MAIN_THREAD_RESUME  | flg_MAIN_THREAD_VALVE_OFF | flg_MAIN_THREAD_VALVE_ON)
+#define flg_MAIN_THREAD_ALL_BITS	(flg_MAIN_THREAD_IR_ERR | flg_MAIN_THREAD_IR_RECEIVED | flg_MAIN_THREAD_VALVE_OFF | flg_MAIN_THREAD_VALVE_ON)
 /*	
 
 #define E_EVEN_FLG_FLOW_FALLING	(1<<0)

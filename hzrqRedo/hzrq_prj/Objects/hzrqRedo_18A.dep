@@ -1,5 +1,5 @@
 Dependencies for Project 'hzrqRedo', Target '18A': (DO NOT MODIFY !)
-F (.\src\app\main.cpp)(0x5CADB9F2)(--cpp -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\src\app\main.cpp)(0x5CB03AF4)(--cpp -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -74,7 +74,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -96,13 +96,13 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
-F (.\src\app\data.cpp)(0x5CAAB1B2)(--cpp -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\data.o --omf_browse .\objects\data.crf --depend .\objects\data.d)
+F (.\src\app\data.cpp)(0x5CAE8DD0)(--cpp -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\data.o --omf_browse .\objects\data.crf --depend .\objects\data.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -177,7 +177,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -199,13 +199,13 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
-F (.\src\app\m_event.cpp)(0x5CADB904)(--cpp -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\m_event.o --omf_browse .\objects\m_event.crf --depend .\objects\m_event.d)
+F (.\src\app\m_event.cpp)(0x5CAEF64B)(--cpp -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\m_event.o --omf_browse .\objects\m_event.crf --depend .\objects\m_event.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -280,7 +280,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -302,13 +302,13 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
-F (.\src\app\cmd_line.c)(0x5C94800A)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\cmd_line.o --omf_browse .\objects\cmd_line.crf --depend .\objects\cmd_line.d)
+F (.\src\app\cmd_line.c)(0x5CB0260F)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\cmd_line.o --omf_browse .\objects\cmd_line.crf --depend .\objects\cmd_line.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -383,7 +383,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -405,11 +405,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\app\nb_routines.c)(0x5CAC0080)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\nb_routines.o --omf_browse .\objects\nb_routines.crf --depend .\objects\nb_routines.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
@@ -486,7 +486,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -508,11 +508,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\api\ui.c)(0x5CABE9C9)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\ui.o --omf_browse .\objects\ui.crf --depend .\objects\ui.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
@@ -589,7 +589,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -611,11 +611,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\api\valve_api.c)(0x5CADB904)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\valve_api.o --omf_browse .\objects\valve_api.crf --depend .\objects\valve_api.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
@@ -692,7 +692,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -714,11 +714,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\api\volt-dec.c)(0x5C7CE03A)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\volt-dec.o --omf_browse .\objects\volt-dec.crf --depend .\objects\volt-dec.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
@@ -795,7 +795,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -817,11 +817,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\api\flow-ex.c)(0x5C73A2A0)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\flow-ex.o --omf_browse .\objects\flow-ex.crf --depend .\objects\flow-ex.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
@@ -898,7 +898,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -920,13 +920,13 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
-F (.\src\api\mtk.c)(0x5CAAFB1B)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\mtk.o --omf_browse .\objects\mtk.crf --depend .\objects\mtk.d)
+F (.\src\api\mtk.c)(0x5CB06806)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\mtk.o --omf_browse .\objects\mtk.crf --depend .\objects\mtk.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -1001,7 +1001,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -1023,11 +1023,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (..\os-cmsis\cmsis_os.c)(0x5A422EF5)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\cmsis_os.o --omf_browse .\objects\cmsis_os.crf --depend .\objects\cmsis_os.d)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
@@ -1200,7 +1200,7 @@ I (..\os-kernel\include\mpu_wrappers.h)(0x5A422EF6)
 I (..\os-kernel\include\task.h)(0x5A422EF5)
 I (..\os-kernel\include\list.h)(0x5A422EF6)
 F (.\src\bsp\startup\startup_stm32l073xx.s)(0x5CAC4894)(--cpu Cortex-M0+ -g --apcs=interwork -I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include--pd "__UVISION_VERSION SETA 523" --pd "_RTE_ SETA 1" --pd "STM32L073xx SETA 1"--list .\listings\startup_stm32l073xx.lst --xref -o .\objects\startup_stm32l073xx.o --depend .\objects\startup_stm32l073xx.d)
-F (.\src\bsp\system\stm32l0xx_it.c)(0x5C778F91)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\stm32l0xx_it.o --omf_browse .\objects\stm32l0xx_it.crf --depend .\objects\stm32l0xx_it.d)
+F (.\src\bsp\system\stm32l0xx_it.c)(0x5CAEAA54)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\stm32l0xx_it.o --omf_browse .\objects\stm32l0xx_it.crf --depend .\objects\stm32l0xx_it.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (.\src\bsp\stm32l0xx\./inc/stm32l0xx_hal.h)(0x5A422EB3)
 I (.\src\configs\./stm32l0xx_hal_conf.h)(0x5ACEEA68)
@@ -1241,7 +1241,7 @@ I (.\src\bsp\stm32l0xx\./inc/stm32l0xx_hal_tim_ex.h)(0x5A422EB3)
 I (.\src\bsp\stm32l0xx\./inc/stm32l0xx_hal_uart.h)(0x5A422EB3)
 I (.\src\bsp\stm32l0xx\./inc/stm32l0xx_hal_uart_ex.h)(0x5A422EB3)
 I (src\bsp\system\stm32l0xx_it.h)(0x5C778655)
-I (src\bsp\system\../interface/m_uart.h)(0x5C85DA60)
+I (src\bsp\system\../interface/m_uart.h)(0x5CB01C9B)
 I (src\bsp\system\../interface/m_pwr_mng.h)(0x5ACEEA67)
 F (.\src\bsp\system\system_stm32l0xx.c)(0x5A422EB6)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\system_stm32l0xx.o --omf_browse .\objects\system_stm32l0xx.crf --depend .\objects\system_stm32l0xx.d)
 I (.\src\configs\stm32l0xx_hal_conf.h)(0x5ACEEA68)
@@ -3119,7 +3119,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -3141,11 +3141,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\bsp\interface\m_flash.c)(0x5A422ED3)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\m_flash.o --omf_browse .\objects\m_flash.crf --depend .\objects\m_flash.d)
 I (src\bsp\interface\../../includes/includes.h)(0x5A422EB2)
@@ -3222,7 +3222,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -3244,11 +3244,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\bsp\interface\m_gpio_config.c)(0x5CA164E2)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\m_gpio_config.o --omf_browse .\objects\m_gpio_config.crf --depend .\objects\m_gpio_config.d)
 I (src\bsp\interface\../../includes/includes.h)(0x5A422EB2)
@@ -3325,7 +3325,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -3347,11 +3347,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\bsp\interface\m_pwr_mng.c)(0x5C4E5602)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\m_pwr_mng.o --omf_browse .\objects\m_pwr_mng.crf --depend .\objects\m_pwr_mng.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
@@ -3428,7 +3428,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -3450,11 +3450,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\bsp\interface\m_rtc.c)(0x5C85F5D3)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\m_rtc.o --omf_browse .\objects\m_rtc.crf --depend .\objects\m_rtc.d)
 I (src\bsp\interface\../../includes/includes.h)(0x5A422EB2)
@@ -3531,7 +3531,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -3553,13 +3553,13 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
-F (.\src\bsp\interface\m_uart.c)(0x5C9DC176)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\m_uart.o --omf_browse .\objects\m_uart.crf --depend .\objects\m_uart.d)
+F (.\src\bsp\interface\m_uart.c)(0x5CAFF83C)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\m_uart.o --omf_browse .\objects\m_uart.crf --depend .\objects\m_uart.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -3634,7 +3634,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -3656,11 +3656,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\bsp\interface\m_rng.c)(0x5A422ED3)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\m_rng.o --omf_browse .\objects\m_rng.crf --depend .\objects\m_rng.d)
 I (src\bsp\interface\../../includes/includes.h)(0x5A422EB2)
@@ -3737,7 +3737,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -3759,11 +3759,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (.\src\bsp\interface\m_lcd.c)(0x5C6267D1)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\m_lcd.o --omf_browse .\objects\m_lcd.crf --depend .\objects\m_lcd.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
@@ -3969,7 +3969,7 @@ I (src\bsp\interface\m_flash.h)(0x5A422ED3)
 I (src\bsp\interface\m_pwr_mng.h)(0x5ACEEA67)
 I (src\bsp\interface\m_rtc.h)(0x5C73A277)
 I (..\common\time-stamp.h)(0x5B6BF62E)
-I (src\bsp\interface\m_uart.h)(0x5C85DA60)
+I (src\bsp\interface\m_uart.h)(0x5CB01C9B)
 I (src\bsp\interface\m_gpio_config.h)(0x5C9DC504)
 I (src\bsp\interface\m_rng.h)(0x5A422ED3)
 I (src\bsp\interface\m_lcd_hal.h)(0x5C4D7916)
@@ -4051,7 +4051,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -4073,11 +4073,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (..\common\crc16_sf.c)(0x5B6AA14E)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\crc16_sf.o --omf_browse .\objects\crc16_sf.crf --depend .\objects\crc16_sf.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
@@ -4156,7 +4156,7 @@ I (..\os-kernel\include\semphr.h)(0x5A422EF5)
 I (..\os-kernel\include\event_groups.h)(0x5A422EF6)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
 I (..\common\m_aes.h)(0x5B6E8D06)
-F (..\qc-protocol\15e-data-protocol.c)(0x5CADB00F)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\15e-data-protocol.o --omf_browse .\objects\15e-data-protocol.crf --depend .\objects\15e-data-protocol.d)
+F (..\qc-protocol\15e-data-protocol.c)(0x5CB0394B)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\15e-data-protocol.o --omf_browse .\objects\15e-data-protocol.crf --depend .\objects\15e-data-protocol.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -4231,7 +4231,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -4253,13 +4253,13 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
-F (..\qc-protocol\data-protocol-ex.c)(0x5CAE8C42)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\data-protocol-ex.o --omf_browse .\objects\data-protocol-ex.crf --depend .\objects\data-protocol-ex.d)
+F (..\qc-protocol\data-protocol-ex.c)(0x5CAE8D82)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\data-protocol-ex.o --omf_browse .\objects\data-protocol-ex.crf --depend .\objects\data-protocol-ex.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
@@ -4334,7 +4334,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -4356,11 +4356,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (..\hzrq-protocol\hzrq-data-record.c)(0x5C988D69)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\hzrq-data-record.o --omf_browse .\objects\hzrq-data-record.crf --depend .\objects\hzrq-data-record.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
@@ -4437,7 +4437,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -4459,11 +4459,11 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)
 F (..\hzrq-protocol\hzrq-comm-protocol.c)(0x5CABEE5A)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I .\src -I .\src\bsp\stm32l0xx -I ..\os-cmsis -I ..\os-kernel\include -I .\src\configs -I .\src\bsp\os-port -I ..\sx127x -I .\src\bsp\sx127xio-map -I ..\common-api -I ..\common -I .\src\bsp\device\CMSIS\Include -I .\src\bsp\stm32l0xx\Inc -I ..\qc-protocol -I .\src\includes -I ..\hzrq-protocol --CPP-I.\RTE\_18A-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Device\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32L073xx -DSTM32L073xx -D__STDC_LIMIT_MACROS-o .\objects\hzrq-comm-protocol.o --omf_browse .\objects\hzrq-comm-protocol.crf --depend .\objects\hzrq-comm-protocol.d)
 I (.\src\./includes/includes.h)(0x5A422EB2)
@@ -4540,7 +4540,7 @@ I (.\src\./bsp/interface/m_clock_config.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_flash.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_pwr_mng.h)(0x5ACEEA67)
 I (.\src\./bsp/interface/m_rtc.h)(0x5C73A277)
-I (.\src\./bsp/interface/m_uart.h)(0x5C85DA60)
+I (.\src\./bsp/interface/m_uart.h)(0x5CB01C9B)
 I (.\src\./bsp/interface/m_gpio_config.h)(0x5C9DC504)
 I (.\src\./bsp/interface/m_rng.h)(0x5A422ED3)
 I (.\src\./bsp/interface/m_lcd_hal.h)(0x5C4D7916)
@@ -4562,9 +4562,9 @@ I (.\src\./api/volt-dec.h)(0x5BE14C71)
 I (.\src\./api/mtk.h)(0x5C9DC2A5)
 I (.\src\./api/flow-ex.h)(0x5BD11800)
 I (.\src\./app/app.h)(0x5C78934E)
-I (.\src\./app/main.h)(0x5B84E303)
+I (.\src\./app/main.h)(0x5CAEDA51)
 I (.\src\./app/data.h)(0x5C8F2D08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32L0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l073xx.h)(0x59A523C4)
 I (.\src\./app/m_event.h)(0x5C8B2FC6)
-I (.\src\./app/cmd_line.h)(0x5C78A533)
+I (.\src\./app/cmd_line.h)(0x5CAFF89B)
 I (.\src\./app/nb_routines.h)(0x5C85F233)

@@ -146,13 +146,12 @@ void m_lpusart1_send_str(uint8_t* str)
 
 void m_lpusart1_received_echo(uint8_t chr)
 {
-	#if UART_ECHO_EN==0
-	#else
+
 	m_lpusart1_send_byte_poll(chr);
 	if(chr=='\r'){
-		m_lpuart1_send_byte_poll('\n');
+		m_lpusart1_send_byte_poll('\n');
 	}
-	#endif
+
 }
 
 void m_lpusart1_received_msg_post(void)
@@ -179,7 +178,7 @@ HAL_StatusTypeDef m_lpusart1_received_irq_callback(void)
 	{
 		m_lpusart1_idle_time_reset();
 		chr=(uint8_t)(USARTx->RDR );
-		m_lpusart1_received_echo(chr);
+		//m_lpusart1_received_echo(chr);
 		if(uartRceivedBufCount<MAX_UART_RX_BUFFER_LEN){
 			uartReceivedBuf[uartRceivedBufCount]=chr;
 			uartRceivedBufCount++;
@@ -261,9 +260,9 @@ void m_lpusart1_idle_time_hook(void)
 
 
 UART_HandleTypeDef UartHandleSe={0};
-volatile uint32_t __usartSeRxTimeOut;	
-volatile uint8_t __uartSeReceivedBuf[MAX_UART_SE_RX_BUFFER_LEN];
-volatile uint16_t __uartSeRceivedBufCount=0;
+uint32_t __usartSeRxTimeOut;	
+uint8_t __uartSeReceivedBuf[MAX_UART_SE_RX_BUFFER_LEN];
+uint16_t __uartSeRceivedBufCount=0;
 
 void m_gpio_config_usart1_se(void)
 {
@@ -295,7 +294,7 @@ void m_usart1_se_received_start(void){
 	uartRceivedBufCount=0;
 	
 }
-
+//-------------------------------------------------------------------------------------------------------
 uint16_t m_usart1_se_init(uint32_t baudRate)
 {
 	uint32_t t32;
@@ -385,35 +384,12 @@ void m_usart1_se_send_str(uint8_t* str)
 	}	
 }
 
-HAL_StatusTypeDef m_usart_se_received_irq_callback(void)
-{
-	uint32_t isr;
-	isr=USART_SE->ISR;
-	uint8_t chr;
-	if(isr & (0x01ul<<5))
-	{
-		m_usart1_se_idle_time_reset();			
-		chr=(uint8_t)(USART_SE->RDR );
-		m_lpusart1_received_echo(chr);
-		if(__uartSeRceivedBufCount<MAX_UART_SE_RX_BUFFER_LEN){
-			__uartSeReceivedBuf[__uartSeRceivedBufCount]=chr;
-			__uartSeRceivedBufCount++;
-		}
-		if(chr==0x0a){
-
-		}
-		return HAL_OK;
-	}else{
-		return HAL_BUSY; 
-	}	
-}
-
 void m_usart1_se_received_msg_post(void)
 {
 	if(__uartSeRceivedBufCount){
 		//m_mem_cpy_len(uartReceivedBufUser,uartReceivedBuf,uartRceivedBufCount);
 		//uartRceivedBufCountUser=uartRceivedBufCount;
-		__uartSeRceivedBufCount=0;
+		//__uartSeRceivedBufCount=0;
 	}else{
 		return;
 	}
@@ -421,8 +397,46 @@ void m_usart1_se_received_msg_post(void)
 	// if((void*)idTheadUdpId){
 		// osSignalSet( idTheadUdpId, flg_NB_MODULE_UART_RECEIVED_LF);
 	// }
-	
+	if(__uartSeRceivedBufCount>0 && (void*)vTheadMainID){
+		osSignalSet( vTheadMainID, flg_MAIN_THREAD_IR_RECEIVED);
+	}
 }
+
+void m_usart1_se_received_echo(uint8_t chr)
+{
+
+	m_usart1_se_send_byte_poll(chr);
+	if(chr=='\r'){
+		m_usart1_se_send_byte_poll('\n');
+	}
+
+}
+
+HAL_StatusTypeDef m_usart_se_received_irq_callback(void)
+{
+	uint32_t isr;
+	isr=USART_SE->ISR;
+	uint8_t chr;
+	if(isr & (0x01ul<<5))
+	{
+		noEventTimeOut=60;
+		m_usart1_se_idle_time_reset();			
+		chr=(uint8_t)(USART_SE->RDR );
+		m_usart1_se_received_echo(chr);
+		if(__uartSeRceivedBufCount<MAX_UART_SE_RX_BUFFER_LEN){
+			__uartSeReceivedBuf[__uartSeRceivedBufCount]=chr;
+			__uartSeRceivedBufCount++;
+		}
+		if(chr=='\r'){
+			m_usart1_se_received_msg_post();
+		}
+		return HAL_OK;
+	}else{
+		return HAL_BUSY; 
+	}	
+}
+
+
 
 
 
@@ -438,9 +452,9 @@ void m_usart1_se_received_err_callback(void)
 	while(i)i--;
 	t32 |= 0x01ul;
 	t32=USART_SE->CR1=t32;	
-//	if((void*)idTheadUdpId){
-//		osSignalSet( idTheadUdpId, flg_NB_MODULE_UART_RECEIVED_ERROR);
-//	}
+	if((void*)vTheadMainID){
+		osSignalSet( vTheadMainID, flg_MAIN_THREAD_IR_ERR);
+	}
 	__nop();		
 }
 

@@ -332,6 +332,12 @@ uint16_t even_key_down_valve_ctrl(void)
 
 void ir_received_ready(void)
 {
+	noEventTimeOut=60;
+	m_gpio_ir_rx_pwr_on();
+	//
+	m_usart1_se_init(9600);
+	__uartSeRceivedBufCount=0;
+	
 }
 
 uint16_t even_key_down_connect_ir(void)
@@ -410,6 +416,13 @@ void event_key_down_process_menu_change(void)
 	subMenu=0;
 	if(menu==MENU_IMEI || menu==MENU_CCID){
 		noEventTimeOut=30;
+	}
+	if(menu!=MENU_IR){
+		m_usart1_se_deinit();
+		__uartSeRceivedBufCount=0;		
+		m_gpio_ir_rx_pwr_off();
+		
+		//if()
 	}
 }
 void event_key_down_process(void)

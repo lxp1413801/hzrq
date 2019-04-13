@@ -257,7 +257,7 @@ int16_t __hal_sysdata_save(void)
 	if(!voltage_vdd_status_nomal())return 0;
 	//api_calc_all_redo();
 	osMutexWait(osMutexSysData,osWaitForever);
-	m_mem_cpy_len(commonBuf,(uint8_t*)(&sysData),sizeof(stDeviceInf_t));
+
 	__hal_calc_all_redo();
 	sysData.totalVolume=totalVolume;
     if(sysData.DWM==DWM_STEP_MONEY_MODE){
@@ -269,21 +269,23 @@ int16_t __hal_sysdata_save(void)
 		sysData.OVerageVM=overrageVolume;        
     }	
 	
-	//__disable_irq();
+	__disable_irq();
 	crc_append((uint8_t*)(&sysData),sizeof(stDeviceInf_t)-2);
-	//m_mem_cpy_len(commonBuf,(uint8_t*)(&sysData),sizeof(stDeviceInf_t));
-	//__enable_irq();
+	m_mem_cpy_len(commonBuf,(uint8_t*)(&sysData),sizeof(stDeviceInf_t));
+	__enable_irq();
 	
-	qc_data_write_to_media(SYS_DATA_MAIN_ADDR,(uint8_t*)(&sysData),sizeof(stDeviceInf_t));
-	qc_data_read_from_media((uint8_t*)(&sysData),SYS_DATA_MAIN_ADDR,sizeof(stDeviceInf_t));
-	ret=crc_verify((uint8_t*)(&sysData),sizeof(stDeviceInf_t));
+	qc_data_write_to_media(SYS_DATA_MAIN_ADDR,(uint8_t*)(commonBuf),sizeof(stDeviceInf_t));
+	qc_data_read_from_media((uint8_t*)(commonBuf),SYS_DATA_MAIN_ADDR,sizeof(stDeviceInf_t));
+	ret=crc_verify((uint8_t*)(commonBuf),sizeof(stDeviceInf_t));
 	if(!ret){
-		m_mem_cpy_len((uint8_t*)(&sysData),commonBuf,sizeof(stDeviceInf_t));
-	}else{
-		__disable_irq();
-		__rtVolume-=rtVolume;
-		__enable_irq();
-	}	
+		//m_mem_cpy_len((uint8_t*)(&sysData),commonBuf,sizeof(stDeviceInf_t));
+		__nop();
+	}
+	
+	__disable_irq();
+	__rtVolume-=rtVolume;
+	__enable_irq();
+	
 	osMutexRelease(osMutexSysData);
 	return ret;	
 }

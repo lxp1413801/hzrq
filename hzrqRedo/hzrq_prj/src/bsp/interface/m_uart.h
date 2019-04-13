@@ -130,10 +130,10 @@
 	#define USART_SE_RECEIVED_TIME_OUT 100
 	
 	#define MAX_UART_SE_RX_BUFFER_LEN (256)
-	extern volatile uint8_t __uartSeReceivedBuf[MAX_UART_SE_RX_BUFFER_LEN];
-	extern volatile uint16_t __uartSeRceivedBufCount;
+	extern uint8_t __uartSeReceivedBuf[MAX_UART_SE_RX_BUFFER_LEN];
+	extern uint16_t __uartSeRceivedBufCount;
 	
-	extern volatile uint32_t __usartSeRxTimeOut;
+	extern uint32_t __usartSeRxTimeOut;
 	
 	extern uint16_t m_usart1_se_init(uint32_t baudrate);	
 	extern uint16_t m_usart1_se_deinit(void);
@@ -143,6 +143,7 @@
 	extern void m_usart1_se_idle_time_reset(void);
 	
 	extern void m_usart1_se_send_str(uint8_t* str);
+	extern void m_usart1_se_send_len(uint8_t* buf,uint16_t len);
 	
 	//-->>
 	#ifdef __cplusplus
