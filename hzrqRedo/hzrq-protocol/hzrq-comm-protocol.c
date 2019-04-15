@@ -259,7 +259,7 @@ void _hzrq_load_device_sta(uint8_t* buf)
 	if(vavleState==VALVE_ON || vavleState==VALVE_OPERATION_ON){
 		sta.bits.bVavleStaFiOpen=1;
 	}
-	if(sysData.lockReason.t32 && vavleState==VALVE_OFF){
+	if(sysData.lockReason.t32 && (vavleState==VALVE_OFF ||  vavleState==VALVE_OPERATION_OFF)){
 		sta.bits.bVavleStaFiLock=1;
 	}
 	
@@ -500,7 +500,14 @@ uint16_t __hzrq_load_pop_get_hour_log(uint8_t* logbuf,uint16_t logbufLen,uint32_
 	ex_data_get_part_inf(PART_SN_CONSTLOG_HOUR,buf,sizeof(exEepromPartDesc_t));
 	t16=crc_verify(buf,sizeof(exEepromPartDesc_t));
 	if(!t16)return 0;	
-
+	//<<--modf
+	sysDataTime_t dt={0};
+	time_stamp_to_system_dt(ts,&dt);
+	logbuf[0]=dt.YY;
+	logbuf[1]=dt.MM;
+	logbuf[2]=dt.DD;
+	logbuf[3]=1;
+	//-->>
 	pDesc=(exEepromPartDesc_t*)buf;
 
 	ItemSize=pDesc->recordSize;
@@ -523,7 +530,7 @@ uint16_t __hzrq_load_pop_get_hour_log(uint8_t* logbuf,uint16_t logbufLen,uint32_
 			break;
 		}else if(t32==ts){
 			//日期正确，填充数据
-			if(logbufLen==0)break;
+			if(logbufLen<=4)break;
 			logbufLen-=4;
 			__hzrq_swap_load_t32(logbuf+logbufLen,pVlog->volume);
 		}
@@ -551,7 +558,14 @@ uint16_t __hzrq_load_pop_get_day_log(uint8_t* logbuf,uint16_t logbufLen,uint32_t
 	ex_data_get_part_inf(PART_SN_CONSTLOG_DAY,buf,sizeof(exEepromPartDesc_t));
 	t16=crc_verify(buf,sizeof(exEepromPartDesc_t));	
 	if(!t16)return 0;	
-
+	//<<--modf
+	sysDataTime_t dt={0};
+	time_stamp_to_system_dt(ts,&dt);
+	logbuf[0]=dt.YY;
+	logbuf[1]=dt.MM;
+	logbuf[2]=dt.DD;
+	logbuf[3]=0;
+	//-->>
 	pDesc=(exEepromPartDesc_t*)buf;
 
 	ItemSize=pDesc->recordSize;
@@ -574,10 +588,11 @@ uint16_t __hzrq_load_pop_get_day_log(uint8_t* logbuf,uint16_t logbufLen,uint32_t
 			break;
 		}else if(t32==ts){
 			//日期正确，填充数据
-			if(logbufLen==0)break;
+			if(logbufLen<=4)break;
 			logbufLen-=4;
 			__hzrq_swap_load_t32(logbuf+logbufLen,pVlog->volume);
 			ts-=SECS_ON_DAY;
+			logbuf[3]++;
 		}
 		loc+=limitsItem;loc--;loc%=limitsItem;
 		

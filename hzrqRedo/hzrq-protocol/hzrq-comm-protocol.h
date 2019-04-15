@@ -224,6 +224,7 @@
 			uint16_t bVavleErr:1;
 			uint16_t bAlarm:1;
 			//
+			uint16_t bSensorErr:1;
 			uint16_t bNoFlowTimeOut:1;
 			uint16_t bNoConnectTimeOut:1;
 			uint16_t bSte:1;

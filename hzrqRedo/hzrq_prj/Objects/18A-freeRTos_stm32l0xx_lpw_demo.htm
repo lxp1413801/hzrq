@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\18A-freeRTos_stm32l0xx_lpw_demo.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\18A-freeRTos_stm32l0xx_lpw_demo.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sat Apr 13 16:39:06 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Apr 15 14:41:28 2019
 <BR><P>
 <H3>Maximum Stack Usage =       1224 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2812,7 +2812,7 @@ Global Symbols
 <LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hzrq_ins_exe_pop(unsigned char*, unsigned short, unsigned char*, unsigned short)
 </UL>
 
-<P><STRONG><a name="[1df]"></a>_hzrq_load_device_sta(unsigned char*)</STRONG> (Thumb, 268 bytes, Stack size 8 bytes, hzrq-comm-protocol.o(i._Z21_hzrq_load_device_staPh))
+<P><STRONG><a name="[1df]"></a>_hzrq_load_device_sta(unsigned char*)</STRONG> (Thumb, 276 bytes, Stack size 8 bytes, hzrq-comm-protocol.o(i._Z21_hzrq_load_device_staPh))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _hzrq_load_device_sta(unsigned char*)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hzrq_load_pop_frame
@@ -4305,11 +4305,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m_usart1_se_received_echo(unsigned char)
 </UL>
 
-<P><STRONG><a name="[23e]"></a>__hzrq_load_pop_get_day_log(unsigned char*, unsigned short, unsigned)</STRONG> (Thumb, 294 bytes, Stack size 96 bytes, hzrq-comm-protocol.o(i._Z27__hzrq_load_pop_get_day_logPhtj))
+<P><STRONG><a name="[23e]"></a>__hzrq_load_pop_get_day_log(unsigned char*, unsigned short, unsigned)</STRONG> (Thumb, 346 bytes, Stack size 96 bytes, hzrq-comm-protocol.o(i._Z27__hzrq_load_pop_get_day_logPhtj))
 <BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = __hzrq_load_pop_get_day_log(unsigned char*, unsigned short, unsigned) &rArr; ex_data_get_part_inf &rArr; ex_eeprom_read &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; vAssertCalled &rArr; vPortExitCritical &rArr;  vAssertCalled (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc_verify
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m_mem_set
+<LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;time_stamp_to_system_dt
 <LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ex_eeprom_read
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ex_data_get_part_inf
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
@@ -4398,11 +4399,12 @@ Global Symbols
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hzrq_ins_rw_apn(unsigned char*, unsigned short, unsigned char*, unsigned short)
 </UL>
 
-<P><STRONG><a name="[240]"></a>__hzrq_load_pop_get_hour_log(unsigned char*, unsigned short, unsigned)</STRONG> (Thumb, 290 bytes, Stack size 96 bytes, hzrq-comm-protocol.o(i._Z28__hzrq_load_pop_get_hour_logPhtj))
+<P><STRONG><a name="[240]"></a>__hzrq_load_pop_get_hour_log(unsigned char*, unsigned short, unsigned)</STRONG> (Thumb, 336 bytes, Stack size 96 bytes, hzrq-comm-protocol.o(i._Z28__hzrq_load_pop_get_hour_logPhtj))
 <BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = __hzrq_load_pop_get_hour_log(unsigned char*, unsigned short, unsigned) &rArr; ex_data_get_part_inf &rArr; ex_eeprom_read &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; vAssertCalled &rArr; vPortExitCritical &rArr;  vAssertCalled (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc_verify
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m_mem_set
+<LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;time_stamp_to_system_dt
 <LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ex_eeprom_read
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ex_data_get_part_inf
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
@@ -6848,6 +6850,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hzrq_event_log_format
 <LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;record_read_start_to_end(unsigned char, unsigned char*, unsigned short, unsigned, unsigned)
+<LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hzrq_load_pop_get_hour_log(unsigned char*, unsigned short, unsigned)
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hzrq_load_pop_get_day_log(unsigned char*, unsigned short, unsigned)
 <LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hzrq_ins_rd_vol_log_month(unsigned char*, unsigned short, unsigned char*, unsigned short)
 <LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hzrq_ins_rd_vol_log_hour(unsigned char*, unsigned short, unsigned char*, unsigned short)
 <LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hzrq_ins_rd_vol_log_day(unsigned char*, unsigned short, unsigned char*, unsigned short)
