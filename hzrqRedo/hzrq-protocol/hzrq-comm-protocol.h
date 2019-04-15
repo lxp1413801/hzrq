@@ -685,6 +685,8 @@
 	extern uint16_t hzrq_load_register_frame(uint8_t* sbuf,uint16_t ssize);
 	extern uint16_t hzrq_load_pop_frame(uint8_t* sbuf,uint16_t ssize,uint8_t popType,uint16_t eventCode,uint8_t eventFlg);
 	extern int16_t hzrq_comm_received_process(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t ssize,uint8_t popType);
+	
+	extern uint16_t _hzrq_load_frame_mod_send_index(uint8_t* sbuf,uint16_t len);
 #ifdef __cplusplus
 	}
 #endif

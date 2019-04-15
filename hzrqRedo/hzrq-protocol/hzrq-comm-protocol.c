@@ -385,6 +385,20 @@ uint16_t _hzrq_load_frame_crc_append(uint8_t* sbuf,uint16_t len)
 	return frmLen;
 }
 
+uint16_t _hzrq_load_frame_mod_send_index(uint8_t* sbuf,uint16_t len)
+{
+	uint16_t frmLen,ret;
+	__hzrq_frameHerder_t* sth=(__hzrq_frameHerder_t*)sbuf;
+	frmLen=__hzrq_swap_get_t16(sth->frameLen);	
+	if(frmLen!=len){
+		return 0;
+	}	
+	sth->msgIndex=__hzrqMsgSendSn;
+	__hzrqMsgSendSn++;
+	ret=_hzrq_load_frame_crc_append(sbuf,len);
+	return ret;
+}
+
 uint8_t _hzrq_get_func_code(uint8_t* buf)
 {
 	__hzrq_ctrlByteDef_t cb;
@@ -424,7 +438,7 @@ uint16_t hzrq_load_register_frame(uint8_t* sbuf,uint16_t ssize)
 	//uint8_t* p;
 	
 	len=_hzrq_load_frame_header(sbuf,ssize,0,0x01,__hzrqMsgSendSn);
-	__hzrqMsgSendSn++;
+	//__hzrqMsgSendSn++;
 	__hzrq_dfdRegisterReq_t* stb=(__hzrq_dfdRegisterReq_t*)(sbuf+sizeof(__hzrq_frameHerder_t));
 	
 
@@ -582,7 +596,7 @@ uint16_t hzrq_load_pop_frame(uint8_t* sbuf,uint16_t ssize,uint8_t popType,uint16
 	
 	
 	len=_hzrq_load_frame_header(sbuf,ssize,0,0x01,__hzrqMsgSendSn);	
-	__hzrqMsgSendSn++;
+	//__hzrqMsgSendSn++;
 	__hzrq_dfPop_t* stb=(__hzrq_dfPop_t*)(sbuf+sizeof(__hzrq_frameHerder_t));
 	
 	__hzrq_swap_load_t16(stb->iden,__hzrq_DFID_POP);
@@ -924,7 +938,7 @@ int16_t hzrq_ins_exe_register(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t
 	
 	t16=rf_send_fifo_get_tail(sbuf,(uint16_t*)&__hzrqUnSendNum);
 	if(__hzrqUnSendNum>0){
-		//t16=__hzrq_load_frame_mod_hasmore_mid(sbuf,t16,__bHZRQ_CBHASMORE_OVER,__hzrqMsgSendSn);
+		t16=__hzrq_load_frame_mod_hasmore_mid(sbuf,t16,__bHZRQ_CBHASMORE_OVER,__hzrqMsgSendSn);
 		t16=_hzrq_load_frame_encrypt(sbuf,t16);
 		t16=_hzrq_crc_append_send(sbuf,t16);		
 	}else{
@@ -974,6 +988,7 @@ int16_t hzrq_ins_exe_pop(uint8_t* rbuf,uint16_t rlen,uint8_t* sbuf,uint16_t ssiz
 	t16=rf_send_fifo_get_tail(sbuf,(uint16_t*)&__hzrqUnSendNum);
 	if(__hzrqUnSendNum>0){
 		t16=__hzrq_load_frame_mod_hasmore_mid(sbuf,t16,__bHZRQ_CBHASMORE_OVER,__hzrqMsgSendSn);
+		t16=_hzrq_load_frame_encrypt(sbuf,t16);
 		t16=_hzrq_crc_append_send(sbuf,t16);		
 	}else{
 		t16=0;

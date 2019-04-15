@@ -303,6 +303,9 @@ void vTheadL620(void * pvParameters)
 				redo=0;
 				do{
 					redo++;
+					if(sendStaMichine==__hzrq_SEND_SM_REGISTER || sendStaMichine==__hzrq_SEND_SM_POP){
+						len=_hzrq_load_frame_mod_send_index(nbAplSendBuffer,len);
+					}
 					ret=l620_send_process(nbAplSendBuffer,len);
 					if(ret<=0)break;
 					//ret=nb_received_process();
